@@ -1,0 +1,95 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-patient-heading" jhiTranslate="mentalCentralApp.patient.home.createOrEditLabel">Create or edit a Patient</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="mentalCentralApp.patient.fullname" for="field_fullname">Fullname</label>
+                    <input type="text" class="form-control" name="fullname" id="field_fullname"
+                           formControlName="fullname"/>
+                    <div *ngIf="editForm.get('fullname')!.invalid && (editForm.get('fullname')!.dirty || editForm.get('fullname')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('fullname')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="mentalCentralApp.patient.dateBirthday" for="field_dateBirthday">Date Birthday</label>
+                    <div class="d-flex">
+                        <input id="field_dateBirthday" type="datetime-local" class="form-control" name="dateBirthday" formControlName="dateBirthday" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                    <div *ngIf="editForm.get('dateBirthday')!.invalid && (editForm.get('dateBirthday')!.dirty || editForm.get('dateBirthday')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('dateBirthday')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('dateBirthday')?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                            This field should be a date and time.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="mentalCentralApp.patient.address" for="field_address">Address</label>
+                    <input type="text" class="form-control" name="address" id="field_address"
+                           formControlName="address"/>
+                    <div *ngIf="editForm.get('address')!.invalid && (editForm.get('address')!.dirty || editForm.get('address')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('address')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="mentalCentralApp.patient.phoneNumber" for="field_phoneNumber">Phone Number</label>
+                    <input type="text" class="form-control" name="phoneNumber" id="field_phoneNumber"
+                           formControlName="phoneNumber"/>
+                    <div *ngIf="editForm.get('phoneNumber')!.invalid && (editForm.get('phoneNumber')!.dirty || editForm.get('phoneNumber')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('phoneNumber')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="mentalCentralApp.patient.diagnosis" for="field_diagnosis">Diagnosis</label>
+                    <input type="number" class="form-control" name="diagnosis" id="field_diagnosis"
+                           formControlName="diagnosis"/>
+                    <div *ngIf="editForm.get('diagnosis')!.invalid && (editForm.get('diagnosis')!.dirty || editForm.get('diagnosis')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('diagnosis')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('diagnosis')?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
