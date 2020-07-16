@@ -1,0 +1,28 @@
+{
+  "mentalCentralApp": {
+    "patient": {
+      "home": {
+        "title": "Patients",
+        "createLabel": "Создать новый Patient",
+        "createOrEditLabel": "Создать или отредактировать Patient",
+        "notFound": "No Patients found"
+      },
+      "created": "Новый Patient создан с идентификатором {{ param }}",
+      "updated": "Patient обновлен с идентификатором {{ param }}",
+      "deleted": "Patient удален с идентификатором {{ param }}",
+      "delete": {
+        "question": "Вы уверены что хотите удалить Patient {{ id }}?"
+      },
+      "detail": {
+        "title": "Patient"
+      },
+      "fullname": "Fullname",
+      "dateBirthday": "Date Birthday",
+      "address": "Address",
+      "phone": "Phone",
+      "diagnosis": "Diagnosis",
+      "visit": "Visit",
+      "history": "History"
+    }
+  }
+}

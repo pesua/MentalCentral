@@ -1,0 +1,41 @@
+entity Patient {
+fullname String required
+dateBirthday LocalDate required
+address String required
+phone String required
+diagnosis Integer required
+}
+
+entity Doctor {
+fullname String required
+phone String required
+}
+
+entity History{
+dateRecord LocalDate required
+type String required
+info String required
+}
+
+entity Visit {
+type String required
+time ZonedDateTime required
+teraphy String required
+}
+
+relationship OneToMany {
+Doctor to Visit{doctor(fullname) required}
+}
+
+relationship OneToMany {
+Patient to Visit{patient(fullname) required}
+}
+
+relationship OneToMany {
+Patient to History{patient(fullname) required}
+}
+paginate * with infinite-scroll
+
+dto * with mapstruct
+
+service * with serviceImpl
