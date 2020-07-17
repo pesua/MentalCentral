@@ -26,7 +26,7 @@ jobs:
         aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         application_name: mental-central
-        environment_name: mental-central
+        environment_name: MentalCentral-test
         version_label: ${{ github.sha }}
         region: eu-west-1
         deployment_package: target/mental-central-0.0.1-SNAPSHOT.jar
