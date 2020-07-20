@@ -51,14 +51,14 @@ export class HistoryService {
 
   protected convertDateFromClient(history: IHistory): IHistory {
     const copy: IHistory = Object.assign({}, history, {
-      dateRecord: history.dateRecord && history.dateRecord.isValid() ? history.dateRecord.format(DATE_FORMAT) : undefined,
+      recordDate: history.recordDate && history.recordDate.isValid() ? history.recordDate.format(DATE_FORMAT) : undefined,
     });
     return copy;
   }
 
   protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
     if (res.body) {
-      res.body.dateRecord = res.body.dateRecord ? moment(res.body.dateRecord) : undefined;
+      res.body.recordDate = res.body.recordDate ? moment(res.body.recordDate) : undefined;
     }
     return res;
   }
@@ -66,7 +66,7 @@ export class HistoryService {
   protected convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
     if (res.body) {
       res.body.forEach((history: IHistory) => {
-        history.dateRecord = history.dateRecord ? moment(history.dateRecord) : undefined;
+        history.recordDate = history.recordDate ? moment(history.recordDate) : undefined;
       });
     }
     return res;

@@ -12,7 +12,7 @@ public class HistoryDTO implements Serializable {
     private Long id;
 
     @NotNull
-    private LocalDate dateRecord;
+    private LocalDate recordDate;
 
     @NotNull
     private String type;
@@ -23,7 +23,7 @@ public class HistoryDTO implements Serializable {
 
     private Long patientId;
 
-    private String patientFullname;
+    private String patientFullName;
     
     public Long getId() {
         return id;
@@ -33,12 +33,12 @@ public class HistoryDTO implements Serializable {
         this.id = id;
     }
 
-    public LocalDate getDateRecord() {
-        return dateRecord;
+    public LocalDate getRecordDate() {
+        return recordDate;
     }
 
-    public void setDateRecord(LocalDate dateRecord) {
-        this.dateRecord = dateRecord;
+    public void setRecordDate(LocalDate recordDate) {
+        this.recordDate = recordDate;
     }
 
     public String getType() {
@@ -65,12 +65,12 @@ public class HistoryDTO implements Serializable {
         this.patientId = patientId;
     }
 
-    public String getPatientFullname() {
-        return patientFullname;
+    public String getPatientFullName() {
+        return patientFullName;
     }
 
-    public void setPatientFullname(String patientFullname) {
-        this.patientFullname = patientFullname;
+    public void setPatientFullName(String patientFullName) {
+        this.patientFullName = patientFullName;
     }
 
     @Override
@@ -95,11 +95,11 @@ public class HistoryDTO implements Serializable {
     public String toString() {
         return "HistoryDTO{" +
             "id=" + getId() +
-            ", dateRecord='" + getDateRecord() + "'" +
+            ", recordDate='" + getRecordDate() + "'" +
             ", type='" + getType() + "'" +
             ", info='" + getInfo() + "'" +
             ", patientId=" + getPatientId() +
-            ", patientFullname='" + getPatientFullname() + "'" +
+            ", patientFullName='" + getPatientFullName() + "'" +
             "}";
     }
 }

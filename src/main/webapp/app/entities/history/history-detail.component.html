@@ -8,9 +8,9 @@
             <jhi-alert-error></jhi-alert-error>
 
             <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="mentalCentralApp.history.dateRecord">Date Record</span></dt>
+                <dt><span jhiTranslate="mentalCentralApp.history.recordDate">Record Date</span></dt>
                 <dd>
-                    <span>{{ history.dateRecord }}</span>
+                    <span>{{ history.recordDate }}</span>
                 </dd>
                 <dt><span jhiTranslate="mentalCentralApp.history.type">Type</span></dt>
                 <dd>
@@ -23,7 +23,7 @@
                 <dt><span jhiTranslate="mentalCentralApp.history.patient">Patient</span></dt>
                 <dd>
                     <div *ngIf="history.patientId">
-                        <a [routerLink]="['/patient', history.patientId, 'view']">{{ history.patientFullname }}</a>
+                        <a [routerLink]="['/patient', history.patientId, 'view']">{{ history.patientFullName }}</a>
                     </div>
                 </dd>
             </dl>

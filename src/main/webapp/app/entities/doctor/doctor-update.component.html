@@ -12,12 +12,12 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="mentalCentralApp.doctor.fullname" for="field_fullname">Fullname</label>
-                    <input type="text" class="form-control" name="fullname" id="field_fullname"
-                           formControlName="fullname"/>
-                    <div *ngIf="editForm.get('fullname')!.invalid && (editForm.get('fullname')!.dirty || editForm.get('fullname')!.touched)">
+                    <label class="form-control-label" jhiTranslate="mentalCentralApp.doctor.fullName" for="field_fullName">Full Name</label>
+                    <input type="text" class="form-control" name="fullName" id="field_fullName"
+                           formControlName="fullName"/>
+                    <div *ngIf="editForm.get('fullName')!.invalid && (editForm.get('fullName')!.dirty || editForm.get('fullName')!.touched)">
                         <small class="form-text text-danger"
-                               *ngIf="editForm.get('fullname')?.errors?.required" jhiTranslate="entity.validation.required">
+                               *ngIf="editForm.get('fullName')?.errors?.required" jhiTranslate="entity.validation.required">
                         This field is required.
                         </small>
                     </div>

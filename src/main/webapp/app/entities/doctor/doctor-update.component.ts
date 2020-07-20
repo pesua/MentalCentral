@@ -17,7 +17,7 @@ export class DoctorUpdateComponent implements OnInit {
 
   editForm = this.fb.group({
     id: [],
-    fullname: [null, [Validators.required]],
+    fullName: [null, [Validators.required]],
     phone: [null, [Validators.required]],
   });
 
@@ -32,7 +32,7 @@ export class DoctorUpdateComponent implements OnInit {
   updateForm(doctor: IDoctor): void {
     this.editForm.patchValue({
       id: doctor.id,
-      fullname: doctor.fullname,
+      fullName: doctor.fullName,
       phone: doctor.phone,
     });
   }
@@ -55,7 +55,7 @@ export class DoctorUpdateComponent implements OnInit {
     return {
       ...new Doctor(),
       id: this.editForm.get(['id'])!.value,
-      fullname: this.editForm.get(['fullname'])!.value,
+      fullName: this.editForm.get(['fullName'])!.value,
       phone: this.editForm.get(['phone'])!.value,
     };
   }

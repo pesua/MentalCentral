@@ -23,7 +23,7 @@
             <thead>
                 <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="reset.bind(this)">
                     <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="fullname"><span jhiTranslate="mentalCentralApp.doctor.fullname">Fullname</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="fullName"><span jhiTranslate="mentalCentralApp.doctor.fullName">Full Name</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="phone"><span jhiTranslate="mentalCentralApp.doctor.phone">Phone</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"></th>
                 </tr>
@@ -31,7 +31,7 @@
             <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
                 <tr *ngFor="let doctor of doctors ;trackBy: trackId">
                     <td><a [routerLink]="['/doctor', doctor.id, 'view']">{{ doctor.id }}</a></td>
-                    <td>{{ doctor.fullname }}</td>
+                    <td>{{ doctor.fullName }}</td>
                     <td>{{ doctor.phone }}</td>
                     <td class="text-right">
                         <div class="btn-group">

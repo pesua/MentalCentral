@@ -31,7 +31,7 @@ describe('Service Tests', () => {
       it('should find an element', () => {
         const returnedFromService = Object.assign(
           {
-            dateBirthday: currentDate.format(DATE_FORMAT),
+            birthdayDate: currentDate.format(DATE_FORMAT),
           },
           elemDefault
         );
@@ -47,14 +47,14 @@ describe('Service Tests', () => {
         const returnedFromService = Object.assign(
           {
             id: 0,
-            dateBirthday: currentDate.format(DATE_FORMAT),
+            birthdayDate: currentDate.format(DATE_FORMAT),
           },
           elemDefault
         );
 
         const expected = Object.assign(
           {
-            dateBirthday: currentDate,
+            birthdayDate: currentDate,
           },
           returnedFromService
         );
@@ -69,8 +69,8 @@ describe('Service Tests', () => {
       it('should update a Patient', () => {
         const returnedFromService = Object.assign(
           {
-            fullname: 'BBBBBB',
-            dateBirthday: currentDate.format(DATE_FORMAT),
+            fullName: 'BBBBBB',
+            birthdayDate: currentDate.format(DATE_FORMAT),
             address: 'BBBBBB',
             phone: 'BBBBBB',
             diagnosis: 1,
@@ -80,7 +80,7 @@ describe('Service Tests', () => {
 
         const expected = Object.assign(
           {
-            dateBirthday: currentDate,
+            birthdayDate: currentDate,
           },
           returnedFromService
         );
@@ -95,8 +95,8 @@ describe('Service Tests', () => {
       it('should return a list of Patient', () => {
         const returnedFromService = Object.assign(
           {
-            fullname: 'BBBBBB',
-            dateBirthday: currentDate.format(DATE_FORMAT),
+            fullName: 'BBBBBB',
+            birthdayDate: currentDate.format(DATE_FORMAT),
             address: 'BBBBBB',
             phone: 'BBBBBB',
             diagnosis: 1,
@@ -106,7 +106,7 @@ describe('Service Tests', () => {
 
         const expected = Object.assign(
           {
-            dateBirthday: currentDate,
+            birthdayDate: currentDate,
           },
           returnedFromService
         );

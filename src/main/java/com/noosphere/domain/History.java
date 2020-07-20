@@ -26,8 +26,8 @@ public class History implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "date_record", nullable = false)
-    private LocalDate dateRecord;
+    @Column(name = "record_date", nullable = false)
+    private LocalDate recordDate;
 
     @NotNull
     @Column(name = "type", nullable = false)
@@ -51,17 +51,17 @@ public class History implements Serializable {
         this.id = id;
     }
 
-    public LocalDate getDateRecord() {
-        return dateRecord;
+    public LocalDate getRecordDate() {
+        return recordDate;
     }
 
-    public History dateRecord(LocalDate dateRecord) {
-        this.dateRecord = dateRecord;
+    public History recordDate(LocalDate recordDate) {
+        this.recordDate = recordDate;
         return this;
     }
 
-    public void setDateRecord(LocalDate dateRecord) {
-        this.dateRecord = dateRecord;
+    public void setRecordDate(LocalDate recordDate) {
+        this.recordDate = recordDate;
     }
 
     public String getType() {
@@ -125,7 +125,7 @@ public class History implements Serializable {
     public String toString() {
         return "History{" +
             "id=" + getId() +
-            ", dateRecord='" + getDateRecord() + "'" +
+            ", recordDate='" + getRecordDate() + "'" +
             ", type='" + getType() + "'" +
             ", info='" + getInfo() + "'" +
             "}";

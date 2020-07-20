@@ -12,10 +12,10 @@ public class PatientDTO implements Serializable {
     private Long id;
 
     @NotNull
-    private String fullname;
+    private String fullName;
 
     @NotNull
-    private LocalDate dateBirthday;
+    private LocalDate birthdayDate;
 
     @NotNull
     private String address;
@@ -35,20 +35,20 @@ public class PatientDTO implements Serializable {
         this.id = id;
     }
 
-    public String getFullname() {
-        return fullname;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
-    public LocalDate getDateBirthday() {
-        return dateBirthday;
+    public LocalDate getBirthdayDate() {
+        return birthdayDate;
     }
 
-    public void setDateBirthday(LocalDate dateBirthday) {
-        this.dateBirthday = dateBirthday;
+    public void setBirthdayDate(LocalDate birthdayDate) {
+        this.birthdayDate = birthdayDate;
     }
 
     public String getAddress() {
@@ -97,8 +97,8 @@ public class PatientDTO implements Serializable {
     public String toString() {
         return "PatientDTO{" +
             "id=" + getId() +
-            ", fullname='" + getFullname() + "'" +
-            ", dateBirthday='" + getDateBirthday() + "'" +
+            ", fullName='" + getFullName() + "'" +
+            ", birthdayDate='" + getBirthdayDate() + "'" +
             ", address='" + getAddress() + "'" +
             ", phone='" + getPhone() + "'" +
             ", diagnosis=" + getDiagnosis() +

@@ -54,7 +54,7 @@ describe('Service Tests', () => {
       it('should update a Doctor', () => {
         const returnedFromService = Object.assign(
           {
-            fullname: 'BBBBBB',
+            fullName: 'BBBBBB',
             phone: 'BBBBBB',
           },
           elemDefault
@@ -72,7 +72,7 @@ describe('Service Tests', () => {
       it('should return a list of Doctor', () => {
         const returnedFromService = Object.assign(
           {
-            fullname: 'BBBBBB',
+            fullName: 'BBBBBB',
             phone: 'BBBBBB',
           },
           elemDefault

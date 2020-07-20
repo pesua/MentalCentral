@@ -17,11 +17,11 @@ import { PatientService } from 'app/entities/patient/patient.service';
 export class HistoryUpdateComponent implements OnInit {
   isSaving = false;
   patients: IPatient[] = [];
-  dateRecordDp: any;
+  recordDateDp: any;
 
   editForm = this.fb.group({
     id: [],
-    dateRecord: [null, [Validators.required]],
+    recordDate: [null, [Validators.required]],
     type: [null, [Validators.required]],
     info: [null, [Validators.required]],
     patientId: [null, Validators.required],
@@ -45,7 +45,7 @@ export class HistoryUpdateComponent implements OnInit {
   updateForm(history: IHistory): void {
     this.editForm.patchValue({
       id: history.id,
-      dateRecord: history.dateRecord,
+      recordDate: history.recordDate,
       type: history.type,
       info: history.info,
       patientId: history.patientId,
@@ -70,7 +70,7 @@ export class HistoryUpdateComponent implements OnInit {
     return {
       ...new History(),
       id: this.editForm.get(['id'])!.value,
-      dateRecord: this.editForm.get(['dateRecord'])!.value,
+      recordDate: this.editForm.get(['recordDate'])!.value,
       type: this.editForm.get(['type'])!.value,
       info: this.editForm.get(['info'])!.value,
       patientId: this.editForm.get(['patientId'])!.value,

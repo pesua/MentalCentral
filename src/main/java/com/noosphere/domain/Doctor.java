@@ -26,8 +26,8 @@ public class Doctor implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "fullname", nullable = false)
-    private String fullname;
+    @Column(name = "full_name", nullable = false)
+    private String fullName;
 
     @NotNull
     @Column(name = "phone", nullable = false)
@@ -46,17 +46,17 @@ public class Doctor implements Serializable {
         this.id = id;
     }
 
-    public String getFullname() {
-        return fullname;
+    public String getFullName() {
+        return fullName;
     }
 
-    public Doctor fullname(String fullname) {
-        this.fullname = fullname;
+    public Doctor fullName(String fullName) {
+        this.fullName = fullName;
         return this;
     }
 
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getPhone() {
@@ -119,7 +119,7 @@ public class Doctor implements Serializable {
     public String toString() {
         return "Doctor{" +
             "id=" + getId() +
-            ", fullname='" + getFullname() + "'" +
+            ", fullName='" + getFullName() + "'" +
             ", phone='" + getPhone() + "'" +
             "}";
     }

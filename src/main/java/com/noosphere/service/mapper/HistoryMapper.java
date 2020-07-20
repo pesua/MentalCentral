@@ -13,7 +13,7 @@ import org.mapstruct.*;
 public interface HistoryMapper extends EntityMapper<HistoryDTO, History> {
 
     @Mapping(source = "patient.id", target = "patientId")
-    @Mapping(source = "patient.fullname", target = "patientFullname")
+    @Mapping(source = "patient.fullName", target = "patientFullName")
     HistoryDTO toDto(History history);
 
     @Mapping(source = "patientId", target = "patient")

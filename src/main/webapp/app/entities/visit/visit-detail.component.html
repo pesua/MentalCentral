@@ -16,20 +16,20 @@
                 <dd>
                     <span>{{ visit.time }}</span>
                 </dd>
-                <dt><span jhiTranslate="mentalCentralApp.visit.teraphy">Teraphy</span></dt>
+                <dt><span jhiTranslate="mentalCentralApp.visit.therapy">Therapy</span></dt>
                 <dd>
-                    <span>{{ visit.teraphy }}</span>
+                    <span>{{ visit.therapy }}</span>
                 </dd>
                 <dt><span jhiTranslate="mentalCentralApp.visit.doctor">Doctor</span></dt>
                 <dd>
                     <div *ngIf="visit.doctorId">
-                        <a [routerLink]="['/doctor', visit.doctorId, 'view']">{{ visit.doctorFullname }}</a>
+                        <a [routerLink]="['/doctor', visit.doctorId, 'view']">{{ visit.doctorFullName }}</a>
                     </div>
                 </dd>
                 <dt><span jhiTranslate="mentalCentralApp.visit.patient">Patient</span></dt>
                 <dd>
                     <div *ngIf="visit.patientId">
-                        <a [routerLink]="['/patient', visit.patientId, 'view']">{{ visit.patientFullname }}</a>
+                        <a [routerLink]="['/patient', visit.patientId, 'view']">{{ visit.patientFullName }}</a>
                     </div>
                 </dd>
             </dl>

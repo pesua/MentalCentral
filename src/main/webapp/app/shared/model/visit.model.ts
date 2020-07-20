@@ -4,10 +4,10 @@ export interface IVisit {
   id?: number;
   type?: string;
   time?: Moment;
-  teraphy?: string;
-  doctorFullname?: string;
+  therapy?: string;
+  doctorFullName?: string;
   doctorId?: number;
-  patientFullname?: string;
+  patientFullName?: string;
   patientId?: number;
 }
 
@@ -16,10 +16,10 @@ export class Visit implements IVisit {
     public id?: number,
     public type?: string,
     public time?: Moment,
-    public teraphy?: string,
-    public doctorFullname?: string,
+    public therapy?: string,
+    public doctorFullName?: string,
     public doctorId?: number,
-    public patientFullname?: string,
+    public patientFullName?: string,
     public patientId?: number
   ) {}
 }

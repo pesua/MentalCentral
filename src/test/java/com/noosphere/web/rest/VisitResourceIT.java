@@ -45,8 +45,8 @@ public class VisitResourceIT {
     private static final ZonedDateTime DEFAULT_TIME = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
     private static final ZonedDateTime UPDATED_TIME = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
 
-    private static final String DEFAULT_TERAPHY = "AAAAAAAAAA";
-    private static final String UPDATED_TERAPHY = "BBBBBBBBBB";
+    private static final String DEFAULT_THERAPY = "AAAAAAAAAA";
+    private static final String UPDATED_THERAPY = "BBBBBBBBBB";
 
     @Autowired
     private VisitRepository visitRepository;
@@ -75,7 +75,7 @@ public class VisitResourceIT {
         Visit visit = new Visit()
             .type(DEFAULT_TYPE)
             .time(DEFAULT_TIME)
-            .teraphy(DEFAULT_TERAPHY);
+            .therapy(DEFAULT_THERAPY);
         // Add required entity
         Doctor doctor;
         if (TestUtil.findAll(em, Doctor.class).isEmpty()) {
@@ -108,7 +108,7 @@ public class VisitResourceIT {
         Visit visit = new Visit()
             .type(UPDATED_TYPE)
             .time(UPDATED_TIME)
-            .teraphy(UPDATED_TERAPHY);
+            .therapy(UPDATED_THERAPY);
         // Add required entity
         Doctor doctor;
         if (TestUtil.findAll(em, Doctor.class).isEmpty()) {
@@ -154,7 +154,7 @@ public class VisitResourceIT {
         Visit testVisit = visitList.get(visitList.size() - 1);
         assertThat(testVisit.getType()).isEqualTo(DEFAULT_TYPE);
         assertThat(testVisit.getTime()).isEqualTo(DEFAULT_TIME);
-        assertThat(testVisit.getTeraphy()).isEqualTo(DEFAULT_TERAPHY);
+        assertThat(testVisit.getTherapy()).isEqualTo(DEFAULT_THERAPY);
     }
 
     @Test
@@ -220,10 +220,10 @@ public class VisitResourceIT {
 
     @Test
     @Transactional
-    public void checkTeraphyIsRequired() throws Exception {
+    public void checkTherapyIsRequired() throws Exception {
         int databaseSizeBeforeTest = visitRepository.findAll().size();
         // set the field null
-        visit.setTeraphy(null);
+        visit.setTherapy(null);
 
         // Create the Visit, which fails.
         VisitDTO visitDTO = visitMapper.toDto(visit);
@@ -251,7 +251,7 @@ public class VisitResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(visit.getId().intValue())))
             .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE)))
             .andExpect(jsonPath("$.[*].time").value(hasItem(sameInstant(DEFAULT_TIME))))
-            .andExpect(jsonPath("$.[*].teraphy").value(hasItem(DEFAULT_TERAPHY)));
+            .andExpect(jsonPath("$.[*].therapy").value(hasItem(DEFAULT_THERAPY)));
     }
     
     @Test
@@ -267,7 +267,7 @@ public class VisitResourceIT {
             .andExpect(jsonPath("$.id").value(visit.getId().intValue()))
             .andExpect(jsonPath("$.type").value(DEFAULT_TYPE))
             .andExpect(jsonPath("$.time").value(sameInstant(DEFAULT_TIME)))
-            .andExpect(jsonPath("$.teraphy").value(DEFAULT_TERAPHY));
+            .andExpect(jsonPath("$.therapy").value(DEFAULT_THERAPY));
     }
     @Test
     @Transactional
@@ -292,7 +292,7 @@ public class VisitResourceIT {
         updatedVisit
             .type(UPDATED_TYPE)
             .time(UPDATED_TIME)
-            .teraphy(UPDATED_TERAPHY);
+            .therapy(UPDATED_THERAPY);
         VisitDTO visitDTO = visitMapper.toDto(updatedVisit);
 
         restVisitMockMvc.perform(put("/api/visits")
@@ -306,7 +306,7 @@ public class VisitResourceIT {
         Visit testVisit = visitList.get(visitList.size() - 1);
         assertThat(testVisit.getType()).isEqualTo(UPDATED_TYPE);
         assertThat(testVisit.getTime()).isEqualTo(UPDATED_TIME);
-        assertThat(testVisit.getTeraphy()).isEqualTo(UPDATED_TERAPHY);
+        assertThat(testVisit.getTherapy()).isEqualTo(UPDATED_THERAPY);
     }
 
     @Test

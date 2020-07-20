@@ -16,7 +16,7 @@
       "detail": {
         "title": "History"
       },
-      "dateRecord": "Date Record",
+      "recordDate": "Record Date",
       "type": "Type",
       "info": "Info",
       "patient": "Patient"

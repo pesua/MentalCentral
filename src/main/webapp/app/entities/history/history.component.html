@@ -23,22 +23,22 @@
             <thead>
                 <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="reset.bind(this)">
                     <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="dateRecord"><span jhiTranslate="mentalCentralApp.history.dateRecord">Date Record</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="recordDate"><span jhiTranslate="mentalCentralApp.history.recordDate">Record Date</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="type"><span jhiTranslate="mentalCentralApp.history.type">Type</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="info"><span jhiTranslate="mentalCentralApp.history.info">Info</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="patientFullname"><span jhiTranslate="mentalCentralApp.history.patient">Patient</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="patientFullName"><span jhiTranslate="mentalCentralApp.history.patient">Patient</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"></th>
                 </tr>
             </thead>
             <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
                 <tr *ngFor="let history of histories ;trackBy: trackId">
                     <td><a [routerLink]="['/history', history.id, 'view']">{{ history.id }}</a></td>
-                    <td>{{ history.dateRecord | date:'mediumDate' }}</td>
+                    <td>{{ history.recordDate | date:'mediumDate' }}</td>
                     <td>{{ history.type }}</td>
                     <td>{{ history.info }}</td>
                     <td>
                         <div *ngIf="history.patientId">
-                            <a [routerLink]="['/patient', history.patientId , 'view']" >{{ history.patientFullname }}</a>
+                            <a [routerLink]="['/patient', history.patientId , 'view']" >{{ history.patientFullName }}</a>
                         </div>
                     </td>
                     <td class="text-right">
