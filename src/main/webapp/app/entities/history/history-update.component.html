@@ -12,16 +12,16 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="mentalCentralApp.history.dateRecord" for="field_dateRecord">Date Record</label>
+                    <label class="form-control-label" jhiTranslate="mentalCentralApp.history.recordDate" for="field_recordDate">Record Date</label>
                     <div class="input-group">
-                        <input id="field_dateRecord" type="text" class="form-control" name="dateRecord" ngbDatepicker #dateRecordDp="ngbDatepicker" formControlName="dateRecord"/>
+                        <input id="field_recordDate" type="text" class="form-control" name="recordDate" ngbDatepicker #recordDateDp="ngbDatepicker" formControlName="recordDate"/>
                         <span class="input-group-append">
-                            <button type="button" class="btn btn-secondary" (click)="dateRecordDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+                            <button type="button" class="btn btn-secondary" (click)="recordDateDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
                         </span>
                     </div>
-                    <div *ngIf="editForm.get('dateRecord')!.invalid && (editForm.get('dateRecord')!.dirty || editForm.get('dateRecord')!.touched)">
+                    <div *ngIf="editForm.get('recordDate')!.invalid && (editForm.get('recordDate')!.dirty || editForm.get('recordDate')!.touched)">
                         <small class="form-text text-danger"
-                               *ngIf="editForm.get('dateRecord')?.errors?.required" jhiTranslate="entity.validation.required">
+                               *ngIf="editForm.get('recordDate')?.errors?.required" jhiTranslate="entity.validation.required">
                         This field is required.
                         </small>
                     </div>
@@ -55,7 +55,7 @@
                     <label class="form-control-label" jhiTranslate="mentalCentralApp.history.patient" for="field_patient">Patient</label>
                     <select class="form-control" id="field_patient" name="patient" formControlName="patientId">
                         <option *ngIf="!editForm.get('patientId')!.value" [ngValue]="null" selected></option>
-                        <option [ngValue]="patientOption.id" *ngFor="let patientOption of patients; trackBy: trackById">{{ patientOption.fullname }}</option>
+                        <option [ngValue]="patientOption.id" *ngFor="let patientOption of patients; trackBy: trackById">{{ patientOption.fullName }}</option>
                     </select>
                 </div>
                 <div *ngIf="editForm.get('patientId')!.invalid && (editForm.get('patientId')!.dirty || editForm.get('patientId')!.touched)">

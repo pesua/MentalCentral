@@ -11,7 +11,7 @@ public class DoctorDTO implements Serializable {
     private Long id;
 
     @NotNull
-    private String fullname;
+    private String fullName;
 
     @NotNull
     private String phone;
@@ -25,12 +25,12 @@ public class DoctorDTO implements Serializable {
         this.id = id;
     }
 
-    public String getFullname() {
-        return fullname;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getPhone() {
@@ -63,7 +63,7 @@ public class DoctorDTO implements Serializable {
     public String toString() {
         return "DoctorDTO{" +
             "id=" + getId() +
-            ", fullname='" + getFullname() + "'" +
+            ", fullName='" + getFullName() + "'" +
             ", phone='" + getPhone() + "'" +
             "}";
     }

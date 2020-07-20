@@ -23,8 +23,8 @@
             <thead>
                 <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="reset.bind(this)">
                     <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="fullname"><span jhiTranslate="mentalCentralApp.patient.fullname">Fullname</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="dateBirthday"><span jhiTranslate="mentalCentralApp.patient.dateBirthday">Date Birthday</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="fullName"><span jhiTranslate="mentalCentralApp.patient.fullName">Full Name</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="birthdayDate"><span jhiTranslate="mentalCentralApp.patient.birthdayDate">Birthday Date</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="address"><span jhiTranslate="mentalCentralApp.patient.address">Address</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="phone"><span jhiTranslate="mentalCentralApp.patient.phone">Phone</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="diagnosis"><span jhiTranslate="mentalCentralApp.patient.diagnosis">Diagnosis</span> <fa-icon icon="sort"></fa-icon></th>
@@ -34,8 +34,8 @@
             <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
                 <tr *ngFor="let patient of patients ;trackBy: trackId">
                     <td><a [routerLink]="['/patient', patient.id, 'view']">{{ patient.id }}</a></td>
-                    <td>{{ patient.fullname }}</td>
-                    <td>{{ patient.dateBirthday | date:'mediumDate' }}</td>
+                    <td>{{ patient.fullName }}</td>
+                    <td>{{ patient.birthdayDate | date:'mediumDate' }}</td>
                     <td>{{ patient.address }}</td>
                     <td>{{ patient.phone }}</td>
                     <td>{{ patient.diagnosis }}</td>

@@ -2,7 +2,7 @@
   "name": "History",
   "fields": [
     {
-      "fieldName": "dateRecord",
+      "fieldName": "recordDate",
       "fieldType": "LocalDate",
       "fieldValidateRules": ["required"]
     },
@@ -24,7 +24,7 @@
       "otherEntityRelationshipName": "history",
       "relationshipValidateRules": "required",
       "relationshipName": "patient",
-      "otherEntityField": "fullname"
+      "otherEntityField": "fullName"
     }
   ],
   "changelogDate": "20200714125820",
@@ -37,5 +37,5 @@
   "readOnly": false,
   "embedded": false,
   "clientRootFolder": "",
-  "applications": "*"
+  "applications": ["MentalCentral"]
 }

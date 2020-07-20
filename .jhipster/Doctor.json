@@ -2,7 +2,7 @@
   "name": "Doctor",
   "fields": [
     {
-      "fieldName": "fullname",
+      "fieldName": "fullName",
       "fieldType": "String",
       "fieldValidateRules": ["required"]
     },
@@ -30,5 +30,5 @@
   "readOnly": false,
   "embedded": false,
   "clientRootFolder": "",
-  "applications": "*"
+  "applications": ["MentalCentral"]
 }

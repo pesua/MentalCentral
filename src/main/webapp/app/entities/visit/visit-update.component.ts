@@ -29,7 +29,7 @@ export class VisitUpdateComponent implements OnInit {
     id: [],
     type: [null, [Validators.required]],
     time: [null, [Validators.required]],
-    teraphy: [null, [Validators.required]],
+    therapy: [null, [Validators.required]],
     doctorId: [null, Validators.required],
     patientId: [null, Validators.required],
   });
@@ -62,7 +62,7 @@ export class VisitUpdateComponent implements OnInit {
       id: visit.id,
       type: visit.type,
       time: visit.time ? visit.time.format(DATE_TIME_FORMAT) : null,
-      teraphy: visit.teraphy,
+      therapy: visit.therapy,
       doctorId: visit.doctorId,
       patientId: visit.patientId,
     });
@@ -88,7 +88,7 @@ export class VisitUpdateComponent implements OnInit {
       id: this.editForm.get(['id'])!.value,
       type: this.editForm.get(['type'])!.value,
       time: this.editForm.get(['time'])!.value ? moment(this.editForm.get(['time'])!.value, DATE_TIME_FORMAT) : undefined,
-      teraphy: this.editForm.get(['teraphy'])!.value,
+      therapy: this.editForm.get(['therapy'])!.value,
       doctorId: this.editForm.get(['doctorId'])!.value,
       patientId: this.editForm.get(['patientId'])!.value,
     };

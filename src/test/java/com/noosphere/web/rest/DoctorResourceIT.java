@@ -32,8 +32,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WithMockUser
 public class DoctorResourceIT {
 
-    private static final String DEFAULT_FULLNAME = "AAAAAAAAAA";
-    private static final String UPDATED_FULLNAME = "BBBBBBBBBB";
+    private static final String DEFAULT_FULL_NAME = "AAAAAAAAAA";
+    private static final String UPDATED_FULL_NAME = "BBBBBBBBBB";
 
     private static final String DEFAULT_PHONE = "AAAAAAAAAA";
     private static final String UPDATED_PHONE = "BBBBBBBBBB";
@@ -63,7 +63,7 @@ public class DoctorResourceIT {
      */
     public static Doctor createEntity(EntityManager em) {
         Doctor doctor = new Doctor()
-            .fullname(DEFAULT_FULLNAME)
+            .fullName(DEFAULT_FULL_NAME)
             .phone(DEFAULT_PHONE);
         return doctor;
     }
@@ -75,7 +75,7 @@ public class DoctorResourceIT {
      */
     public static Doctor createUpdatedEntity(EntityManager em) {
         Doctor doctor = new Doctor()
-            .fullname(UPDATED_FULLNAME)
+            .fullName(UPDATED_FULL_NAME)
             .phone(UPDATED_PHONE);
         return doctor;
     }
@@ -100,7 +100,7 @@ public class DoctorResourceIT {
         List<Doctor> doctorList = doctorRepository.findAll();
         assertThat(doctorList).hasSize(databaseSizeBeforeCreate + 1);
         Doctor testDoctor = doctorList.get(doctorList.size() - 1);
-        assertThat(testDoctor.getFullname()).isEqualTo(DEFAULT_FULLNAME);
+        assertThat(testDoctor.getFullName()).isEqualTo(DEFAULT_FULL_NAME);
         assertThat(testDoctor.getPhone()).isEqualTo(DEFAULT_PHONE);
     }
 
@@ -127,10 +127,10 @@ public class DoctorResourceIT {
 
     @Test
     @Transactional
-    public void checkFullnameIsRequired() throws Exception {
+    public void checkFullNameIsRequired() throws Exception {
         int databaseSizeBeforeTest = doctorRepository.findAll().size();
         // set the field null
-        doctor.setFullname(null);
+        doctor.setFullName(null);
 
         // Create the Doctor, which fails.
         DoctorDTO doctorDTO = doctorMapper.toDto(doctor);
@@ -176,7 +176,7 @@ public class DoctorResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(doctor.getId().intValue())))
-            .andExpect(jsonPath("$.[*].fullname").value(hasItem(DEFAULT_FULLNAME)))
+            .andExpect(jsonPath("$.[*].fullName").value(hasItem(DEFAULT_FULL_NAME)))
             .andExpect(jsonPath("$.[*].phone").value(hasItem(DEFAULT_PHONE)));
     }
     
@@ -191,7 +191,7 @@ public class DoctorResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(doctor.getId().intValue()))
-            .andExpect(jsonPath("$.fullname").value(DEFAULT_FULLNAME))
+            .andExpect(jsonPath("$.fullName").value(DEFAULT_FULL_NAME))
             .andExpect(jsonPath("$.phone").value(DEFAULT_PHONE));
     }
     @Test
@@ -215,7 +215,7 @@ public class DoctorResourceIT {
         // Disconnect from session so that the updates on updatedDoctor are not directly saved in db
         em.detach(updatedDoctor);
         updatedDoctor
-            .fullname(UPDATED_FULLNAME)
+            .fullName(UPDATED_FULL_NAME)
             .phone(UPDATED_PHONE);
         DoctorDTO doctorDTO = doctorMapper.toDto(updatedDoctor);
 
@@ -228,7 +228,7 @@ public class DoctorResourceIT {
         List<Doctor> doctorList = doctorRepository.findAll();
         assertThat(doctorList).hasSize(databaseSizeBeforeUpdate);
         Doctor testDoctor = doctorList.get(doctorList.size() - 1);
-        assertThat(testDoctor.getFullname()).isEqualTo(UPDATED_FULLNAME);
+        assertThat(testDoctor.getFullName()).isEqualTo(UPDATED_FULL_NAME);
         assertThat(testDoctor.getPhone()).isEqualTo(UPDATED_PHONE);
     }
 

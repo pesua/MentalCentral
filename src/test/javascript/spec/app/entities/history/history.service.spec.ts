@@ -31,7 +31,7 @@ describe('Service Tests', () => {
       it('should find an element', () => {
         const returnedFromService = Object.assign(
           {
-            dateRecord: currentDate.format(DATE_FORMAT),
+            recordDate: currentDate.format(DATE_FORMAT),
           },
           elemDefault
         );
@@ -47,14 +47,14 @@ describe('Service Tests', () => {
         const returnedFromService = Object.assign(
           {
             id: 0,
-            dateRecord: currentDate.format(DATE_FORMAT),
+            recordDate: currentDate.format(DATE_FORMAT),
           },
           elemDefault
         );
 
         const expected = Object.assign(
           {
-            dateRecord: currentDate,
+            recordDate: currentDate,
           },
           returnedFromService
         );
@@ -69,7 +69,7 @@ describe('Service Tests', () => {
       it('should update a History', () => {
         const returnedFromService = Object.assign(
           {
-            dateRecord: currentDate.format(DATE_FORMAT),
+            recordDate: currentDate.format(DATE_FORMAT),
             type: 'BBBBBB',
             info: 'BBBBBB',
           },
@@ -78,7 +78,7 @@ describe('Service Tests', () => {
 
         const expected = Object.assign(
           {
-            dateRecord: currentDate,
+            recordDate: currentDate,
           },
           returnedFromService
         );
@@ -93,7 +93,7 @@ describe('Service Tests', () => {
       it('should return a list of History', () => {
         const returnedFromService = Object.assign(
           {
-            dateRecord: currentDate.format(DATE_FORMAT),
+            recordDate: currentDate.format(DATE_FORMAT),
             type: 'BBBBBB',
             info: 'BBBBBB',
           },
@@ -102,7 +102,7 @@ describe('Service Tests', () => {
 
         const expected = Object.assign(
           {
-            dateRecord: currentDate,
+            recordDate: currentDate,
           },
           returnedFromService
         );

@@ -34,8 +34,8 @@ public class Visit implements Serializable {
     private ZonedDateTime time;
 
     @NotNull
-    @Column(name = "teraphy", nullable = false)
-    private String teraphy;
+    @Column(name = "therapy", nullable = false)
+    private String therapy;
 
     @ManyToOne(optional = false)
     @NotNull
@@ -82,17 +82,17 @@ public class Visit implements Serializable {
         this.time = time;
     }
 
-    public String getTeraphy() {
-        return teraphy;
+    public String getTherapy() {
+        return therapy;
     }
 
-    public Visit teraphy(String teraphy) {
-        this.teraphy = teraphy;
+    public Visit therapy(String therapy) {
+        this.therapy = therapy;
         return this;
     }
 
-    public void setTeraphy(String teraphy) {
-        this.teraphy = teraphy;
+    public void setTherapy(String therapy) {
+        this.therapy = therapy;
     }
 
     public Doctor getDoctor() {
@@ -145,7 +145,7 @@ public class Visit implements Serializable {
             "id=" + getId() +
             ", type='" + getType() + "'" +
             ", time='" + getTime() + "'" +
-            ", teraphy='" + getTeraphy() + "'" +
+            ", therapy='" + getTherapy() + "'" +
             "}";
     }
 }

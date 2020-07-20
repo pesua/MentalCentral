@@ -16,7 +16,7 @@
       "detail": {
         "title": "Doctor"
       },
-      "fullname": "Fullname",
+      "fullName": "Full Name",
       "phone": "Phone",
       "visit": "Visit"
     }

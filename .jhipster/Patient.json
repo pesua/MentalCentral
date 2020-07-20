@@ -2,12 +2,12 @@
   "name": "Patient",
   "fields": [
     {
-      "fieldName": "fullname",
+      "fieldName": "fullName",
       "fieldType": "String",
       "fieldValidateRules": ["required"]
     },
     {
-      "fieldName": "dateBirthday",
+      "fieldName": "birthdayDate",
       "fieldType": "LocalDate",
       "fieldValidateRules": ["required"]
     },
@@ -30,15 +30,15 @@
   "relationships": [
     {
       "relationshipType": "one-to-many",
-      "otherEntityName": "visit",
-      "otherEntityRelationshipName": "patient",
-      "relationshipName": "visit"
-    },
-    {
-      "relationshipType": "one-to-many",
       "otherEntityName": "history",
       "otherEntityRelationshipName": "patient",
       "relationshipName": "history"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "visit",
+      "otherEntityRelationshipName": "patient",
+      "relationshipName": "visit"
     }
   ],
   "changelogDate": "20200714125620",
@@ -51,5 +51,5 @@
   "readOnly": false,
   "embedded": false,
   "clientRootFolder": "",
-  "applications": "*"
+  "applications": ["MentalCentral"]
 }

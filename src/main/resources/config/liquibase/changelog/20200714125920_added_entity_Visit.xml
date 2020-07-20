@@ -21,7 +21,7 @@
             <column name="time" type="datetime">
                 <constraints nullable="false" />
             </column>
-            <column name="teraphy" type="varchar(255)">
+            <column name="therapy" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
             <column name="doctor_id" type="bigint">
@@ -56,7 +56,7 @@
             <column name="id" type="numeric"/>
             <column name="type" type="string"/>
             <column name="time" type="datetime"/>
-            <column name="teraphy" type="string"/>
+            <column name="therapy" type="string"/>
             <column name="doctor_id" type="numeric"/>
             <column name="patient_id" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->

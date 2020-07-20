@@ -35,8 +35,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WithMockUser
 public class HistoryResourceIT {
 
-    private static final LocalDate DEFAULT_DATE_RECORD = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_DATE_RECORD = LocalDate.now(ZoneId.systemDefault());
+    private static final LocalDate DEFAULT_RECORD_DATE = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_RECORD_DATE = LocalDate.now(ZoneId.systemDefault());
 
     private static final String DEFAULT_TYPE = "AAAAAAAAAA";
     private static final String UPDATED_TYPE = "BBBBBBBBBB";
@@ -69,7 +69,7 @@ public class HistoryResourceIT {
      */
     public static History createEntity(EntityManager em) {
         History history = new History()
-            .dateRecord(DEFAULT_DATE_RECORD)
+            .recordDate(DEFAULT_RECORD_DATE)
             .type(DEFAULT_TYPE)
             .info(DEFAULT_INFO);
         // Add required entity
@@ -92,7 +92,7 @@ public class HistoryResourceIT {
      */
     public static History createUpdatedEntity(EntityManager em) {
         History history = new History()
-            .dateRecord(UPDATED_DATE_RECORD)
+            .recordDate(UPDATED_RECORD_DATE)
             .type(UPDATED_TYPE)
             .info(UPDATED_INFO);
         // Add required entity
@@ -128,7 +128,7 @@ public class HistoryResourceIT {
         List<History> historyList = historyRepository.findAll();
         assertThat(historyList).hasSize(databaseSizeBeforeCreate + 1);
         History testHistory = historyList.get(historyList.size() - 1);
-        assertThat(testHistory.getDateRecord()).isEqualTo(DEFAULT_DATE_RECORD);
+        assertThat(testHistory.getRecordDate()).isEqualTo(DEFAULT_RECORD_DATE);
         assertThat(testHistory.getType()).isEqualTo(DEFAULT_TYPE);
         assertThat(testHistory.getInfo()).isEqualTo(DEFAULT_INFO);
     }
@@ -156,10 +156,10 @@ public class HistoryResourceIT {
 
     @Test
     @Transactional
-    public void checkDateRecordIsRequired() throws Exception {
+    public void checkRecordDateIsRequired() throws Exception {
         int databaseSizeBeforeTest = historyRepository.findAll().size();
         // set the field null
-        history.setDateRecord(null);
+        history.setRecordDate(null);
 
         // Create the History, which fails.
         HistoryDTO historyDTO = historyMapper.toDto(history);
@@ -225,7 +225,7 @@ public class HistoryResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(history.getId().intValue())))
-            .andExpect(jsonPath("$.[*].dateRecord").value(hasItem(DEFAULT_DATE_RECORD.toString())))
+            .andExpect(jsonPath("$.[*].recordDate").value(hasItem(DEFAULT_RECORD_DATE.toString())))
             .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE)))
             .andExpect(jsonPath("$.[*].info").value(hasItem(DEFAULT_INFO)));
     }
@@ -241,7 +241,7 @@ public class HistoryResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(history.getId().intValue()))
-            .andExpect(jsonPath("$.dateRecord").value(DEFAULT_DATE_RECORD.toString()))
+            .andExpect(jsonPath("$.recordDate").value(DEFAULT_RECORD_DATE.toString()))
             .andExpect(jsonPath("$.type").value(DEFAULT_TYPE))
             .andExpect(jsonPath("$.info").value(DEFAULT_INFO));
     }
@@ -266,7 +266,7 @@ public class HistoryResourceIT {
         // Disconnect from session so that the updates on updatedHistory are not directly saved in db
         em.detach(updatedHistory);
         updatedHistory
-            .dateRecord(UPDATED_DATE_RECORD)
+            .recordDate(UPDATED_RECORD_DATE)
             .type(UPDATED_TYPE)
             .info(UPDATED_INFO);
         HistoryDTO historyDTO = historyMapper.toDto(updatedHistory);
@@ -280,7 +280,7 @@ public class HistoryResourceIT {
         List<History> historyList = historyRepository.findAll();
         assertThat(historyList).hasSize(databaseSizeBeforeUpdate);
         History testHistory = historyList.get(historyList.size() - 1);
-        assertThat(testHistory.getDateRecord()).isEqualTo(UPDATED_DATE_RECORD);
+        assertThat(testHistory.getRecordDate()).isEqualTo(UPDATED_RECORD_DATE);
         assertThat(testHistory.getType()).isEqualTo(UPDATED_TYPE);
         assertThat(testHistory.getInfo()).isEqualTo(UPDATED_INFO);
     }
