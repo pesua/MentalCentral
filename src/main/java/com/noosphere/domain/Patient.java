@@ -27,12 +27,12 @@ public class Patient implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "fullname", nullable = false)
-    private String fullname;
+    @Column(name = "full_name", nullable = false)
+    private String fullName;
 
     @NotNull
-    @Column(name = "date_birthday", nullable = false)
-    private LocalDate dateBirthday;
+    @Column(name = "birthday_date", nullable = false)
+    private LocalDate birthdayDate;
 
     @NotNull
     @Column(name = "address", nullable = false)
@@ -48,11 +48,11 @@ public class Patient implements Serializable {
 
     @OneToMany(mappedBy = "patient")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    private Set<Visit> visits = new HashSet<>();
+    private Set<History> histories = new HashSet<>();
 
     @OneToMany(mappedBy = "patient")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    private Set<History> histories = new HashSet<>();
+    private Set<Visit> visits = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -63,30 +63,30 @@ public class Patient implements Serializable {
         this.id = id;
     }
 
-    public String getFullname() {
-        return fullname;
+    public String getFullName() {
+        return fullName;
     }
 
-    public Patient fullname(String fullname) {
-        this.fullname = fullname;
+    public Patient fullName(String fullName) {
+        this.fullName = fullName;
         return this;
     }
 
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
-    public LocalDate getDateBirthday() {
-        return dateBirthday;
+    public LocalDate getBirthdayDate() {
+        return birthdayDate;
     }
 
-    public Patient dateBirthday(LocalDate dateBirthday) {
-        this.dateBirthday = dateBirthday;
+    public Patient birthdayDate(LocalDate birthdayDate) {
+        this.birthdayDate = birthdayDate;
         return this;
     }
 
-    public void setDateBirthday(LocalDate dateBirthday) {
-        this.dateBirthday = dateBirthday;
+    public void setBirthdayDate(LocalDate birthdayDate) {
+        this.birthdayDate = birthdayDate;
     }
 
     public String getAddress() {
@@ -128,31 +128,6 @@ public class Patient implements Serializable {
         this.diagnosis = diagnosis;
     }
 
-    public Set<Visit> getVisits() {
-        return visits;
-    }
-
-    public Patient visits(Set<Visit> visits) {
-        this.visits = visits;
-        return this;
-    }
-
-    public Patient addVisit(Visit visit) {
-        this.visits.add(visit);
-        visit.setPatient(this);
-        return this;
-    }
-
-    public Patient removeVisit(Visit visit) {
-        this.visits.remove(visit);
-        visit.setPatient(null);
-        return this;
-    }
-
-    public void setVisits(Set<Visit> visits) {
-        this.visits = visits;
-    }
-
     public Set<History> getHistories() {
         return histories;
     }
@@ -177,6 +152,31 @@ public class Patient implements Serializable {
     public void setHistories(Set<History> histories) {
         this.histories = histories;
     }
+
+    public Set<Visit> getVisits() {
+        return visits;
+    }
+
+    public Patient visits(Set<Visit> visits) {
+        this.visits = visits;
+        return this;
+    }
+
+    public Patient addVisit(Visit visit) {
+        this.visits.add(visit);
+        visit.setPatient(this);
+        return this;
+    }
+
+    public Patient removeVisit(Visit visit) {
+        this.visits.remove(visit);
+        visit.setPatient(null);
+        return this;
+    }
+
+    public void setVisits(Set<Visit> visits) {
+        this.visits = visits;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -200,8 +200,8 @@ public class Patient implements Serializable {
     public String toString() {
         return "Patient{" +
             "id=" + getId() +
-            ", fullname='" + getFullname() + "'" +
-            ", dateBirthday='" + getDateBirthday() + "'" +
+            ", fullName='" + getFullName() + "'" +
+            ", birthdayDate='" + getBirthdayDate() + "'" +
             ", address='" + getAddress() + "'" +
             ", phone='" + getPhone() + "'" +
             ", diagnosis=" + getDiagnosis() +

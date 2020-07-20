@@ -15,10 +15,10 @@
             <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="fullname" type="varchar(255)">
+            <column name="full_name" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
-            <column name="date_birthday" type="date">
+            <column name="birthday_date" type="date">
                 <constraints nullable="false" />
             </column>
             <column name="address" type="varchar(255)">
@@ -53,8 +53,8 @@
                   separator=";"
                   tableName="patient">
             <column name="id" type="numeric"/>
-            <column name="fullname" type="string"/>
-            <column name="date_birthday" type="date"/>
+            <column name="full_name" type="string"/>
+            <column name="birthday_date" type="date"/>
             <column name="address" type="string"/>
             <column name="phone" type="string"/>
             <column name="diagnosis" type="numeric"/>

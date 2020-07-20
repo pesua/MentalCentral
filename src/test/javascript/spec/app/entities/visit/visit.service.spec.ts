@@ -71,7 +71,7 @@ describe('Service Tests', () => {
           {
             type: 'BBBBBB',
             time: currentDate.format(DATE_TIME_FORMAT),
-            teraphy: 'BBBBBB',
+            therapy: 'BBBBBB',
           },
           elemDefault
         );
@@ -95,7 +95,7 @@ describe('Service Tests', () => {
           {
             type: 'BBBBBB',
             time: currentDate.format(DATE_TIME_FORMAT),
-            teraphy: 'BBBBBB',
+            therapy: 'BBBBBB',
           },
           elemDefault
         );

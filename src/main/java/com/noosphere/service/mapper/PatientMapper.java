@@ -13,10 +13,10 @@ import org.mapstruct.*;
 public interface PatientMapper extends EntityMapper<PatientDTO, Patient> {
 
 
-    @Mapping(target = "visits", ignore = true)
-    @Mapping(target = "removeVisit", ignore = true)
     @Mapping(target = "histories", ignore = true)
     @Mapping(target = "removeHistory", ignore = true)
+    @Mapping(target = "visits", ignore = true)
+    @Mapping(target = "removeVisit", ignore = true)
     Patient toEntity(PatientDTO patientDTO);
 
     default Patient fromId(Long id) {

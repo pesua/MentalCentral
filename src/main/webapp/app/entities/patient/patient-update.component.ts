@@ -14,12 +14,12 @@ import { PatientService } from './patient.service';
 })
 export class PatientUpdateComponent implements OnInit {
   isSaving = false;
-  dateBirthdayDp: any;
+  birthdayDateDp: any;
 
   editForm = this.fb.group({
     id: [],
-    fullname: [null, [Validators.required]],
-    dateBirthday: [null, [Validators.required]],
+    fullName: [null, [Validators.required]],
+    birthdayDate: [null, [Validators.required]],
     address: [null, [Validators.required]],
     phone: [null, [Validators.required]],
     diagnosis: [null, [Validators.required]],
@@ -36,8 +36,8 @@ export class PatientUpdateComponent implements OnInit {
   updateForm(patient: IPatient): void {
     this.editForm.patchValue({
       id: patient.id,
-      fullname: patient.fullname,
-      dateBirthday: patient.dateBirthday,
+      fullName: patient.fullName,
+      birthdayDate: patient.birthdayDate,
       address: patient.address,
       phone: patient.phone,
       diagnosis: patient.diagnosis,
@@ -62,8 +62,8 @@ export class PatientUpdateComponent implements OnInit {
     return {
       ...new Patient(),
       id: this.editForm.get(['id'])!.value,
-      fullname: this.editForm.get(['fullname'])!.value,
-      dateBirthday: this.editForm.get(['dateBirthday'])!.value,
+      fullName: this.editForm.get(['fullName'])!.value,
+      birthdayDate: this.editForm.get(['birthdayDate'])!.value,
       address: this.editForm.get(['address'])!.value,
       phone: this.editForm.get(['phone'])!.value,
       diagnosis: this.editForm.get(['diagnosis'])!.value,

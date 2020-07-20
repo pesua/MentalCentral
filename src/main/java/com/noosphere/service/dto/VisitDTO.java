@@ -18,16 +18,16 @@ public class VisitDTO implements Serializable {
     private ZonedDateTime time;
 
     @NotNull
-    private String teraphy;
+    private String therapy;
 
 
     private Long doctorId;
 
-    private String doctorFullname;
+    private String doctorFullName;
 
     private Long patientId;
 
-    private String patientFullname;
+    private String patientFullName;
     
     public Long getId() {
         return id;
@@ -53,12 +53,12 @@ public class VisitDTO implements Serializable {
         this.time = time;
     }
 
-    public String getTeraphy() {
-        return teraphy;
+    public String getTherapy() {
+        return therapy;
     }
 
-    public void setTeraphy(String teraphy) {
-        this.teraphy = teraphy;
+    public void setTherapy(String therapy) {
+        this.therapy = therapy;
     }
 
     public Long getDoctorId() {
@@ -69,12 +69,12 @@ public class VisitDTO implements Serializable {
         this.doctorId = doctorId;
     }
 
-    public String getDoctorFullname() {
-        return doctorFullname;
+    public String getDoctorFullName() {
+        return doctorFullName;
     }
 
-    public void setDoctorFullname(String doctorFullname) {
-        this.doctorFullname = doctorFullname;
+    public void setDoctorFullName(String doctorFullName) {
+        this.doctorFullName = doctorFullName;
     }
 
     public Long getPatientId() {
@@ -85,12 +85,12 @@ public class VisitDTO implements Serializable {
         this.patientId = patientId;
     }
 
-    public String getPatientFullname() {
-        return patientFullname;
+    public String getPatientFullName() {
+        return patientFullName;
     }
 
-    public void setPatientFullname(String patientFullname) {
-        this.patientFullname = patientFullname;
+    public void setPatientFullName(String patientFullName) {
+        this.patientFullName = patientFullName;
     }
 
     @Override
@@ -117,11 +117,11 @@ public class VisitDTO implements Serializable {
             "id=" + getId() +
             ", type='" + getType() + "'" +
             ", time='" + getTime() + "'" +
-            ", teraphy='" + getTeraphy() + "'" +
+            ", therapy='" + getTherapy() + "'" +
             ", doctorId=" + getDoctorId() +
-            ", doctorFullname='" + getDoctorFullname() + "'" +
+            ", doctorFullName='" + getDoctorFullName() + "'" +
             ", patientId=" + getPatientId() +
-            ", patientFullname='" + getPatientFullname() + "'" +
+            ", patientFullName='" + getPatientFullName() + "'" +
             "}";
     }
 }

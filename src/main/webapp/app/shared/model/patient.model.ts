@@ -1,27 +1,27 @@
 import { Moment } from 'moment';
-import { IVisit } from 'app/shared/model/visit.model';
 import { IHistory } from 'app/shared/model/history.model';
+import { IVisit } from 'app/shared/model/visit.model';
 
 export interface IPatient {
   id?: number;
-  fullname?: string;
-  dateBirthday?: Moment;
+  fullName?: string;
+  birthdayDate?: Moment;
   address?: string;
   phone?: string;
   diagnosis?: number;
-  visits?: IVisit[];
   histories?: IHistory[];
+  visits?: IVisit[];
 }
 
 export class Patient implements IPatient {
   constructor(
     public id?: number,
-    public fullname?: string,
-    public dateBirthday?: Moment,
+    public fullName?: string,
+    public birthdayDate?: Moment,
     public address?: string,
     public phone?: string,
     public diagnosis?: number,
-    public visits?: IVisit[],
-    public histories?: IHistory[]
+    public histories?: IHistory[],
+    public visits?: IVisit[]
   ) {}
 }

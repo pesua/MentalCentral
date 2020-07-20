@@ -51,14 +51,14 @@ export class PatientService {
 
   protected convertDateFromClient(patient: IPatient): IPatient {
     const copy: IPatient = Object.assign({}, patient, {
-      dateBirthday: patient.dateBirthday && patient.dateBirthday.isValid() ? patient.dateBirthday.format(DATE_FORMAT) : undefined,
+      birthdayDate: patient.birthdayDate && patient.birthdayDate.isValid() ? patient.birthdayDate.format(DATE_FORMAT) : undefined,
     });
     return copy;
   }
 
   protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
     if (res.body) {
-      res.body.dateBirthday = res.body.dateBirthday ? moment(res.body.dateBirthday) : undefined;
+      res.body.birthdayDate = res.body.birthdayDate ? moment(res.body.birthdayDate) : undefined;
     }
     return res;
   }
@@ -66,7 +66,7 @@ export class PatientService {
   protected convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
     if (res.body) {
       res.body.forEach((patient: IPatient) => {
-        patient.dateBirthday = patient.dateBirthday ? moment(patient.dateBirthday) : undefined;
+        patient.birthdayDate = patient.birthdayDate ? moment(patient.birthdayDate) : undefined;
       });
     }
     return res;

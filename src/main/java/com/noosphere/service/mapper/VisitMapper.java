@@ -13,9 +13,9 @@ import org.mapstruct.*;
 public interface VisitMapper extends EntityMapper<VisitDTO, Visit> {
 
     @Mapping(source = "doctor.id", target = "doctorId")
-    @Mapping(source = "doctor.fullname", target = "doctorFullname")
+    @Mapping(source = "doctor.fullName", target = "doctorFullName")
     @Mapping(source = "patient.id", target = "patientId")
-    @Mapping(source = "patient.fullname", target = "patientFullname")
+    @Mapping(source = "patient.fullName", target = "patientFullName")
     VisitDTO toDto(Visit visit);
 
     @Mapping(source = "doctorId", target = "doctor")

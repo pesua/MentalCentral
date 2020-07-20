@@ -12,7 +12,7 @@
       "fieldValidateRules": ["required"]
     },
     {
-      "fieldName": "teraphy",
+      "fieldName": "therapy",
       "fieldType": "String",
       "fieldValidateRules": ["required"]
     }
@@ -24,7 +24,7 @@
       "otherEntityRelationshipName": "visit",
       "relationshipValidateRules": "required",
       "relationshipName": "doctor",
-      "otherEntityField": "fullname"
+      "otherEntityField": "fullName"
     },
     {
       "relationshipType": "many-to-one",
@@ -32,7 +32,7 @@
       "otherEntityRelationshipName": "visit",
       "relationshipValidateRules": "required",
       "relationshipName": "patient",
-      "otherEntityField": "fullname"
+      "otherEntityField": "fullName"
     }
   ],
   "changelogDate": "20200714125920",
@@ -45,5 +45,5 @@
   "readOnly": false,
   "embedded": false,
   "clientRootFolder": "",
-  "applications": "*"
+  "applications": ["MentalCentral"]
 }

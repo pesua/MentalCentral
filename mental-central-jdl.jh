@@ -1,0 +1,72 @@
+application {
+  config {
+    applicationType monolith
+    authenticationType jwt
+    baseName MentalCentral
+    blueprints []
+    buildTool maven
+    cacheProvider ehcache
+    clientFramework angularX
+    clientPackageManager npm
+    clientTheme none
+    creationTimestamp 1594234449007
+    databaseType sql
+    devDatabaseType h2Disk
+    dtoSuffix DTO
+    embeddableLaunchScript false
+    enableHibernateCache true
+    enableSwaggerCodegen false
+    enableTranslation true
+    jhiPrefix jhi
+    jhipsterVersion "6.10.1"
+    jwtSecretKey "OGUyNzFjOTZhMzg0YzJjMDIwZjQyNmMwMmVjODE1ZWM5ZTM4MDNlOGE5YTMwNmQ2ZWUxN2FjYjgzNDVhNGJkZDE1ZTdhMDAyYTRlNTlkZWY5MDM5NmMyNDg2OWI3YTEwNDhmM2ZlYzE4ZWM3ODRiNDdlM2I2NmIyNjZhNzIwZTQ="
+    languages [ua, en, ru]
+    messageBroker false
+    nativeLanguage ua
+    otherModules []
+    packageName com.noosphere
+    prodDatabaseType postgresql
+    searchEngine false
+    serverPort 8080
+    serviceDiscoveryType eureka
+    skipClient false
+    skipServer false
+    skipUserManagement false
+    testFrameworks []
+    useSass true
+    websocket false
+  }
+
+  entities Doctor, History, Patient, Visit
+}
+
+entity Doctor {
+  fullName String required,
+  phone String required
+}
+entity History {
+  recordDate LocalDate required,
+  type String required,
+  info String required
+}
+entity Patient {
+  fullName String required,
+  birthdayDate LocalDate required,
+  address String required,
+  phone String required,
+  diagnosis Integer required
+}
+entity Visit {
+  type String required,
+  time ZonedDateTime required,
+  therapy String required
+}
+relationship OneToMany {
+  Patient{history} to History{patient(fullName) required},
+  Doctor{visit} to Visit{doctor(fullName) required},
+  Patient{visit} to Visit{patient(fullName) required}
+}
+
+dto Doctor, History, Patient, Visit with mapstruct
+paginate Doctor, History, Patient, Visit with infinite-scroll
+service Doctor, History, Patient, Visit with serviceImpl

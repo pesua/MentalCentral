@@ -25,9 +25,9 @@
                     <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="type"><span jhiTranslate="mentalCentralApp.visit.type">Type</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="time"><span jhiTranslate="mentalCentralApp.visit.time">Time</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="teraphy"><span jhiTranslate="mentalCentralApp.visit.teraphy">Teraphy</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="doctorFullname"><span jhiTranslate="mentalCentralApp.visit.doctor">Doctor</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="patientFullname"><span jhiTranslate="mentalCentralApp.visit.patient">Patient</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="therapy"><span jhiTranslate="mentalCentralApp.visit.therapy">Therapy</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="doctorFullName"><span jhiTranslate="mentalCentralApp.visit.doctor">Doctor</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="patientFullName"><span jhiTranslate="mentalCentralApp.visit.patient">Patient</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"></th>
                 </tr>
             </thead>
@@ -36,15 +36,15 @@
                     <td><a [routerLink]="['/visit', visit.id, 'view']">{{ visit.id }}</a></td>
                     <td>{{ visit.type }}</td>
                     <td>{{ visit.time | date:'medium' }}</td>
-                    <td>{{ visit.teraphy }}</td>
+                    <td>{{ visit.therapy }}</td>
                     <td>
                         <div *ngIf="visit.doctorId">
-                            <a [routerLink]="['/doctor', visit.doctorId , 'view']" >{{ visit.doctorFullname }}</a>
+                            <a [routerLink]="['/doctor', visit.doctorId , 'view']" >{{ visit.doctorFullName }}</a>
                         </div>
                     </td>
                     <td>
                         <div *ngIf="visit.patientId">
-                            <a [routerLink]="['/patient', visit.patientId , 'view']" >{{ visit.patientFullname }}</a>
+                            <a [routerLink]="['/patient', visit.patientId , 'view']" >{{ visit.patientFullName }}</a>
                         </div>
                     </td>
                     <td class="text-right">

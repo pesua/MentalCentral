@@ -2,20 +2,20 @@ import { Moment } from 'moment';
 
 export interface IHistory {
   id?: number;
-  dateRecord?: Moment;
+  recordDate?: Moment;
   type?: string;
   info?: string;
-  patientFullname?: string;
+  patientFullName?: string;
   patientId?: number;
 }
 
 export class History implements IHistory {
   constructor(
     public id?: number,
-    public dateRecord?: Moment,
+    public recordDate?: Moment,
     public type?: string,
     public info?: string,
-    public patientFullname?: string,
+    public patientFullName?: string,
     public patientId?: number
   ) {}
 }

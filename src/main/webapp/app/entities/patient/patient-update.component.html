@@ -12,28 +12,28 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="mentalCentralApp.patient.fullname" for="field_fullname">Fullname</label>
-                    <input type="text" class="form-control" name="fullname" id="field_fullname"
-                           formControlName="fullname"/>
-                    <div *ngIf="editForm.get('fullname')!.invalid && (editForm.get('fullname')!.dirty || editForm.get('fullname')!.touched)">
+                    <label class="form-control-label" jhiTranslate="mentalCentralApp.patient.fullName" for="field_fullName">Full Name</label>
+                    <input type="text" class="form-control" name="fullName" id="field_fullName"
+                           formControlName="fullName"/>
+                    <div *ngIf="editForm.get('fullName')!.invalid && (editForm.get('fullName')!.dirty || editForm.get('fullName')!.touched)">
                         <small class="form-text text-danger"
-                               *ngIf="editForm.get('fullname')?.errors?.required" jhiTranslate="entity.validation.required">
+                               *ngIf="editForm.get('fullName')?.errors?.required" jhiTranslate="entity.validation.required">
                         This field is required.
                         </small>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="mentalCentralApp.patient.dateBirthday" for="field_dateBirthday">Date Birthday</label>
+                    <label class="form-control-label" jhiTranslate="mentalCentralApp.patient.birthdayDate" for="field_birthdayDate">Birthday Date</label>
                     <div class="input-group">
-                        <input id="field_dateBirthday" type="text" class="form-control" name="dateBirthday" ngbDatepicker #dateBirthdayDp="ngbDatepicker" formControlName="dateBirthday"/>
+                        <input id="field_birthdayDate" type="text" class="form-control" name="birthdayDate" ngbDatepicker #birthdayDateDp="ngbDatepicker" formControlName="birthdayDate"/>
                         <span class="input-group-append">
-                            <button type="button" class="btn btn-secondary" (click)="dateBirthdayDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+                            <button type="button" class="btn btn-secondary" (click)="birthdayDateDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
                         </span>
                     </div>
-                    <div *ngIf="editForm.get('dateBirthday')!.invalid && (editForm.get('dateBirthday')!.dirty || editForm.get('dateBirthday')!.touched)">
+                    <div *ngIf="editForm.get('birthdayDate')!.invalid && (editForm.get('birthdayDate')!.dirty || editForm.get('birthdayDate')!.touched)">
                         <small class="form-text text-danger"
-                               *ngIf="editForm.get('dateBirthday')?.errors?.required" jhiTranslate="entity.validation.required">
+                               *ngIf="editForm.get('birthdayDate')?.errors?.required" jhiTranslate="entity.validation.required">
                         This field is required.
                         </small>
                     </div>

@@ -16,13 +16,13 @@
       "detail": {
         "title": "Patient"
       },
-      "fullname": "Fullname",
-      "dateBirthday": "Date Birthday",
+      "fullName": "Full Name",
+      "birthdayDate": "Birthday Date",
       "address": "Address",
       "phone": "Phone",
       "diagnosis": "Diagnosis",
-      "visit": "Visit",
-      "history": "History"
+      "history": "History",
+      "visit": "Visit"
     }
   }
 }

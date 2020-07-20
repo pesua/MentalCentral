@@ -34,11 +34,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WithMockUser
 public class PatientResourceIT {
 
-    private static final String DEFAULT_FULLNAME = "AAAAAAAAAA";
-    private static final String UPDATED_FULLNAME = "BBBBBBBBBB";
+    private static final String DEFAULT_FULL_NAME = "AAAAAAAAAA";
+    private static final String UPDATED_FULL_NAME = "BBBBBBBBBB";
 
-    private static final LocalDate DEFAULT_DATE_BIRTHDAY = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_DATE_BIRTHDAY = LocalDate.now(ZoneId.systemDefault());
+    private static final LocalDate DEFAULT_BIRTHDAY_DATE = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_BIRTHDAY_DATE = LocalDate.now(ZoneId.systemDefault());
 
     private static final String DEFAULT_ADDRESS = "AAAAAAAAAA";
     private static final String UPDATED_ADDRESS = "BBBBBBBBBB";
@@ -74,8 +74,8 @@ public class PatientResourceIT {
      */
     public static Patient createEntity(EntityManager em) {
         Patient patient = new Patient()
-            .fullname(DEFAULT_FULLNAME)
-            .dateBirthday(DEFAULT_DATE_BIRTHDAY)
+            .fullName(DEFAULT_FULL_NAME)
+            .birthdayDate(DEFAULT_BIRTHDAY_DATE)
             .address(DEFAULT_ADDRESS)
             .phone(DEFAULT_PHONE)
             .diagnosis(DEFAULT_DIAGNOSIS);
@@ -89,8 +89,8 @@ public class PatientResourceIT {
      */
     public static Patient createUpdatedEntity(EntityManager em) {
         Patient patient = new Patient()
-            .fullname(UPDATED_FULLNAME)
-            .dateBirthday(UPDATED_DATE_BIRTHDAY)
+            .fullName(UPDATED_FULL_NAME)
+            .birthdayDate(UPDATED_BIRTHDAY_DATE)
             .address(UPDATED_ADDRESS)
             .phone(UPDATED_PHONE)
             .diagnosis(UPDATED_DIAGNOSIS);
@@ -117,8 +117,8 @@ public class PatientResourceIT {
         List<Patient> patientList = patientRepository.findAll();
         assertThat(patientList).hasSize(databaseSizeBeforeCreate + 1);
         Patient testPatient = patientList.get(patientList.size() - 1);
-        assertThat(testPatient.getFullname()).isEqualTo(DEFAULT_FULLNAME);
-        assertThat(testPatient.getDateBirthday()).isEqualTo(DEFAULT_DATE_BIRTHDAY);
+        assertThat(testPatient.getFullName()).isEqualTo(DEFAULT_FULL_NAME);
+        assertThat(testPatient.getBirthdayDate()).isEqualTo(DEFAULT_BIRTHDAY_DATE);
         assertThat(testPatient.getAddress()).isEqualTo(DEFAULT_ADDRESS);
         assertThat(testPatient.getPhone()).isEqualTo(DEFAULT_PHONE);
         assertThat(testPatient.getDiagnosis()).isEqualTo(DEFAULT_DIAGNOSIS);
@@ -147,10 +147,10 @@ public class PatientResourceIT {
 
     @Test
     @Transactional
-    public void checkFullnameIsRequired() throws Exception {
+    public void checkFullNameIsRequired() throws Exception {
         int databaseSizeBeforeTest = patientRepository.findAll().size();
         // set the field null
-        patient.setFullname(null);
+        patient.setFullName(null);
 
         // Create the Patient, which fails.
         PatientDTO patientDTO = patientMapper.toDto(patient);
@@ -167,10 +167,10 @@ public class PatientResourceIT {
 
     @Test
     @Transactional
-    public void checkDateBirthdayIsRequired() throws Exception {
+    public void checkBirthdayDateIsRequired() throws Exception {
         int databaseSizeBeforeTest = patientRepository.findAll().size();
         // set the field null
-        patient.setDateBirthday(null);
+        patient.setBirthdayDate(null);
 
         // Create the Patient, which fails.
         PatientDTO patientDTO = patientMapper.toDto(patient);
@@ -256,8 +256,8 @@ public class PatientResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(patient.getId().intValue())))
-            .andExpect(jsonPath("$.[*].fullname").value(hasItem(DEFAULT_FULLNAME)))
-            .andExpect(jsonPath("$.[*].dateBirthday").value(hasItem(DEFAULT_DATE_BIRTHDAY.toString())))
+            .andExpect(jsonPath("$.[*].fullName").value(hasItem(DEFAULT_FULL_NAME)))
+            .andExpect(jsonPath("$.[*].birthdayDate").value(hasItem(DEFAULT_BIRTHDAY_DATE.toString())))
             .andExpect(jsonPath("$.[*].address").value(hasItem(DEFAULT_ADDRESS)))
             .andExpect(jsonPath("$.[*].phone").value(hasItem(DEFAULT_PHONE)))
             .andExpect(jsonPath("$.[*].diagnosis").value(hasItem(DEFAULT_DIAGNOSIS)));
@@ -274,8 +274,8 @@ public class PatientResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(patient.getId().intValue()))
-            .andExpect(jsonPath("$.fullname").value(DEFAULT_FULLNAME))
-            .andExpect(jsonPath("$.dateBirthday").value(DEFAULT_DATE_BIRTHDAY.toString()))
+            .andExpect(jsonPath("$.fullName").value(DEFAULT_FULL_NAME))
+            .andExpect(jsonPath("$.birthdayDate").value(DEFAULT_BIRTHDAY_DATE.toString()))
             .andExpect(jsonPath("$.address").value(DEFAULT_ADDRESS))
             .andExpect(jsonPath("$.phone").value(DEFAULT_PHONE))
             .andExpect(jsonPath("$.diagnosis").value(DEFAULT_DIAGNOSIS));
@@ -301,8 +301,8 @@ public class PatientResourceIT {
         // Disconnect from session so that the updates on updatedPatient are not directly saved in db
         em.detach(updatedPatient);
         updatedPatient
-            .fullname(UPDATED_FULLNAME)
-            .dateBirthday(UPDATED_DATE_BIRTHDAY)
+            .fullName(UPDATED_FULL_NAME)
+            .birthdayDate(UPDATED_BIRTHDAY_DATE)
             .address(UPDATED_ADDRESS)
             .phone(UPDATED_PHONE)
             .diagnosis(UPDATED_DIAGNOSIS);
@@ -317,8 +317,8 @@ public class PatientResourceIT {
         List<Patient> patientList = patientRepository.findAll();
         assertThat(patientList).hasSize(databaseSizeBeforeUpdate);
         Patient testPatient = patientList.get(patientList.size() - 1);
-        assertThat(testPatient.getFullname()).isEqualTo(UPDATED_FULLNAME);
-        assertThat(testPatient.getDateBirthday()).isEqualTo(UPDATED_DATE_BIRTHDAY);
+        assertThat(testPatient.getFullName()).isEqualTo(UPDATED_FULL_NAME);
+        assertThat(testPatient.getBirthdayDate()).isEqualTo(UPDATED_BIRTHDAY_DATE);
         assertThat(testPatient.getAddress()).isEqualTo(UPDATED_ADDRESS);
         assertThat(testPatient.getPhone()).isEqualTo(UPDATED_PHONE);
         assertThat(testPatient.getDiagnosis()).isEqualTo(UPDATED_DIAGNOSIS);
