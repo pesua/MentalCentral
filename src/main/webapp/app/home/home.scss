@@ -8,7 +8,7 @@ Main page styles
   height: 497px;
   display: flex;
 
-  background: url('../../content/images/MedicalCentralMain.svg') no-repeat center top;
+  background: url('../../content/images/doctor-image.png') no-repeat center top;
   background-size: contain;
 }
 
@@ -19,7 +19,7 @@ Main page styles
   only screen and (min-resolution: 192dpi),
   only screen and (min-resolution: 2dppx) {
   .hipster {
-    background: url('../../content/images/MedicalCentralMain.svg') no-repeat center top;
+    background: url('../../content/images/doctor-image.png') no-repeat center top;
     background-size: contain;
   }
 }
