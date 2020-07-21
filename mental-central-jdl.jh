@@ -1,0 +1,25 @@
+entity Patient {
+  fullName String required,
+
+  birthDate LocalDate required,
+  address String required,
+  phoneNumber String required,
+  diagnosis Integer required
+}
+
+entity Visit {
+  type String required,
+  time ZonedDateTime required,
+  therapy String required
+}
+
+relationship OneToMany {
+  Patient{visit} to Visit{patient(fullName) required}
+}
+
+relationship ManyToOne {
+  Visit{user(lastName) required} to User
+}
+
+service Patient, Visit with serviceClass
+filter Patient, Visit
