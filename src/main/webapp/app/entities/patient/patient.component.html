@@ -25,7 +25,6 @@
         <table class="table table-striped" aria-describedby="page-heading">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="reset.bind(this)">
-                <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
                 <th scope="col"  jhiSortBy="fullName"><span jhiTranslate="mentalCentralApp.patient.fullName">Full Name</span> <fa-icon icon="sort"></fa-icon></th>
                 <th scope="col"  jhiSortBy="birthdayDate"><span jhiTranslate="mentalCentralApp.patient.birthdayDate">Birthday Date</span> <fa-icon icon="sort"></fa-icon></th>
                 <th scope="col"  jhiSortBy="address"><span jhiTranslate="mentalCentralApp.patient.address">Address</span> <fa-icon icon="sort"></fa-icon></th>
