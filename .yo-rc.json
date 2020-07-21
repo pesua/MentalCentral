@@ -1,0 +1,43 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "com.noosphere.mental_central",
+      "nativeLanguage": "ua"
+    },
+    "jhipsterVersion": "6.10.1",
+    "applicationType": "monolith",
+    "baseName": "MentalCentral",
+    "packageName": "com.noosphere.mental_central",
+    "packageFolder": "com/noosphere/mental_central",
+    "serverPort": "8080",
+    "authenticationType": "jwt",
+    "cacheProvider": "ehcache",
+    "enableHibernateCache": true,
+    "websocket": false,
+    "databaseType": "sql",
+    "devDatabaseType": "h2Disk",
+    "prodDatabaseType": "postgresql",
+    "searchEngine": false,
+    "messageBroker": false,
+    "serviceDiscoveryType": "eureka",
+    "buildTool": "maven",
+    "enableSwaggerCodegen": false,
+    "jwtSecretKey": "M2ZhNDNhMjBmODdiN2E0MGJhODc5YjhmNDdhZjFjZmJjMzBmZTc3N2VhYzNkYmYzNDcyZThkMzRkYjYzMWJjOTcyM2JkYWY1M2M4MjNhZTYwMDJhZWM4OWFkZmI3NjRiNTY1Yzg2MjVlNDU4Zjk3NmNmMDk4ZjYwNzJjYjk0NDc=",
+    "embeddableLaunchScript": false,
+    "useSass": true,
+    "clientPackageManager": "npm",
+    "clientFramework": "angularX",
+    "clientTheme": "none",
+    "clientThemeVariant": "",
+    "creationTimestamp": 1595366467110,
+    "testFrameworks": [],
+    "jhiPrefix": "jhi",
+    "entitySuffix": "",
+    "dtoSuffix": "DTO",
+    "otherModules": [],
+    "enableTranslation": true,
+    "nativeLanguage": "ua",
+    "languages": ["ua", "en", "ru"],
+    "blueprints": []
+  }
+}
