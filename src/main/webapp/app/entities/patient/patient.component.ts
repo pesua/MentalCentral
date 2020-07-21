@@ -22,6 +22,7 @@ export class PatientComponent implements OnInit, OnDestroy {
   page: number;
   predicate: string;
   ascending: boolean;
+  search: string;
 
   constructor(
     protected patientService: PatientService,
@@ -29,6 +30,7 @@ export class PatientComponent implements OnInit, OnDestroy {
     protected modalService: NgbModal,
     protected parseLinks: JhiParseLinks
   ) {
+    this.search = '';
     this.patients = [];
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.page = 0;

@@ -60,7 +60,11 @@
                                *ngIf="editForm.get('phone')?.errors?.required" jhiTranslate="entity.validation.required">
                         This field is required.
                         </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('phone')?.errors?.pattern" jhiTranslate="entity.validation.pattern" [translateValues]="{ pattern: '+380XXXXXXXXX' }">
+                            This field should follow pattern for "Phone".
                     </div>
+
                 </div>
 
                 <div class="form-group">

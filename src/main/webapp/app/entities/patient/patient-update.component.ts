@@ -21,7 +21,7 @@ export class PatientUpdateComponent implements OnInit {
     fullName: [null, [Validators.required]],
     birthdayDate: [null, [Validators.required]],
     address: [null, [Validators.required]],
-    phone: [null, [Validators.required]],
+    phone: [null, [Validators.required, Validators.pattern('[+]380[0-9]{9}')]],
     diagnosis: [null, [Validators.required]],
   });
 

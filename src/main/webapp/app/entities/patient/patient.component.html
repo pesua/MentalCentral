@@ -1,5 +1,8 @@
 <div>
     <h2 id="page-heading">
+        <div class="md-form">
+            <input type="search" [(ngModel)]="search" placeholder="{{'mentalCentralApp.patient.search' | translate}}">
+        </div>
         <span jhiTranslate="mentalCentralApp.patient.home.title">Patients</span>
 
         <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-patient" [routerLink]="['/patient/new']">
@@ -21,21 +24,19 @@
     <div class="table-responsive" id="entities" *ngIf="patients && patients.length > 0">
         <table class="table table-striped" aria-describedby="page-heading">
             <thead>
-                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="reset.bind(this)">
-                    <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="fullName"><span jhiTranslate="mentalCentralApp.patient.fullName">Full Name</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="birthdayDate"><span jhiTranslate="mentalCentralApp.patient.birthdayDate">Birthday Date</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="address"><span jhiTranslate="mentalCentralApp.patient.address">Address</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="phone"><span jhiTranslate="mentalCentralApp.patient.phone">Phone</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="diagnosis"><span jhiTranslate="mentalCentralApp.patient.diagnosis">Diagnosis</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"></th>
+                <tr>
+                    <th><span jhiTranslate="mentalCentralApp.patient.fullName">Full Name</span></th>
+                    <th><span jhiTranslate="mentalCentralApp.patient.birthdayDate">Birthday Date</span></th>
+                    <th><span jhiTranslate="mentalCentralApp.patient.address">Address</span></th>
+                    <th><span jhiTranslate="mentalCentralApp.patient.phone">Phone</span></th>
+                    <th><span jhiTranslate="mentalCentralApp.patient.diagnosis">Diagnosis</span></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
-                <tr *ngFor="let patient of patients ;trackBy: trackId">
-                    <td><a [routerLink]="['/patient', patient.id, 'view']">{{ patient.id }}</a></td>
+                <tr *ngFor="let patient of patients | filterPatient: search;trackBy: trackId">
                     <td>{{ patient.fullName }}</td>
-                    <td>{{ patient.birthdayDate | date:'mediumDate' }}</td>
+                    <td>{{ patient.birthdayDate | date:'dd-MM-yyy' }}</td>
                     <td>{{ patient.address }}</td>
                     <td>{{ patient.phone }}</td>
                     <td>{{ patient.diagnosis }}</td>
