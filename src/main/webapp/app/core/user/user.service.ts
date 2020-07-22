@@ -29,9 +29,10 @@ export class UserService {
     return this.http.get<IUser[]>(this.resourceUrl, { params: options, observe: 'response' });
   }
 
-  findAllDoctors(req?: Pagination): Observable<HttpResponse<IUser[]>> {
+  findAllDoctors(req?: any): Observable<HttpResponse<IUser[]>> {
     const options = createRequestOption(req);
-    return this.http.get<IUser[]>(SERVER_API_URL + 'api/users/doc', { params: options, observe: 'response' });
+
+    return this.http.get<IUser[]>(this.resourceUrl + '/doctors', { params: options, observe: 'response' });
   }
 
   delete(login: string): Observable<{}> {
