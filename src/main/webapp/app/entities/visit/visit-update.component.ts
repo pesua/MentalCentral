@@ -51,7 +51,7 @@ export class VisitUpdateComponent implements OnInit {
 
       this.updateForm(visit);
 
-      this.userService.query().subscribe((res: HttpResponse<IUser[]>) => (this.users = res.body || []));
+      this.userService.findAllDoctors().subscribe((res: HttpResponse<IUser[]>) => (this.users = res.body || []));
 
       this.patientService.query().subscribe((res: HttpResponse<IPatient[]>) => (this.patients = res.body || []));
     });
