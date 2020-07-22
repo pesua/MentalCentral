@@ -1,17 +1,17 @@
 package com.noosphere.mental_central.web.rest;
 
 import com.noosphere.mental_central.domain.Patient;
-import com.noosphere.mental_central.service.PatientService;
-import com.noosphere.mental_central.web.rest.errors.BadRequestAlertException;
-import com.noosphere.mental_central.service.dto.PatientCriteria;
 import com.noosphere.mental_central.service.PatientQueryService;
-
+import com.noosphere.mental_central.service.PatientService;
+import com.noosphere.mental_central.service.dto.PatientCriteria;
+import com.noosphere.mental_central.web.rest.errors.BadRequestAlertException;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -50,7 +50,9 @@ public class PatientResource {
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new patient, or with status {@code 400 (Bad Request)} if the patient has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
+
     @PostMapping("/patients")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_RECEPTION')")
     public ResponseEntity<Patient> createPatient(@Valid @RequestBody Patient patient) throws URISyntaxException {
         log.debug("REST request to save Patient : {}", patient);
         if (patient.getId() != null) {
@@ -72,6 +74,7 @@ public class PatientResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/patients")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_RECEPTION')")
     public ResponseEntity<Patient> updatePatient(@Valid @RequestBody Patient patient) throws URISyntaxException {
         log.debug("REST request to update Patient : {}", patient);
         if (patient.getId() == null) {
@@ -128,6 +131,7 @@ public class PatientResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/patients/{id}")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_RECEPTION')")
     public ResponseEntity<Void> deletePatient(@PathVariable Long id) {
         log.debug("REST request to delete Patient : {}", id);
         patientService.delete(id);
