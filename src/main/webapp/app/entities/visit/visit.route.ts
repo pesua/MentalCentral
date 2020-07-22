@@ -39,7 +39,7 @@ export const visitRoute: Routes = [
     path: '',
     component: VisitComponent,
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.ADMIN, Authority.RECEPTION],
       pageTitle: 'mentalCentralApp.visit.home.title',
     },
     canActivate: [UserRouteAccessService],
@@ -51,7 +51,7 @@ export const visitRoute: Routes = [
       visit: VisitResolve,
     },
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.ADMIN, Authority.RECEPTION],
       pageTitle: 'mentalCentralApp.visit.home.title',
     },
     canActivate: [UserRouteAccessService],
@@ -63,7 +63,7 @@ export const visitRoute: Routes = [
       visit: VisitResolve,
     },
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.ADMIN, Authority.RECEPTION],
       pageTitle: 'mentalCentralApp.visit.home.title',
     },
     canActivate: [UserRouteAccessService],
@@ -75,7 +75,7 @@ export const visitRoute: Routes = [
       visit: VisitResolve,
     },
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.ADMIN, Authority.RECEPTION],
       pageTitle: 'mentalCentralApp.visit.home.title',
     },
     canActivate: [UserRouteAccessService],
