@@ -21,7 +21,8 @@
       "address": "Address",
       "phoneNumber": "Phone Number",
       "diagnosis": "Diagnosis",
-      "visit": "Visit"
+      "visit": "Visit",
+      "search": "Пошук"
     }
   }
 }

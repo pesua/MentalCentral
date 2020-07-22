@@ -1,7 +1,9 @@
 <div>
     <h2 id="page-heading">
         <span jhiTranslate="mentalCentralApp.patient.home.title">Patients</span>
-
+        <span class="md-form">
+            <input type="search" [(ngModel)]="search" (ngModelChange)="filterByPatientFullName()"   placeholder="{{'mentalCentralApp.patient.search' | translate}}">
+        </span>
         <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-patient" [routerLink]="['/patient/new']">
             <fa-icon icon="plus"></fa-icon>
             <span  jhiTranslate="mentalCentralApp.patient.home.createLabel">
