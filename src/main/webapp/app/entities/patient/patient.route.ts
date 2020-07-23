@@ -11,6 +11,7 @@ import { PatientService } from './patient.service';
 import { PatientComponent } from './patient.component';
 import { PatientDetailComponent } from './patient-detail.component';
 import { PatientUpdateComponent } from './patient-update.component';
+import { PatientVisitsComponent } from './patient-visits.component';
 
 @Injectable({ providedIn: 'root' })
 export class PatientResolve implements Resolve<IPatient> {
@@ -71,6 +72,18 @@ export const patientRoute: Routes = [
   {
     path: ':id/edit',
     component: PatientUpdateComponent,
+    resolve: {
+      patient: PatientResolve,
+    },
+    data: {
+      authorities: [Authority.ADMIN, Authority.RECEPTION],
+      pageTitle: 'mentalCentralApp.patient.home.title',
+    },
+    canActivate: [UserRouteAccessService],
+  },
+  {
+    path: ':id/visits',
+    component: PatientVisitsComponent,
     resolve: {
       patient: PatientResolve,
     },

@@ -53,7 +53,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="mentalCentralApp.visit.user" for="field_user">User</label>
+                    <label class="form-control-label" jhiTranslate="mentalCentralApp.visit.doctor" for="field_user">User</label>
                     <select class="form-control" id="field_user" name="user" formControlName="user">
                         <option *ngIf="!editForm.get('user')!.value" [ngValue]="null" selected></option>
                         <option [ngValue]="userOption.id === editForm.get('user')!.value?.id ? editForm.get('user')!.value : userOption" *ngFor="let userOption of users; trackBy: trackById">{{ userOption.lastName }}</option>
