@@ -1,6 +1,6 @@
 <div>
     <h2 id="page-heading">
-        <span jhiTranslate="mentalCentralApp.patient.visitsOfPatient" [translateValues]="{ fullName: patient.fullName }"></span>
+        <span jhiTranslate="mentalCentralApp.patient.visitsOfPatient" [translateValues]="{ fullName: patient!.fullName }"></span>
     </h2>
 
     <jhi-alert-error></jhi-alert-error>
@@ -21,7 +21,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let visit of allVisits | filterByPatientId: patient.id">
+            <tr *ngFor="let visit of allVisits | filterByPatientId: patient!.id">
                 <td>{{ visit.type }}</td>
                 <td>{{ visit.time | date:'medium' }}</td>
                 <td>{{ visit.therapy }}</td>

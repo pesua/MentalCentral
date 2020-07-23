@@ -5,10 +5,10 @@ import { IVisit } from '../../shared/model/visit.model';
   name: 'filterByPatientId',
 })
 export class FIlterPipe implements PipeTransform {
-  transform(visits: IVisit[], id: number): IVisit[] {
+  transform(visits: IVisit[], id: any): IVisit[] {
     if (!visits) {
       return [];
     }
-    return visits.filter(visit => visit.patient.id === id);
+    return visits.filter(visit => visit.patient!.id === id);
   }
 }
