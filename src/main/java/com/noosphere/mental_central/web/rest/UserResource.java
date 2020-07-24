@@ -180,6 +180,11 @@ public class UserResource {
                 .map(UserDTO::new));
     }
 
+    @GetMapping("/users/currentUserId")
+    public Long getCurrentUserId(){
+        return userService.getUserWithAuthorities().get().getId();
+    }
+
     /**
      * {@code DELETE /users/:login} : delete the "login" User.
      *

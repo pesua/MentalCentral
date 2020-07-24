@@ -31,8 +31,9 @@
                     <th scope="col"></th>
                 </tr>
             </thead>
-            <tbody>
-                <tr *ngFor="let visit of visits ;trackBy: trackId">
+            <tbody *jhiHasAnyAuthority="'ROLE_DOCTOR'">
+                <tr *ngFor="let visit of visits | userIdFilter: id ;trackBy: trackId">
+
                     <td><a [routerLink]="['/visit', visit.id, 'view']">{{ visit.id }}</a></td>
                     <td>{{ visit.type }}</td>
                     <td>{{ visit.time | date:'medium' }}</td>
@@ -54,21 +55,49 @@
                                 <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                             </button>
 
-                            <button type="submit"
-                                    [routerLink]="['/visit', visit.id, 'edit']"
-                                    class="btn btn-primary btn-sm">
-                                <fa-icon icon="pencil-alt"></fa-icon>
-                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-                            </button>
-
-                            <button type="submit" (click)="delete(visit)"
-                                    class="btn btn-danger btn-sm">
-                                <fa-icon icon="times"></fa-icon>
-                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-                            </button>
                         </div>
                     </td>
                 </tr>
+            </tbody>
+            <tbody *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_RECEPTION']">
+            <tr *ngFor="let visit of visits;trackBy: trackId">
+
+                <td><a [routerLink]="['/visit', visit.id, 'view']">{{ visit.id }}</a></td>
+                <td>{{ visit.type }}</td>
+                <td>{{ visit.time | date:'medium' }}</td>
+                <td>{{ visit.therapy }}</td>
+                <td>
+                    {{ visit.user?.lastName }}
+                </td>
+                <td>
+                    <div *ngIf="visit.patient">
+                        <a [routerLink]="['/patient', visit.patient?.id, 'view']" >{{ visit.patient?.fullName }}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/visit', visit.id, 'view']"
+                                class="btn btn-info btn-sm">
+                            <fa-icon icon="eye"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+
+                        <button type="submit"
+                                [routerLink]="['/visit', visit.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon icon="pencil-alt"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+
+                        <button type="submit" (click)="delete(visit)"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon icon="times"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
             </tbody>
         </table>
     </div>

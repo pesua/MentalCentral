@@ -24,6 +24,7 @@ export class VisitUpdateComponent implements OnInit {
   isSaving = false;
   users: IUser[] = [];
   patients: IPatient[] = [];
+  id!: bigint;
 
   editForm = this.fb.group({
     id: [],

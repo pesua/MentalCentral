@@ -7,6 +7,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IVisit } from 'app/shared/model/visit.model';
 import { VisitService } from './visit.service';
 import { VisitDeleteDialogComponent } from './visit-delete-dialog.component';
+import { UserService } from '../../core/user/user.service';
+import { IPatient } from '../../shared/model/patient.model';
 
 @Component({
   selector: 'jhi-visit',
@@ -15,11 +17,19 @@ import { VisitDeleteDialogComponent } from './visit-delete-dialog.component';
 export class VisitComponent implements OnInit, OnDestroy {
   visits?: IVisit[];
   eventSubscriber?: Subscription;
+  id!: bigint;
 
-  constructor(protected visitService: VisitService, protected eventManager: JhiEventManager, protected modalService: NgbModal) {}
+  constructor(
+    protected visitService: VisitService,
+    protected eventManager: JhiEventManager,
+    protected modalService: NgbModal,
+    protected userService: UserService
+  ) {}
 
   loadAll(): void {
     this.visitService.query().subscribe((res: HttpResponse<IVisit[]>) => (this.visits = res.body || []));
+
+    this.userService.currentId().subscribe((res: bigint) => (this.id = res));
   }
 
   ngOnInit(): void {
@@ -45,5 +55,9 @@ export class VisitComponent implements OnInit, OnDestroy {
   delete(visit: IVisit): void {
     const modalRef = this.modalService.open(VisitDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.visit = visit;
+  }
+
+  filterByUserId(): void {
+    this.visitService.query({ 'user!.id.equals': this.id }).subscribe((res: HttpResponse<IPatient[]>) => (this.visits = res.body || []));
   }
 }

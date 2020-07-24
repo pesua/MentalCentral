@@ -42,4 +42,8 @@ export class UserService {
   authorities(): Observable<string[]> {
     return this.http.get<string[]>(SERVER_API_URL + 'api/users/authorities');
   }
+
+  currentId(): Observable<bigint> {
+    return this.http.get<bigint>(SERVER_API_URL + 'api/users/currentUserId');
+  }
 }
