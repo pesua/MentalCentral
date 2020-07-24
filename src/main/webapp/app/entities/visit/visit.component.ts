@@ -56,8 +56,4 @@ export class VisitComponent implements OnInit, OnDestroy {
     const modalRef = this.modalService.open(VisitDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.visit = visit;
   }
-
-  filterByUserId(): void {
-    this.visitService.query({ 'user!.id.equals': this.id }).subscribe((res: HttpResponse<IPatient[]>) => (this.visits = res.body || []));
-  }
 }
