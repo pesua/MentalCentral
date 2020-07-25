@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 import { JhiEventManager } from 'ng-jhipster';
@@ -8,7 +8,6 @@ import { IVisit } from 'app/shared/model/visit.model';
 import { VisitService } from './visit.service';
 import { VisitDeleteDialogComponent } from './visit-delete-dialog.component';
 import { UserService } from '../../core/user/user.service';
-import { IPatient } from '../../shared/model/patient.model';
 
 @Component({
   selector: 'jhi-visit',
