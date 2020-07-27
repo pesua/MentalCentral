@@ -1,11 +1,5 @@
 id;type;time;therapy;user_id;patient_id
-1;FTP;2020-07-21T18:11:53;tan;2;1
-2;Regional hard drive Functionality;2020-07-21T16:26:51;Tuna Cambridgeshire;2;2
-3;Gloves e-business Tasty;2020-07-21T04:13:11;Kuwaiti Dinar;1;3
-4;Handcrafted Steel Gloves;2020-07-21T18:15:47;Directives;1;4
-5;interface Consultant;2020-07-21T17:39:26;Germany;1;5
-6;haptic neural;2020-07-21T19:24:40;data-warehouse Planner;1;6
-7;Fiji Dollar;2020-07-21T03:41:45;maximized Fantastic Concrete Mouse evolve;2;7
-8;Customer-focused Technician;2020-07-21T18:45:04;copying Customer Fantastic Steel Table;1;8
-9;Alaska SMTP Russian Ruble;2020-07-20T22:32:24;Rustic Wooden Table Platinum Cambridgeshire;1;9
-10;integrate;2020-07-20T23:47:27;Wallis and Futuna 5th generation extend;2;10
+1;тип 1;2020-07-21T18:11:53;терапія 1;3;1
+2;тип 2;2020-07-21T18:11:53;терапія 2;3;2
+3;тип 3;2020-07-21T18:11:53;терапія 3;3;3
+4;тип 4;2020-07-21T18:11:53;терапія 4;3;2
