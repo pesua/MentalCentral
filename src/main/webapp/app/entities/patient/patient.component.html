@@ -1,16 +1,22 @@
 <div>
-    <h2 id="page-heading">
-        <span jhiTranslate="mentalCentralApp.patient.home.title">Patients</span>
-        <span class="md-form">
-            <input type="search" [(ngModel)]="search" (ngModelChange)="filterByPatientFullName()"   placeholder="{{'mentalCentralApp.patient.search' | translate}}">
+    <span id="page-heading" class="row">
+        <h2 class="col-md-auto mr-auto mb-2" jhiTranslate="mentalCentralApp.patient.home.title">Patients</h2>
+
+        <span class="col-md-4 mb-2 input-group">
+            <input type="text" class="form-control" [(ngModel)]="search" (ngModelChange)="filterByPatientFullName()"
+                   placeholder="{{'mentalCentralApp.patient.search' | translate}}">
         </span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-patient" [routerLink]="['/patient/new']">
+
+        <span class="col-md-auto mb-2">
+        <button id="jh-create-entity" class="btn btn-primary w-100 jh-create-entity create-patient"
+                [routerLink]="['/patient/new']">
             <fa-icon icon="plus"></fa-icon>
-            <span  jhiTranslate="mentalCentralApp.patient.home.createLabel">
+            <span jhiTranslate="mentalCentralApp.patient.home.createLabel">
             Create a new Patient
             </span>
         </button>
-    </h2>
+        </span>
+    </span>
 
     <jhi-alert-error></jhi-alert-error>
 
@@ -23,51 +29,51 @@
     <div class="table-responsive" id="entities" *ngIf="patients && patients.length > 0">
         <table class="table table-striped" aria-describedby="page-heading">
             <thead>
-                <tr>
-                    <th scope="col" ><span jhiTranslate="mentalCentralApp.patient.fullName">Full Name</span></th>
-                    <th scope="col" ><span jhiTranslate="mentalCentralApp.patient.birthDate">Birth Date</span></th>
-                    <th scope="col" ><span jhiTranslate="mentalCentralApp.patient.address">Address</span></th>
-                    <th scope="col" ><span jhiTranslate="mentalCentralApp.patient.phoneNumber">Phone Number</span></th>
-                    <th scope="col" ><span jhiTranslate="mentalCentralApp.patient.diagnosis">Diagnosis</span></th>
-                    <th scope="col"></th>
-                </tr>
+            <tr>
+                <th scope="col"><span jhiTranslate="mentalCentralApp.patient.fullName">Full Name</span></th>
+                <th scope="col"><span jhiTranslate="mentalCentralApp.patient.birthDate">Birth Date</span></th>
+                <th scope="col"><span jhiTranslate="mentalCentralApp.patient.address">Address</span></th>
+                <th scope="col"><span jhiTranslate="mentalCentralApp.patient.phoneNumber">Phone Number</span></th>
+                <th scope="col"><span jhiTranslate="mentalCentralApp.patient.diagnosis">Diagnosis</span></th>
+                <th scope="col"></th>
+            </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let patient of patients ;trackBy: trackId">
-                    <td>{{ patient.fullName }}</td>
-                    <td>{{ patient.birthDate | date:'mediumDate' }}</td>
-                    <td>{{ patient.address }}</td>
-                    <td>{{ patient.phoneNumber }}</td>
-                    <td>{{ patient.diagnosis }}</td>
-                    <td class="text-right">
-                        <div class="btn-group">
-                            <button type="submit"
-                                    [routerLink]="['/patient', patient.id, 'visits']"
-                                    class="btn btn-dark btn-sm">
-                                <span class="d-none d-md-inline" jhiTranslate="mentalCentralApp.patient.visit">Visits</span>
-                            </button>
-                            <button type="submit"
-                                    [routerLink]="['/patient', patient.id, 'view']"
-                                    class="btn btn-info btn-sm">
-                                <fa-icon icon="eye"></fa-icon>
-                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-                            </button>
+            <tr *ngFor="let patient of patients ;trackBy: trackId">
+                <td>{{ patient.fullName }}</td>
+                <td>{{ patient.birthDate | date:'mediumDate' }}</td>
+                <td>{{ patient.address }}</td>
+                <td>{{ patient.phoneNumber }}</td>
+                <td>{{ patient.diagnosis }}</td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/patient', patient.id, 'visits']"
+                                class="btn btn-dark btn-sm">
+                            <span class="d-none d-md-inline" jhiTranslate="mentalCentralApp.patient.visit">Visits</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/patient', patient.id, 'view']"
+                                class="btn btn-info btn-sm">
+                            <fa-icon icon="eye"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
 
-                            <button type="submit"
-                                    [routerLink]="['/patient', patient.id, 'edit']"
-                                    class="btn btn-primary btn-sm">
-                                <fa-icon icon="pencil-alt"></fa-icon>
-                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-                            </button>
+                        <button type="submit"
+                                [routerLink]="['/patient', patient.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon icon="pencil-alt"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
 
-                            <button type="submit" (click)="delete(patient)"
-                                    class="btn btn-danger btn-sm">
-                                <fa-icon icon="times"></fa-icon>
-                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-                            </button>
-                        </div>
-                    </td>
-                </tr>
+                        <button type="submit" (click)="delete(patient)"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon icon="times"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
             </tbody>
         </table>
     </div>
