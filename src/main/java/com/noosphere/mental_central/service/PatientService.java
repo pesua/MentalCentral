@@ -61,6 +61,8 @@ public class PatientService {
         return patientRepository.findById(id);
     }
 
+
+
     /**
      * Delete the patient by id.
      *

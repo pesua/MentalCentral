@@ -1,10 +1,12 @@
 package com.noosphere.mental_central.web.rest;
 
 import com.noosphere.mental_central.domain.Patient;
+import com.noosphere.mental_central.repository.PatientRepository;
 import com.noosphere.mental_central.service.PatientQueryService;
 import com.noosphere.mental_central.service.PatientService;
 import com.noosphere.mental_central.service.dto.PatientCriteria;
 import com.noosphere.mental_central.web.rest.errors.BadRequestAlertException;
+import com.noosphere.mental_central.web.rest.errors.PatientAlreadyExistsException;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
@@ -38,9 +40,12 @@ public class PatientResource {
 
     private final PatientQueryService patientQueryService;
 
-    public PatientResource(PatientService patientService, PatientQueryService patientQueryService) {
+    private final PatientRepository patientRepository;
+
+    public PatientResource(PatientService patientService, PatientQueryService patientQueryService, PatientRepository patientRepository) {
         this.patientService = patientService;
         this.patientQueryService = patientQueryService;
+        this.patientRepository = patientRepository;
     }
 
     /**
@@ -58,6 +63,12 @@ public class PatientResource {
         if (patient.getId() != null) {
             throw new BadRequestAlertException("A new patient cannot already have an ID", ENTITY_NAME, "idexists");
         }
+
+        Optional<Patient> existingPatient = patientRepository.findOneByFullNameIgnoreCase(patient.getFullName());
+        if (existingPatient.isPresent() && existingPatient.get().getBirthDate().equals(patient.getBirthDate())) {
+            throw new PatientAlreadyExistsException();
+        }
+
         Patient result = patientService.save(patient);
         return ResponseEntity.created(new URI("/api/patients/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
