@@ -15,8 +15,11 @@ import { PatientDeleteDialogComponent } from './patient-delete-dialog.component'
 export class PatientComponent implements OnInit, OnDestroy {
   patients?: IPatient[];
   eventSubscriber?: Subscription;
+  search: string;
 
-  constructor(protected patientService: PatientService, protected eventManager: JhiEventManager, protected modalService: NgbModal) {}
+  constructor(protected patientService: PatientService, protected eventManager: JhiEventManager, protected modalService: NgbModal) {
+    this.search = '';
+  }
 
   loadAll(): void {
     this.patientService.query().subscribe((res: HttpResponse<IPatient[]>) => (this.patients = res.body || []));
@@ -45,5 +48,11 @@ export class PatientComponent implements OnInit, OnDestroy {
   delete(patient: IPatient): void {
     const modalRef = this.modalService.open(PatientDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.patient = patient;
+  }
+
+  filterByPatientFullName(): void {
+    this.patientService
+      .query({ 'fullName.contains': this.search })
+      .subscribe((res: HttpResponse<IPatient[]>) => (this.patients = res.body || []));
   }
 }

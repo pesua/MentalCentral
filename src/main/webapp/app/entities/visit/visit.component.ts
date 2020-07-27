@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 import { JhiEventManager } from 'ng-jhipster';
@@ -7,6 +7,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IVisit } from 'app/shared/model/visit.model';
 import { VisitService } from './visit.service';
 import { VisitDeleteDialogComponent } from './visit-delete-dialog.component';
+import { UserService } from '../../core/user/user.service';
 
 @Component({
   selector: 'jhi-visit',
@@ -15,11 +16,19 @@ import { VisitDeleteDialogComponent } from './visit-delete-dialog.component';
 export class VisitComponent implements OnInit, OnDestroy {
   visits?: IVisit[];
   eventSubscriber?: Subscription;
+  id!: bigint;
 
-  constructor(protected visitService: VisitService, protected eventManager: JhiEventManager, protected modalService: NgbModal) {}
+  constructor(
+    protected visitService: VisitService,
+    protected eventManager: JhiEventManager,
+    protected modalService: NgbModal,
+    protected userService: UserService
+  ) {}
 
   loadAll(): void {
     this.visitService.query().subscribe((res: HttpResponse<IVisit[]>) => (this.visits = res.body || []));
+
+    this.userService.currentId().subscribe((res: bigint) => (this.id = res));
   }
 
   ngOnInit(): void {

@@ -24,6 +24,7 @@ export class VisitUpdateComponent implements OnInit {
   isSaving = false;
   users: IUser[] = [];
   patients: IPatient[] = [];
+  id!: bigint;
 
   editForm = this.fb.group({
     id: [],
@@ -51,7 +52,7 @@ export class VisitUpdateComponent implements OnInit {
 
       this.updateForm(visit);
 
-      this.userService.query().subscribe((res: HttpResponse<IUser[]>) => (this.users = res.body || []));
+      this.userService.findAllDoctors().subscribe((res: HttpResponse<IUser[]>) => (this.users = res.body || []));
 
       this.patientService.query().subscribe((res: HttpResponse<IPatient[]>) => (this.patients = res.body || []));
     });
