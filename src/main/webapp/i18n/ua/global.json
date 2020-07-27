@@ -38,6 +38,8 @@
     "form": {
       "username.label": "Логін",
       "username.placeholder": "Ваш логін",
+      "currentpassword.label": "Старий пароль",
+      "currentpassword.placeholder": "Старий пароль",
       "newpassword.label": "Новий пароль",
       "newpassword.placeholder": "Новий пароль",
       "confirmpassword.label": "Підтвердження нового пароля",
