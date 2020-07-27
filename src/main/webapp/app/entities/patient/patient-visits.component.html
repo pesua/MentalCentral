@@ -1,0 +1,38 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="mentalCentralApp.patient.visitsOfPatient" [translateValues]="{ fullName: patient!.fullName }"></span>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="allVisits?.length === 0">
+        <span jhiTranslate="mentalCentralApp.visit.home.notFound">No visits found</span>
+    </div>
+    <div class="table-responsive" id="entities" *ngIf="allVisits && allVisits.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+            <tr>
+                <th scope="col" ><span jhiTranslate="mentalCentralApp.visit.type">Type</span></th>
+                <th scope="col" ><span jhiTranslate="mentalCentralApp.visit.time">Time</span></th>
+                <th scope="col" ><span jhiTranslate="mentalCentralApp.visit.therapy">Therapy</span></th>
+                <th scope="col" ><span jhiTranslate="mentalCentralApp.visit.doctor">User</span></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let visit of allVisits | filterByPatientId: patient!.id">
+                <td>{{ visit.type }}</td>
+                <td>{{ visit.time | date:'medium' }}</td>
+                <td>{{ visit.therapy }}</td>
+                <td>{{ visit.user?.lastName }}</td>
+            </tr>
+            </tbody>
+        </table>
+        <button type="submit"
+                (click)="previousState()"
+                class="btn btn-info">
+            <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+        </button>
+    </div>
+</div>

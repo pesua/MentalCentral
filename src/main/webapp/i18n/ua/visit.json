@@ -2,25 +2,25 @@
   "mentalCentralApp": {
     "visit": {
       "home": {
-        "title": "Visits",
-        "createLabel": "Створити новий Visit",
-        "createOrEditLabel": "Створити чи редагувати Visit",
-        "notFound": "No Visits found"
+        "title": "Візити",
+        "createLabel": "Створити новий візит",
+        "createOrEditLabel": "Створити чи редагувати візит",
+        "notFound": "Візитів не знайдено"
       },
-      "created": "Новий Visit створений з ідентифікатором {{ param }}",
-      "updated": "Visit оновлений з ідентифікатором {{ param }}",
-      "deleted": "Visit видалений з ідентифікатором {{ param }}",
+      "created": "Новий візит створений з ідентифікатором {{ param }}",
+      "updated": "Візит оновлений з ідентифікатором {{ param }}",
+      "deleted": "Візит видалений з ідентифікатором {{ param }}",
       "delete": {
-        "question": "Ви впевнені, що хочете видалити Visit {{ id }}?"
+        "question": "Ви впевнені, що хочете видалити Візит {{ id }}?"
       },
       "detail": {
-        "title": "Visit"
+        "title": "Візит"
       },
-      "type": "Type",
-      "time": "Time",
-      "therapy": "Therapy",
-      "user": "User",
-      "patient": "Patient"
+      "type": "Тип",
+      "time": "Час прийому",
+      "therapy": "Терапія",
+      "doctor": "Лікар",
+      "patient": "Пацієнт"
     }
   }
 }
