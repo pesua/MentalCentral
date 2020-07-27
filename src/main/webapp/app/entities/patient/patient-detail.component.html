@@ -39,7 +39,13 @@
             <button type="button"
                     [routerLink]="['/patient', patient.id, 'edit']"
                     class="btn btn-primary">
-                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+            <button type="button"
+                    [routerLink]="['/patient', patient.id, 'visits']"
+                    class="btn btn-primary">
+                <span jhiTranslate="mentalCentralApp.patient.visit">Visits</span>
             </button>
         </div>
     </div>
