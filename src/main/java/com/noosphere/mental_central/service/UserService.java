@@ -8,14 +8,14 @@ import com.noosphere.mental_central.repository.UserRepository;
 import com.noosphere.mental_central.security.AuthoritiesConstants;
 import com.noosphere.mental_central.security.SecurityUtils;
 import com.noosphere.mental_central.service.dto.UserDTO;
-
+import com.noosphere.mental_central.service.mapper.UserMapper;
 import io.github.jhipster.security.RandomUtil;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.CacheManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -43,11 +43,18 @@ public class UserService {
 
     private final CacheManager cacheManager;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository, CacheManager cacheManager) {
+    private final UserMapper userMapper;
+
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository, CacheManager cacheManager, UserMapper userMapper) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authorityRepository = authorityRepository;
         this.cacheManager = cacheManager;
+        this.userMapper = userMapper;
+    }
+
+    static Specification<User> isDoctor(Authority role) {
+        return (obj, cq, cb) -> cb.isMember(role, obj.get("authorities"));
     }
 
     public Optional<User> activateRegistration(String key) {
@@ -127,7 +134,7 @@ public class UserService {
 
     private boolean removeNonActivatedUser(User existingUser) {
         if (existingUser.getActivated()) {
-             return false;
+            return false;
         }
         userRepository.delete(existingUser);
         userRepository.flush();
@@ -260,6 +267,14 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
+    public List<UserDTO> getAllDoctors() {
+        Authority doctors = authorityRepository.findById(AuthoritiesConstants.DOCTOR).get();
+        List<User> userList = userRepository.findAll(Specification.where(isDoctor(doctors)));
+
+        return userMapper.usersToUserDTOs(userList);
+    }
+
+    @Transactional(readOnly = true)
     public Optional<User> getUserWithAuthoritiesByLogin(String login) {
         return userRepository.findOneWithAuthoritiesByLogin(login);
     }
@@ -287,6 +302,7 @@ public class UserService {
 
     /**
      * Gets a list of all the authorities.
+     *
      * @return a list of all the authorities.
      */
     @Transactional(readOnly = true)

@@ -51,7 +51,7 @@ export const patientRoute: Routes = [
       patient: PatientResolve,
     },
     data: {
-      authorities: [Authority.ADMIN, Authority.RECEPTION],
+      authorities: [Authority.ADMIN, Authority.RECEPTION, Authority.DOCTOR],
       pageTitle: 'mentalCentralApp.patient.home.title',
     },
     canActivate: [UserRouteAccessService],

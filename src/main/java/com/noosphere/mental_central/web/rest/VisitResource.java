@@ -52,7 +52,7 @@ public class VisitResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/visits")
-    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_RECEPTION')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_RECEPTION', 'ROLE_DOCTOR')")
     public ResponseEntity<Visit> createVisit(@Valid @RequestBody Visit visit) throws URISyntaxException {
         log.debug("REST request to save Visit : {}", visit);
         if (visit.getId() != null) {
@@ -74,7 +74,7 @@ public class VisitResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/visits")
-    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_RECEPTION')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_RECEPTION', 'ROLE_DOCTOR')")
     public ResponseEntity<Visit> updateVisit(@Valid @RequestBody Visit visit) throws URISyntaxException {
         log.debug("REST request to update Visit : {}", visit);
         if (visit.getId() == null) {

@@ -29,11 +29,21 @@ export class UserService {
     return this.http.get<IUser[]>(this.resourceUrl, { params: options, observe: 'response' });
   }
 
+  findAllDoctors(req?: any): Observable<HttpResponse<IUser[]>> {
+    const options = createRequestOption(req);
+
+    return this.http.get<IUser[]>(this.resourceUrl + '/doctors', { params: options, observe: 'response' });
+  }
+
   delete(login: string): Observable<{}> {
     return this.http.delete(`${this.resourceUrl}/${login}`);
   }
 
   authorities(): Observable<string[]> {
     return this.http.get<string[]>(SERVER_API_URL + 'api/users/authorities');
+  }
+
+  currentId(): Observable<bigint> {
+    return this.http.get<bigint>(SERVER_API_URL + 'api/users/currentUserId');
   }
 }
