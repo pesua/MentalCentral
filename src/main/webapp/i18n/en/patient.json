@@ -21,6 +21,7 @@
       "address": "Address",
       "phoneNumber": "Phone Number",
       "diagnosis": "Diagnosis",
+      "search": "Search",
       "visit": "Visit"
     }
   }
