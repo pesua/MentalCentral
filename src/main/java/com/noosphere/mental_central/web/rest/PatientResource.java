@@ -4,10 +4,8 @@ import com.noosphere.mental_central.domain.Patient;
 import com.noosphere.mental_central.repository.PatientRepository;
 import com.noosphere.mental_central.service.PatientQueryService;
 import com.noosphere.mental_central.service.PatientService;
-import com.noosphere.mental_central.web.rest.errors.BadRequestAlertException;
 import com.noosphere.mental_central.service.dto.PatientCriteria;
-import com.noosphere.mental_central.service.PatientQueryService;
-
+import com.noosphere.mental_central.web.rest.errors.BadRequestAlertException;
 import com.noosphere.mental_central.web.rest.errors.PatientAlreadyExistsException;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
@@ -18,11 +16,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
@@ -71,9 +68,13 @@ public class PatientResource {
             throw new BadRequestAlertException("A new patient cannot already have an ID", ENTITY_NAME, "idexists");
         }
 
-        Optional<Patient> existingPatient = patientRepository.findOneByFullNameIgnoreCase(patient.getFullName());
-        if (existingPatient.isPresent() && existingPatient.get().getBirthDate().equals(patient.getBirthDate())) {
-            throw new PatientAlreadyExistsException();
+        Optional<List<Patient>> existingPatients = patientRepository.findAllByFullNameIgnoreCase(patient.getFullName());
+        if (existingPatients.isPresent()) {
+            for (Patient existingPatient : existingPatients.get()) {
+                if (existingPatient.getBirthDate().equals(patient.getBirthDate())) {
+                    throw new PatientAlreadyExistsException();
+                }
+            }
         }
 
         Patient result = patientService.save(patient);
