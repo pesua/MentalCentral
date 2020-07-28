@@ -38,6 +38,10 @@
     "enableTranslation": true,
     "nativeLanguage": "ua",
     "languages": ["ua", "en", "ru"],
-    "blueprints": []
-  }
+    "blueprints": [],
+    "skipUserManagement": false,
+    "skipClient": false,
+    "skipServer": false
+  },
+  "entities": ["Patient", "Visit"]
 }

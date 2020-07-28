@@ -34,16 +34,14 @@ public class Patient implements Serializable {
     @Column(name = "birth_date", nullable = false)
     private LocalDate birthDate;
 
-    @NotNull
-    @Column(name = "address", nullable = false)
+    @Column(name = "address")
     private String address;
 
-    @NotNull
-    @Column(name = "phone_number", nullable = false)
+    @Pattern(regexp = "[+]380[0-9]{9}")
+    @Column(name = "phone_number")
     private String phoneNumber;
 
-    @NotNull
-    @Column(name = "diagnosis", nullable = false)
+    @Column(name = "diagnosis")
     private Integer diagnosis;
 
     @OneToMany(mappedBy = "patient")

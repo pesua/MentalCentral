@@ -2,10 +2,9 @@
     <h2 id="page-heading">
         <span jhiTranslate="mentalCentralApp.visit.home.title">Visits</span>
 
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-visit"
-                [routerLink]="['/visit/new']">
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-visit" [routerLink]="['/visit/new']">
             <fa-icon icon="plus"></fa-icon>
-            <span jhiTranslate="mentalCentralApp.visit.home.createLabel">
+            <span  jhiTranslate="mentalCentralApp.visit.home.createLabel">
             Create a new Visit
             </span>
         </button>
@@ -22,83 +21,54 @@
     <div class="table-responsive" id="entities" *ngIf="visits && visits.length > 0">
         <table class="table table-striped" aria-describedby="page-heading">
             <thead>
-            <tr>
-                <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
-                <th scope="col"><span jhiTranslate="mentalCentralApp.visit.type">Type</span></th>
-                <th scope="col"><span jhiTranslate="mentalCentralApp.visit.time">Time</span></th>
-                <th scope="col"><span jhiTranslate="mentalCentralApp.visit.therapy">Therapy</span></th>
-                <th scope="col"><span jhiTranslate="mentalCentralApp.visit.doctor">Doctor</span></th>
-                <th scope="col"><span jhiTranslate="mentalCentralApp.visit.patient">Patient</span></th>
-                <th scope="col"></th>
-            </tr>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="reset.bind(this)">
+                    <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="type"><span jhiTranslate="mentalCentralApp.visit.type">Type</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="time"><span jhiTranslate="mentalCentralApp.visit.time">Time</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="therapy"><span jhiTranslate="mentalCentralApp.visit.therapy">Therapy</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="user.lastName"><span jhiTranslate="mentalCentralApp.visit.user">User</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="patient.fullName"><span jhiTranslate="mentalCentralApp.visit.patient">Patient</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"></th>
+                </tr>
             </thead>
-            <tbody *jhiHasAnyAuthority="'ROLE_DOCTOR'">
-            <tr *ngFor="let visit of visits | userIdFilter: id ;trackBy: trackId">
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+                <tr *ngFor="let visit of visits ;trackBy: trackId">
+                    <td><a [routerLink]="['/visit', visit.id, 'view']">{{ visit.id }}</a></td>
+                    <td>{{ visit.type }}</td>
+                    <td>{{ visit.time | date:'medium' }}</td>
+                    <td>{{ visit.therapy }}</td>
+                    <td>
+                        {{ visit.user?.lastName }}
+                    </td>
+                    <td>
+                        <div *ngIf="visit.patient">
+                            <a [routerLink]="['/patient', visit.patient?.id, 'view']" >{{ visit.patient?.fullName }}</a>
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/visit', visit.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            </button>
 
-                <td><a [routerLink]="['/visit', visit.id, 'view']">{{ visit.id }}</a></td>
-                <td>{{ visit.type }}</td>
-                <td>{{ visit.time | date:'medium' }}</td>
-                <td>{{ visit.therapy }}</td>
-                <td>
-                    {{ visit.user?.lastName }}
-                </td>
-                <td>
-                    <div *ngIf="visit.patient">
-                        <a [routerLink]="['/patient', visit.patient?.id, 'view']">{{ visit.patient?.fullName }}</a>
-                    </div>
-                </td>
-                <td class="text-right">
-                    <div class="btn-group">
-                        <button type="submit"
-                                [routerLink]="['/visit', visit.id, 'view']"
-                                class="btn btn-info btn-sm">
-                            <fa-icon icon="eye"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-                        </button>
+                            <button type="submit"
+                                    [routerLink]="['/visit', visit.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            </button>
 
-                    </div>
-                </td>
-            </tr>
-            </tbody>
-            <tbody *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_RECEPTION']">
-            <tr *ngFor="let visit of visits;trackBy: trackId">
-
-                <td><a [routerLink]="['/visit', visit.id, 'view']">{{ visit.id }}</a></td>
-                <td>{{ visit.type }}</td>
-                <td>{{ visit.time | date:'medium' }}</td>
-                <td>{{ visit.therapy }}</td>
-                <td>
-                    {{ visit.user?.lastName }}
-                </td>
-                <td>
-                    <div *ngIf="visit.patient">
-                        <a [routerLink]="['/patient', visit.patient?.id, 'view']">{{ visit.patient?.fullName }}</a>
-                    </div>
-                </td>
-                <td class="text-right">
-                    <div class="btn-group">
-                        <button type="submit"
-                                [routerLink]="['/visit', visit.id, 'view']"
-                                class="btn btn-info btn-sm">
-                            <fa-icon icon="eye"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-                        </button>
-
-                        <button type="submit"
-                                [routerLink]="['/visit', visit.id, 'edit']"
-                                class="btn btn-primary btn-sm">
-                            <fa-icon icon="pencil-alt"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-                        </button>
-
-                        <button type="submit" (click)="delete(visit)"
-                                class="btn btn-danger btn-sm">
-                            <fa-icon icon="times"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-                        </button>
-                    </div>
-                </td>
-            </tr>
+                            <button type="submit" (click)="delete(visit)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>

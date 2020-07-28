@@ -33,8 +33,7 @@ public class Visit implements Serializable {
     @Column(name = "time", nullable = false)
     private ZonedDateTime time;
 
-    @NotNull
-    @Column(name = "therapy", nullable = false)
+    @Column(name = "therapy")
     private String therapy;
 
     @ManyToOne(optional = false)

@@ -207,25 +207,6 @@ public class VisitResourceIT {
 
     @Test
     @Transactional
-    public void checkTherapyIsRequired() throws Exception {
-        int databaseSizeBeforeTest = visitRepository.findAll().size();
-        // set the field null
-        visit.setTherapy(null);
-
-        // Create the Visit, which fails.
-
-
-        restVisitMockMvc.perform(post("/api/visits")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(visit)))
-            .andExpect(status().isBadRequest());
-
-        List<Visit> visitList = visitRepository.findAll();
-        assertThat(visitList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     public void getAllVisits() throws Exception {
         // Initialize the database
         visitRepository.saveAndFlush(visit);

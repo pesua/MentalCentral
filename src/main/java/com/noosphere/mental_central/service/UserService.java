@@ -10,6 +10,7 @@ import com.noosphere.mental_central.security.SecurityUtils;
 import com.noosphere.mental_central.service.dto.UserDTO;
 import com.noosphere.mental_central.service.mapper.UserMapper;
 import io.github.jhipster.security.RandomUtil;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.CacheManager;
@@ -302,7 +303,6 @@ public class UserService {
 
     /**
      * Gets a list of all the authorities.
-     *
      * @return a list of all the authorities.
      */
     @Transactional(readOnly = true)

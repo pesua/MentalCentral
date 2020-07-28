@@ -45,8 +45,8 @@ public class PatientResourceIT {
     private static final String DEFAULT_ADDRESS = "AAAAAAAAAA";
     private static final String UPDATED_ADDRESS = "BBBBBBBBBB";
 
-    private static final String DEFAULT_PHONE_NUMBER = "AAAAAAAAAA";
-    private static final String UPDATED_PHONE_NUMBER = "BBBBBBBBBB";
+    private static final String DEFAULT_PHONE_NUMBER = "+380493900703";
+    private static final String UPDATED_PHONE_NUMBER = "+380416227041";
 
     private static final Integer DEFAULT_DIAGNOSIS = 1;
     private static final Integer UPDATED_DIAGNOSIS = 2;
@@ -171,63 +171,6 @@ public class PatientResourceIT {
         int databaseSizeBeforeTest = patientRepository.findAll().size();
         // set the field null
         patient.setBirthDate(null);
-
-        // Create the Patient, which fails.
-
-
-        restPatientMockMvc.perform(post("/api/patients")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(patient)))
-            .andExpect(status().isBadRequest());
-
-        List<Patient> patientList = patientRepository.findAll();
-        assertThat(patientList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkAddressIsRequired() throws Exception {
-        int databaseSizeBeforeTest = patientRepository.findAll().size();
-        // set the field null
-        patient.setAddress(null);
-
-        // Create the Patient, which fails.
-
-
-        restPatientMockMvc.perform(post("/api/patients")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(patient)))
-            .andExpect(status().isBadRequest());
-
-        List<Patient> patientList = patientRepository.findAll();
-        assertThat(patientList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkPhoneNumberIsRequired() throws Exception {
-        int databaseSizeBeforeTest = patientRepository.findAll().size();
-        // set the field null
-        patient.setPhoneNumber(null);
-
-        // Create the Patient, which fails.
-
-
-        restPatientMockMvc.perform(post("/api/patients")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(patient)))
-            .andExpect(status().isBadRequest());
-
-        List<Patient> patientList = patientRepository.findAll();
-        assertThat(patientList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkDiagnosisIsRequired() throws Exception {
-        int databaseSizeBeforeTest = patientRepository.findAll().size();
-        // set the field null
-        patient.setDiagnosis(null);
 
         // Create the Patient, which fails.
 

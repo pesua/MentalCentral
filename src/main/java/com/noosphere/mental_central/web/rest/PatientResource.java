@@ -4,14 +4,22 @@ import com.noosphere.mental_central.domain.Patient;
 import com.noosphere.mental_central.repository.PatientRepository;
 import com.noosphere.mental_central.service.PatientQueryService;
 import com.noosphere.mental_central.service.PatientService;
-import com.noosphere.mental_central.service.dto.PatientCriteria;
 import com.noosphere.mental_central.web.rest.errors.BadRequestAlertException;
+import com.noosphere.mental_central.service.dto.PatientCriteria;
+import com.noosphere.mental_central.service.PatientQueryService;
+
 import com.noosphere.mental_central.web.rest.errors.PatientAlreadyExistsException;
 import io.github.jhipster.web.util.HeaderUtil;
+import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -55,7 +63,6 @@ public class PatientResource {
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new patient, or with status {@code 400 (Bad Request)} if the patient has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-
     @PostMapping("/patients")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_RECEPTION')")
     public ResponseEntity<Patient> createPatient(@Valid @RequestBody Patient patient) throws URISyntaxException {
@@ -100,14 +107,16 @@ public class PatientResource {
     /**
      * {@code GET  /patients} : get all the patients.
      *
+     * @param pageable the pagination information.
      * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of patients in body.
      */
     @GetMapping("/patients")
-    public ResponseEntity<List<Patient>> getAllPatients(PatientCriteria criteria) {
+    public ResponseEntity<List<Patient>> getAllPatients(PatientCriteria criteria, Pageable pageable) {
         log.debug("REST request to get Patients by criteria: {}", criteria);
-        List<Patient> entityList = patientQueryService.findByCriteria(criteria);
-        return ResponseEntity.ok().body(entityList);
+        Page<Patient> page = patientQueryService.findByCriteria(criteria, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
     /**

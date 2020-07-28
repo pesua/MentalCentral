@@ -20,9 +20,9 @@ export class PatientUpdateComponent implements OnInit {
     id: [],
     fullName: [null, [Validators.required]],
     birthDate: [null, [Validators.required]],
-    address: [null, [Validators.required]],
-    phoneNumber: [null, [Validators.required]],
-    diagnosis: [null, [Validators.required]],
+    address: [],
+    phoneNumber: [null, [Validators.pattern('[+]380[0-9]{9}')]],
+    diagnosis: [],
   });
 
   constructor(protected patientService: PatientService, protected activatedRoute: ActivatedRoute, private fb: FormBuilder) {}

@@ -4,37 +4,26 @@
     {
       "fieldName": "fullName",
       "fieldType": "String",
-      "fieldValidateRules": [
-        "required"
-      ]
+      "fieldValidateRules": ["required"]
     },
     {
       "fieldName": "birthDate",
       "fieldType": "LocalDate",
-      "fieldValidateRules": [
-        "required"
-      ]
+      "fieldValidateRules": ["required"]
     },
     {
       "fieldName": "address",
-      "fieldType": "String",
-      "fieldValidateRules": [
-        "required"
-      ]
+      "fieldType": "String"
     },
     {
       "fieldName": "phoneNumber",
       "fieldType": "String",
-      "fieldValidateRules": [
-        "required"
-      ]
+      "fieldValidateRules": ["pattern"],
+      "fieldValidateRulesPattern": "[+]380[0-9]{9}"
     },
     {
       "fieldName": "diagnosis",
-      "fieldType": "Integer",
-      "fieldValidateRules": [
-        "required"
-      ]
+      "fieldType": "Integer"
     }
   ],
   "relationships": [
@@ -48,12 +37,12 @@
   "changelogDate": "20200721212932",
   "entityTableName": "patient",
   "dto": "no",
-  "pagination": "no",
+  "pagination": "infinite-scroll",
   "service": "serviceClass",
   "jpaMetamodelFiltering": true,
   "fluentMethods": true,
   "readOnly": false,
   "embedded": false,
   "clientRootFolder": "",
-  "applications": "*"
+  "applications": ["MentalCentral"]
 }

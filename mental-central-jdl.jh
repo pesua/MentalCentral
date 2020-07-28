@@ -1,26 +1,64 @@
+application {
+  config {
+    applicationType monolith
+    authenticationType jwt
+    baseName MentalCentral
+    blueprints []
+    buildTool maven
+    cacheProvider ehcache
+    clientFramework angularX
+    clientPackageManager npm
+    clientTheme none
+    creationTimestamp 1595366467110
+    databaseType sql
+    devDatabaseType h2Disk
+    dtoSuffix DTO
+    embeddableLaunchScript false
+    enableHibernateCache true
+    enableSwaggerCodegen false
+    enableTranslation true
+    jhiPrefix jhi
+    jhipsterVersion "6.10.1"
+    jwtSecretKey "M2ZhNDNhMjBmODdiN2E0MGJhODc5YjhmNDdhZjFjZmJjMzBmZTc3N2VhYzNkYmYzNDcyZThkMzRkYjYzMWJjOTcyM2JkYWY1M2M4MjNhZTYwMDJhZWM4OWFkZmI3NjRiNTY1Yzg2MjVlNDU4Zjk3NmNmMDk4ZjYwNzJjYjk0NDc="
+    languages [ua, en, ru]
+    messageBroker false
+    nativeLanguage ua
+    otherModules []
+    packageName com.noosphere.mental_central
+    prodDatabaseType postgresql
+    searchEngine false
+    serverPort 8080
+    serviceDiscoveryType eureka
+    skipClient false
+    skipServer false
+    skipUserManagement false
+    testFrameworks []
+    useSass true
+    websocket false
+  }
+
+  entities Patient, Visit
+}
 
 entity Patient {
   fullName String required,
-
   birthDate LocalDate required,
-  address String required,
-  phoneNumber String required,
-  diagnosis Integer required
+  address String,
+  phoneNumber String pattern(/[+]380[0-9]{9}/),
+  diagnosis Integer
 }
-
 entity Visit {
   type String required,
   time ZonedDateTime required,
-  therapy String required
+  therapy String
 }
-
 relationship OneToMany {
   Patient{visit} to Visit{patient(fullName) required}
 }
-
 relationship ManyToOne {
   Visit{user(lastName) required} to User
 }
 
-service Patient, Visit with serviceClass
-filter Patient, Visit
+paginate all with infinite-scroll
+service all with serviceClass
+filter all

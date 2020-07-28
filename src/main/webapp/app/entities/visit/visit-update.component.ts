@@ -24,13 +24,12 @@ export class VisitUpdateComponent implements OnInit {
   isSaving = false;
   users: IUser[] = [];
   patients: IPatient[] = [];
-  id!: bigint;
 
   editForm = this.fb.group({
     id: [],
     type: [null, [Validators.required]],
     time: [null, [Validators.required]],
-    therapy: [null, [Validators.required]],
+    therapy: [],
     user: [null, Validators.required],
     patient: [null, Validators.required],
   });
@@ -52,7 +51,7 @@ export class VisitUpdateComponent implements OnInit {
 
       this.updateForm(visit);
 
-      this.userService.findAllDoctors().subscribe((res: HttpResponse<IUser[]>) => (this.users = res.body || []));
+      this.userService.query().subscribe((res: HttpResponse<IUser[]>) => (this.users = res.body || []));
 
       this.patientService.query().subscribe((res: HttpResponse<IPatient[]>) => (this.patients = res.body || []));
     });

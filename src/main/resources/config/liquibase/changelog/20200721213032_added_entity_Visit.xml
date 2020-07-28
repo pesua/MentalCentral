@@ -22,7 +22,7 @@
                 <constraints nullable="false" />
             </column>
             <column name="therapy" type="varchar(255)">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
             <column name="user_id" type="bigint">
                 <constraints nullable="false" />
