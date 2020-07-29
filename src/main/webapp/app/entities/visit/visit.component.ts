@@ -9,6 +9,7 @@ import { IVisit } from 'app/shared/model/visit.model';
 import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { VisitService } from './visit.service';
 import { VisitDeleteDialogComponent } from './visit-delete-dialog.component';
+import { UserService } from '../../core/user/user.service';
 
 @Component({
   selector: 'jhi-visit',
@@ -22,12 +23,14 @@ export class VisitComponent implements OnInit, OnDestroy {
   page: number;
   predicate: string;
   ascending: boolean;
+  id!: bigint;
 
   constructor(
     protected visitService: VisitService,
     protected eventManager: JhiEventManager,
     protected modalService: NgbModal,
-    protected parseLinks: JhiParseLinks
+    protected parseLinks: JhiParseLinks,
+    protected userService: UserService
   ) {
     this.visits = [];
     this.itemsPerPage = ITEMS_PER_PAGE;
@@ -47,6 +50,8 @@ export class VisitComponent implements OnInit, OnDestroy {
         sort: this.sort(),
       })
       .subscribe((res: HttpResponse<IVisit[]>) => this.paginateVisits(res.body, res.headers));
+
+    this.userService.currentId().subscribe((res: bigint) => (this.id = res));
   }
 
   reset(): void {

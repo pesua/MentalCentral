@@ -82,7 +82,7 @@ export const patientRoute: Routes = [
     canActivate: [UserRouteAccessService],
   },
   {
-    path: ':id/visits',
+    path: ':id/createVisit',
     component: PatientVisitsComponent,
     resolve: {
       patient: PatientResolve,
