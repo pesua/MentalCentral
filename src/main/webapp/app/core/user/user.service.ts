@@ -31,7 +31,6 @@ export class UserService {
 
   findAllDoctors(req?: any): Observable<HttpResponse<IUser[]>> {
     const options = createRequestOption(req);
-
     return this.http.get<IUser[]>(this.resourceUrl + '/doctors', { params: options, observe: 'response' });
   }
 

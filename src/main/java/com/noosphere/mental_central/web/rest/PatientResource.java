@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -118,6 +119,19 @@ public class PatientResource {
         Page<Patient> page = patientQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+     * {@code GET  /patients} : get all the patients without pagination.
+     *
+     * @param criteria the criteria which the requested entities should match.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of patients in body.
+     */
+    @GetMapping("/patients/no-pagination")
+    public ResponseEntity<List<Patient>> getAllPatients(PatientCriteria criteria) {
+        log.debug("REST request to get Patients by criteria: {}", criteria);
+        List<Patient> patientList = patientQueryService.findByCriteria(criteria);
+        return new ResponseEntity<>(patientList, HttpStatus.OK);
     }
 
     /**
