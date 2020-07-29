@@ -59,7 +59,7 @@
             <tr *ngFor="let patient of patients ;trackBy: trackId">
                 <td><a [routerLink]="['/patient', patient.id, 'view']">{{ patient.id }}</a></td>
                 <td>{{ patient.fullName }}</td>
-                <td>{{ patient.birthDate | date:'mediumDate' }}</td>
+                <td>{{ patient.birthDate | date:'dd MMM yyyy' }}</td>
                 <td>{{ patient.address }}</td>
                 <td>{{ patient.phoneNumber }}</td>
                 <td>{{ patient.diagnosis }}</td>

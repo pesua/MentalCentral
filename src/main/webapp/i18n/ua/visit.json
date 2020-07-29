@@ -3,7 +3,7 @@
     "visit": {
       "home": {
         "title": "Візити",
-        "createLabel": "Створити новий Візит",
+        "createLabel": "Створити візит",
         "createOrEditLabel": "Створити чи редагувати Візит",
         "notFound": "Візити не знайдені"
       },

@@ -3,7 +3,7 @@
     "visit": {
       "home": {
         "title": "Visits",
-        "createLabel": "Create a new Visit",
+        "createLabel": "Create a visit",
         "createOrEditLabel": "Create or edit a Visit",
         "notFound": "No Visits found"
       },
