@@ -20,7 +20,8 @@
       "time": "Time",
       "therapy": "Therapy",
       "doctor": "Doctor",
-      "patient": "Patient"
+      "patient": "Patient",
+      "createVisit": "Create a visit for {{ fullName }}"
     }
   }
 }

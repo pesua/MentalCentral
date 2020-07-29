@@ -20,7 +20,8 @@
       "time": "Время",
       "therapy": "Терапия",
       "doctor": "Доктор",
-      "patient": "Пациент"
+      "patient": "Пациент",
+      "createVisit": "Создать визит для {{ fullName }}"
     }
   }
 }

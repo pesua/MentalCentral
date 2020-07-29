@@ -19,8 +19,9 @@
       "type": "Тип",
       "time": "Час",
       "therapy": "Терапія",
-      "doctor": "Доктор",
-      "patient": "Пацієнт"
+      "doctor": "Лікар",
+      "patient": "Пацієнт",
+      "createVisit": "Створити візит для {{ fullName }}"
     }
   }
 }
