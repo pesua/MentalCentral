@@ -20,6 +20,7 @@ export class PatientVisitsComponent implements OnInit {
   patient!: IPatient;
   isSaving = false;
   users: IUser[] = [];
+  therapy = '';
 
   editForm = this.fb.group({
     id: [],
@@ -60,7 +61,7 @@ export class PatientVisitsComponent implements OnInit {
       id: this.editForm.get(['id'])!.value,
       type: this.editForm.get(['type'])!.value,
       time: this.editForm.get(['time'])!.value ? moment(this.editForm.get(['time'])!.value, DATE_TIME_FORMAT) : undefined,
-      therapy: this.editForm.get(['therapy'])!.value,
+      therapy: this.therapy,
       user: this.editForm.get(['user'])!.value,
       patient: this.patient,
     };
