@@ -68,12 +68,6 @@ public class VisitService {
         return visitRepository.findAllByOrderByTimeDesc(pageable);
     }
 
-//    public Page<Visit> findAll(Pageable pageable) {
-//        log.debug("Request to get all Visits");
-//        return visitRepository.findAll(pageable);
-//    }
-
-
     /**
      * Get one visit by id.
      *
