@@ -9,6 +9,7 @@ import { PatientDeleteDialogComponent } from './patient-delete-dialog.component'
 import { patientRoute } from './patient.route';
 import { PatientVisitsComponent } from './patient-visits.component';
 import { FIlterPipe } from './filter-pipe.pipe';
+import { FilterFieldsPipe } from './filter-fields.pipe';
 
 @NgModule({
   imports: [MentalCentralSharedModule, RouterModule.forChild(patientRoute)],
@@ -19,6 +20,7 @@ import { FIlterPipe } from './filter-pipe.pipe';
     PatientDeleteDialogComponent,
     PatientVisitsComponent,
     FIlterPipe,
+    FilterFieldsPipe,
   ],
   entryComponents: [PatientDeleteDialogComponent],
 })
