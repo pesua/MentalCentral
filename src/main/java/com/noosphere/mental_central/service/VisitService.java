@@ -2,14 +2,22 @@ package com.noosphere.mental_central.service;
 
 import com.noosphere.mental_central.domain.Visit;
 import com.noosphere.mental_central.repository.VisitRepository;
+import com.noosphere.mental_central.security.AuthoritiesConstants;
+import com.noosphere.mental_central.security.SecurityUtils;
+import io.github.jhipster.web.util.PaginationUtil;
+import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -49,6 +57,21 @@ public class VisitService {
         log.debug("Request to get all Visits");
         return visitRepository.findAll(pageable);
     }
+    @Transactional(readOnly = true)
+    public Page<Visit> findAllDocVisits(Pageable pageable) {
+        log.debug("Request to get all doctor’s Visits");
+        return visitRepository.findByUserIsCurrentUser(pageable);
+    }
+    @Transactional(readOnly = true)
+    public Page<Visit> findAllOrderedByTime(Pageable pageable) {
+        log.debug("Request to get all Visits ordered by date");
+        return visitRepository.findAllByOrderByTimeDesc(pageable);
+    }
+
+//    public Page<Visit> findAll(Pageable pageable) {
+//        log.debug("Request to get all Visits");
+//        return visitRepository.findAll(pageable);
+//    }
 
 
     /**
@@ -72,4 +95,6 @@ public class VisitService {
         log.debug("Request to delete Visit : {}", id);
         visitRepository.deleteById(id);
     }
+
+
 }

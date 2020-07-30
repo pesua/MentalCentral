@@ -1,6 +1,8 @@
 package com.noosphere.mental_central.web.rest;
 
 import com.noosphere.mental_central.domain.Visit;
+import com.noosphere.mental_central.security.AuthoritiesConstants;
+import com.noosphere.mental_central.security.SecurityUtils;
 import com.noosphere.mental_central.service.VisitService;
 import com.noosphere.mental_central.web.rest.errors.BadRequestAlertException;
 import com.noosphere.mental_central.service.dto.VisitCriteria;
@@ -9,6 +11,7 @@ import com.noosphere.mental_central.service.VisitQueryService;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
+import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -100,11 +103,20 @@ public class VisitResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of visits in body.
      */
     @GetMapping("/visits")
-    public ResponseEntity<List<Visit>> getAllVisits(VisitCriteria criteria, Pageable pageable) {
-        log.debug("REST request to get Visits by criteria: {}", criteria);
-        Page<Visit> page = visitQueryService.findByCriteria(criteria, pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
-        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    public ResponseEntity<List<Visit>> getAllVisits(@ApiParam Pageable pageable) {
+        log.debug("REST request to get a page of Visits");
+        Page<Visit> page;
+        if(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.DOCTOR)) {
+            page = visitService.findAllDocVisits(pageable);
+        }
+        else if(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.RECEPTION)){
+            page = visitService.findAllOrderedByTime(pageable);
+        }
+        else{
+            page = null;
+        }
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromUriString("/api/visit"), page);
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
     /**
