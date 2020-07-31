@@ -54,8 +54,7 @@
                 <th scope="col"></th>
             </tr>
             </thead>
-            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']"
-                   [infiniteScrollDistance]="0">
+            <tbody>
             <tr *ngFor="let patient of patients | filterFields: search ;trackBy: trackId">
                 <td><a [routerLink]="['/patient', patient.id, 'view']">{{ patient.id }}</a></td>
                 <td>{{ patient.fullName }}</td>
@@ -67,7 +66,7 @@
                     <div class="btn-group">
                         <button type="submit"
                                 [routerLink]="['/patient', patient.id, 'createVisit']"
-                                class="btn btn-primary">
+                                class="btn btn-primary btn-sm">
                             <fa-icon icon="plus"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="mentalCentralApp.visit.home.createLabel">Create a new Visit</span>
                         </button>
