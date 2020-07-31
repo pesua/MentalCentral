@@ -18,6 +18,7 @@
       "diskSpace": "Місце на диску",
       "mail": "Електронна пошта",
       "ping": "Application",
+      "elasticsearch": "Elasticsearch",
       "db": "База даних"
     },
     "table": {

@@ -18,6 +18,7 @@
       "diskSpace": "Место на диске",
       "mail": "Email",
       "ping": "Application",
+      "elasticsearch": "Elasticsearch",
       "db": "База данных"
     },
     "table": {
