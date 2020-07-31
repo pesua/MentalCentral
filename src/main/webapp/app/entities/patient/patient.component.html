@@ -3,7 +3,7 @@
         <h2 class="col-md-auto mr-auto mb-2" jhiTranslate="mentalCentralApp.patient.home.title">Patients</h2>
 
         <span class="col-md-4 mb-2 input-group">
-            <input type="text" class="form-control" [(ngModel)]="search" (ngModelChange)="filterByPatientFullName()"
+            <input type="text" class="form-control" [(ngModel)]="search"
                    placeholder="{{'mentalCentralApp.patient.search' | translate}}">
         </span>
 
@@ -54,23 +54,30 @@
                 <th scope="col"></th>
             </tr>
             </thead>
-            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']"
-                   [infiniteScrollDistance]="0">
-            <tr *ngFor="let patient of patients ;trackBy: trackId">
+            <tbody>
+            <tr *ngFor="let patient of patients; trackBy: trackId">
                 <td><a [routerLink]="['/patient', patient.id, 'view']">{{ patient.id }}</a></td>
                 <td>{{ patient.fullName }}</td>
-                <td>{{ patient.birthDate | date:'mediumDate' }}</td>
+                <td>{{ patient.birthDate | date:'dd MMM yyyy' }}</td>
                 <td>{{ patient.address }}</td>
                 <td>{{ patient.phoneNumber }}</td>
                 <td>{{ patient.diagnosis }}</td>
                 <td class="text-right">
                     <div class="btn-group">
                         <button type="submit"
+                                [routerLink]="['/patient', patient.id, 'createVisit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon icon="plus"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="mentalCentralApp.visit.home.createLabel">Create a new Visit</span>
+                        </button>
+
+                        <button type="submit"
                                 [routerLink]="['/patient', patient.id, 'view']"
                                 class="btn btn-info btn-sm">
                             <fa-icon icon="eye"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                         </button>
+
 
                         <button type="submit"
                                 [routerLink]="['/patient', patient.id, 'edit']"

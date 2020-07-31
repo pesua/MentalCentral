@@ -1,38 +1,69 @@
-<div>
-    <h2 id="page-heading">
-        <span jhiTranslate="mentalCentralApp.patient.visitsOfPatient" [translateValues]="{ fullName: patient!.fullName }"></span>
-    </h2>
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-visit-heading" jhiTranslate="mentalCentralApp.visit.createVisit" [translateValues]="{ fullName: patient.fullName }">Create a visit for</h2>
 
-    <jhi-alert-error></jhi-alert-error>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
 
-    <jhi-alert></jhi-alert>
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
 
-    <div class="alert alert-warning" id="no-result" *ngIf="allVisits?.length === 0">
-        <span jhiTranslate="mentalCentralApp.visit.home.notFound">No visits found</span>
-    </div>
-    <div class="table-responsive" id="entities" *ngIf="allVisits && allVisits.length > 0">
-        <table class="table table-striped" aria-describedby="page-heading">
-            <thead>
-            <tr>
-                <th scope="col" ><span jhiTranslate="mentalCentralApp.visit.type">Type</span></th>
-                <th scope="col" ><span jhiTranslate="mentalCentralApp.visit.time">Time</span></th>
-                <th scope="col" ><span jhiTranslate="mentalCentralApp.visit.therapy">Therapy</span></th>
-                <th scope="col" ><span jhiTranslate="mentalCentralApp.visit.doctor">User</span></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let visit of allVisits | filterByPatientId: patient!.id">
-                <td>{{ visit.type }}</td>
-                <td>{{ visit.time | date:'medium' }}</td>
-                <td>{{ visit.therapy }}</td>
-                <td>{{ visit.user?.lastName }}</td>
-            </tr>
-            </tbody>
-        </table>
-        <button type="submit"
-                (click)="previousState()"
-                class="btn btn-info">
-            <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
-        </button>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="mentalCentralApp.visit.type" for="field_type">Type</label>
+                    <input type="text" class="form-control" name="type" id="field_type"
+                           formControlName="type"/>
+                    <div *ngIf="editForm.get('type')!.invalid && (editForm.get('type')!.dirty || editForm.get('type')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('type')?.errors?.required" jhiTranslate="entity.validation.required">
+                            This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="mentalCentralApp.visit.time" for="field_time">Time</label>
+                    <div class="d-flex">
+                        <input id="field_time" type="datetime-local" class="form-control" name="time" formControlName="time" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                    <div *ngIf="editForm.get('time')!.invalid && (editForm.get('time')!.dirty || editForm.get('time')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('time')?.errors?.required" jhiTranslate="entity.validation.required">
+                            This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               [hidden]="!editForm.get('time')?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                            This field should be a date and time.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="mentalCentralApp.visit.doctor" for="field_user">Doctor</label>
+                    <select class="form-control" id="field_user" name="user" formControlName="user">
+                        <option *ngIf="!editForm.get('user')!.value" [ngValue]="null" selected></option>
+                        <option [ngValue]="userOption.id === editForm.get('user')!.value?.id ? editForm.get('user')!.value : userOption" *ngFor="let userOption of users; trackBy: trackById">{{ userOption.lastName }}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('user')!.invalid && (editForm.get('user')!.dirty || editForm.get('user')!.touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('user')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
     </div>
 </div>

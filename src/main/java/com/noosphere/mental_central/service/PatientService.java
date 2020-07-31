@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -49,7 +50,6 @@ public class PatientService {
         log.debug("Request to get all Patients");
         return patientRepository.findAll(pageable);
     }
-
 
     /**
      * Get one patient by id.

@@ -3,7 +3,7 @@
     "visit": {
       "home": {
         "title": "Визиты",
-        "createLabel": "Создать новый Визит",
+        "createLabel": "Создать визит",
         "createOrEditLabel": "Создать или отредактировать Визит",
         "notFound": "Визиты не найдены"
       },
@@ -20,7 +20,8 @@
       "time": "Время",
       "therapy": "Терапия",
       "doctor": "Доктор",
-      "patient": "Пациент"
+      "patient": "Пациент",
+      "createVisit": "Создать визит для {{ fullName }}"
     }
   }
 }
