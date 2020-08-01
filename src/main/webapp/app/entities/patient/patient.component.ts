@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { JhiEventManager, JhiParseLinks } from 'ng-jhipster';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -22,13 +23,14 @@ export class PatientComponent implements OnInit, OnDestroy {
   page: number;
   predicate: string;
   ascending: boolean;
-  search: string;
+  currentSearch: string;
 
   constructor(
     protected patientService: PatientService,
     protected eventManager: JhiEventManager,
     protected modalService: NgbModal,
-    protected parseLinks: JhiParseLinks
+    protected parseLinks: JhiParseLinks,
+    protected activatedRoute: ActivatedRoute
   ) {
     this.patients = [];
     this.itemsPerPage = ITEMS_PER_PAGE;
@@ -38,10 +40,25 @@ export class PatientComponent implements OnInit, OnDestroy {
     };
     this.predicate = 'id';
     this.ascending = true;
-    this.search = '';
+    this.currentSearch =
+      this.activatedRoute.snapshot && this.activatedRoute.snapshot.queryParams['search']
+        ? this.activatedRoute.snapshot.queryParams['search']
+        : '';
   }
 
   loadAll(): void {
+    if (this.currentSearch) {
+      this.patientService
+        .search({
+          query: this.currentSearch,
+          page: this.page,
+          size: this.itemsPerPage,
+          sort: this.sort(),
+        })
+        .subscribe((res: HttpResponse<IPatient[]>) => this.paginatePatients(res.body, res.headers));
+      return;
+    }
+
     this.patientService
       .query({
         page: this.page,
@@ -59,6 +76,23 @@ export class PatientComponent implements OnInit, OnDestroy {
 
   loadPage(page: number): void {
     this.page = page;
+    this.loadAll();
+  }
+
+  search(query: string): void {
+    this.patients = [];
+    this.links = {
+      last: 0,
+    };
+    this.page = 0;
+    if (query) {
+      this.predicate = '_score';
+      this.ascending = false;
+    } else {
+      this.predicate = 'id';
+      this.ascending = true;
+    }
+    this.currentSearch = query;
     this.loadAll();
   }
 
@@ -103,11 +137,5 @@ export class PatientComponent implements OnInit, OnDestroy {
         this.patients.push(data[i]);
       }
     }
-  }
-
-  filterByPatientFullName(): void {
-    this.patientService
-      .query({ 'fullName.contains': this.search })
-      .subscribe((res: HttpResponse<IPatient[]>) => (this.patients = res.body || []));
   }
 }

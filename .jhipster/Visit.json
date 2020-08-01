@@ -44,5 +44,7 @@
   "readOnly": false,
   "embedded": false,
   "clientRootFolder": "",
-  "applications": ["MentalCentral"]
+  "applications": ["MentalCentral"],
+  "searchEngine": "elasticsearch",
+  "elasticsearch": "elasticsearch"
 }

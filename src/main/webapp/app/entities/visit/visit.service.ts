@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import * as moment from 'moment';
 
 import { SERVER_API_URL } from 'app/app.constants';
-import { createRequestOption } from 'app/shared/util/request-util';
+import { createRequestOption, SearchWithPagination } from 'app/shared/util/request-util';
 import { IVisit } from 'app/shared/model/visit.model';
 
 type EntityResponseType = HttpResponse<IVisit>;
@@ -14,6 +14,7 @@ type EntityArrayResponseType = HttpResponse<IVisit[]>;
 @Injectable({ providedIn: 'root' })
 export class VisitService {
   public resourceUrl = SERVER_API_URL + 'api/visits';
+  public resourceSearchUrl = SERVER_API_URL + 'api/_search/visits';
 
   constructor(protected http: HttpClient) {}
 
@@ -46,6 +47,13 @@ export class VisitService {
 
   delete(id: number): Observable<HttpResponse<{}>> {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
+  }
+
+  search(req: SearchWithPagination): Observable<EntityArrayResponseType> {
+    const options = createRequestOption(req);
+    return this.http
+      .get<IVisit[]>(this.resourceSearchUrl, { params: options, observe: 'response' })
+      .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
 
   protected convertDateFromClient(visit: IVisit): IVisit {

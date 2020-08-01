@@ -1,7 +1,8 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-            <h2 id="jhi-visit-heading" jhiTranslate="mentalCentralApp.visit.home.createOrEditLabel">Create or edit a Visit</h2>
+            <h2 id="jhi-visit-heading" jhiTranslate="mentalCentralApp.visit.home.createOrEditLabel">Create or edit a
+                Visit</h2>
 
             <div>
                 <jhi-alert-error></jhi-alert-error>
@@ -12,65 +13,78 @@
                            formControlName="therapy"/>
                 </div>
                 <div *jhiHasAnyAuthority="'ROLE_RECEPTION'">
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="mentalCentralApp.visit.type" for="field_type">Type</label>
-                    <input type="text" class="form-control" name="type" id="field_type"
-                           formControlName="type"/>
-                    <div *ngIf="editForm.get('type')!.invalid && (editForm.get('type')!.dirty || editForm.get('type')!.touched)">
+                    <div class="form-group">
+                        <label class="form-control-label" jhiTranslate="mentalCentralApp.visit.type" for="field_type">Type</label>
+                        <input type="text" class="form-control" name="type" id="field_type"
+                               formControlName="type"/>
+                        <div
+                            *ngIf="editForm.get('type')!.invalid && (editForm.get('type')!.dirty || editForm.get('type')!.touched)">
+                            <small class="form-text text-danger"
+                                   *ngIf="editForm.get('type')?.errors?.required"
+                                   jhiTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-control-label" jhiTranslate="mentalCentralApp.visit.time" for="field_time">Time</label>
+                        <div class="d-flex">
+                            <input id="field_time" type="datetime-local" class="form-control" name="time"
+                                   formControlName="time" placeholder="YYYY-MM-DD HH:mm"/>
+                        </div>
+                        <div
+                            *ngIf="editForm.get('time')!.invalid && (editForm.get('time')!.dirty || editForm.get('time')!.touched)">
+                            <small class="form-text text-danger"
+                                   *ngIf="editForm.get('time')?.errors?.required"
+                                   jhiTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger"
+                                   [hidden]="!editForm.get('time')?.errors?.ZonedDateTimelocal"
+                                   jhiTranslate="entity.validation.ZonedDateTimelocal">
+                                This field should be a date and time.
+                            </small>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="form-control-label" jhiTranslate="mentalCentralApp.visit.doctor" for="field_user">Doctor</label>
+                        <select class="form-control" id="field_user" name="user" formControlName="user">
+                            <option *ngIf="!editForm.get('user')!.value" [ngValue]="null" selected></option>
+                            <option
+                                [ngValue]="userOption.id === editForm.get('user')!.value?.id ? editForm.get('user')!.value : userOption"
+                                *ngFor="let userOption of users; trackBy: trackById">{{ userOption.lastName }}</option>
+                        </select>
+                    </div>
+                    <div
+                        *ngIf="editForm.get('user')!.invalid && (editForm.get('user')!.dirty || editForm.get('user')!.touched)">
                         <small class="form-text text-danger"
-                               *ngIf="editForm.get('type')?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
+                               *ngIf="editForm.get('user')?.errors?.required" jhiTranslate="entity.validation.required">
+                            This field is required.
+                        </small>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-control-label" jhiTranslate="mentalCentralApp.visit.patient"
+                               for="field_patient">Patient</label>
+                        <select class="form-control" id="field_patient" name="patient" formControlName="patient">
+                            <option *ngIf="!editForm.get('patient')!.value" [ngValue]="null" selected></option>
+                            <option
+                                [ngValue]="patientOption.id === editForm.get('patient')!.value?.id ? editForm.get('patient')!.value : patientOption"
+                                *ngFor="let patientOption of patients; trackBy: trackById">{{ patientOption.fullName }}</option>
+                        </select>
+                    </div>
+                    <div
+                        *ngIf="editForm.get('patient')!.invalid && (editForm.get('patient')!.dirty || editForm.get('patient')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('patient')?.errors?.required"
+                               jhiTranslate="entity.validation.required">
+                            This field is required.
                         </small>
                     </div>
                 </div>
-
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="mentalCentralApp.visit.time" for="field_time">Time</label>
-                    <div class="d-flex">
-                        <input id="field_time" type="datetime-local" class="form-control" name="time" formControlName="time" placeholder="YYYY-MM-DD HH:mm"/>
-                    </div>
-                    <div *ngIf="editForm.get('time')!.invalid && (editForm.get('time')!.dirty || editForm.get('time')!.touched)">
-                        <small class="form-text text-danger"
-                               *ngIf="editForm.get('time')?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                        </small>
-                        <small class="form-text text-danger"
-                            [hidden]="!editForm.get('time')?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
-                            This field should be a date and time.
-                        </small>
-                    </div>
-                </div>
-
-
-
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="mentalCentralApp.visit.doctor" for="field_user">Doctor</label>
-                    <select class="form-control" id="field_user" name="user" formControlName="user">
-                        <option *ngIf="!editForm.get('user')!.value" [ngValue]="null" selected></option>
-                        <option [ngValue]="userOption.id === editForm.get('user')!.value?.id ? editForm.get('user')!.value : userOption" *ngFor="let userOption of users; trackBy: trackById">{{ userOption.lastName }}</option>
-                    </select>
-                </div>
-                <div *ngIf="editForm.get('user')!.invalid && (editForm.get('user')!.dirty || editForm.get('user')!.touched)">
-                    <small class="form-text text-danger"
-                           *ngIf="editForm.get('user')?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                    </small>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="mentalCentralApp.visit.patient" for="field_patient">Patient</label>
-                    <select class="form-control" id="field_patient" name="patient" formControlName="patient">
-                        <option *ngIf="!editForm.get('patient')!.value" [ngValue]="null" selected></option>
-                        <option [ngValue]="patientOption.id === editForm.get('patient')!.value?.id ? editForm.get('patient')!.value : patientOption" *ngFor="let patientOption of patients; trackBy: trackById">{{ patientOption.fullName }}</option>
-                    </select>
-                </div>
-                <div *ngIf="editForm.get('patient')!.invalid && (editForm.get('patient')!.dirty || editForm.get('patient')!.touched)">
-                    <small class="form-text text-danger"
-                           *ngIf="editForm.get('patient')?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                    </small>
-                </div>
-            </div>
             </div>
 
             <div>
@@ -78,7 +92,8 @@
                     <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
                 </button>
 
-                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving"
+                        class="btn btn-primary">
                     <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
                 </button>
             </div>

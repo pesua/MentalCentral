@@ -17,6 +17,7 @@ import io.github.jhipster.service.QueryService;
 import com.noosphere.mental_central.domain.Visit;
 import com.noosphere.mental_central.domain.*; // for static metamodels
 import com.noosphere.mental_central.repository.VisitRepository;
+import com.noosphere.mental_central.repository.search.VisitSearchRepository;
 import com.noosphere.mental_central.service.dto.VisitCriteria;
 
 /**
@@ -33,8 +34,11 @@ public class VisitQueryService extends QueryService<Visit> {
 
     private final VisitRepository visitRepository;
 
-    public VisitQueryService(VisitRepository visitRepository) {
+    private final VisitSearchRepository visitSearchRepository;
+
+    public VisitQueryService(VisitRepository visitRepository, VisitSearchRepository visitSearchRepository) {
         this.visitRepository = visitRepository;
+        this.visitSearchRepository = visitSearchRepository;
     }
 
     /**

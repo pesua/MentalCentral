@@ -17,6 +17,7 @@ import io.github.jhipster.service.QueryService;
 import com.noosphere.mental_central.domain.Patient;
 import com.noosphere.mental_central.domain.*; // for static metamodels
 import com.noosphere.mental_central.repository.PatientRepository;
+import com.noosphere.mental_central.repository.search.PatientSearchRepository;
 import com.noosphere.mental_central.service.dto.PatientCriteria;
 
 /**
@@ -33,8 +34,11 @@ public class PatientQueryService extends QueryService<Patient> {
 
     private final PatientRepository patientRepository;
 
-    public PatientQueryService(PatientRepository patientRepository) {
+    private final PatientSearchRepository patientSearchRepository;
+
+    public PatientQueryService(PatientRepository patientRepository, PatientSearchRepository patientSearchRepository) {
         this.patientRepository = patientRepository;
+        this.patientSearchRepository = patientSearchRepository;
     }
 
     /**

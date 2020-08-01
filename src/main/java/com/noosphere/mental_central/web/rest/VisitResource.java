@@ -29,6 +29,9 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.StreamSupport;
+
+import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * REST controller for managing {@link com.noosphere.mental_central.domain.Visit}.
@@ -157,4 +160,20 @@ public class VisitResource {
         visitService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
+
+    /**
+     * {@code SEARCH  /_search/visits?query=:query} : search for the visit corresponding
+     * to the query.
+     *
+     * @param query the query of the visit search.
+     * @param pageable the pagination information.
+     * @return the result of the search.
+     */
+    @GetMapping("/_search/visits")
+    public ResponseEntity<List<Visit>> searchVisits(@RequestParam String query, Pageable pageable) {
+        log.debug("REST request to search for a page of Visits for query {}", query);
+        Page<Visit> page = visitService.search(query, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+        }
 }
