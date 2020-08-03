@@ -22,7 +22,10 @@
       "therapy": "Терапія",
       "doctor": "Лікар",
       "patient": "Пацієнт",
-      "createVisit": "Створити візит для {{ fullName }}"
+      "createVisit": "Створити візит для {{ fullName }}",
+      "appoint": "Назначити терапію",
+      "stationary": "Стаціонарний",
+      "ambulatory": "Амбулаторний"
     }
   }
 }

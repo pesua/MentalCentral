@@ -22,7 +22,10 @@
       "therapy": "Therapy",
       "doctor": "Doctor",
       "patient": "Patient",
-      "createVisit": "Create a visit for {{ fullName }}"
+      "createVisit": "Create a visit for {{ fullName }}",
+      "appoint": "Appoint therapy",
+      "stationary": "Stationary",
+      "ambulatory": "Ambulatory"
     }
   }
 }

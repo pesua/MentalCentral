@@ -13,7 +13,6 @@ import { IUser } from 'app/core/user/user.model';
 import { UserService } from 'app/core/user/user.service';
 import { IPatient } from 'app/shared/model/patient.model';
 import { PatientService } from 'app/entities/patient/patient.service';
-
 type SelectableEntity = IUser | IPatient;
 
 @Component({
