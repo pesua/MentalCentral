@@ -5,15 +5,21 @@ import com.noosphere.mental_central.domain.Visit;
 import com.noosphere.mental_central.domain.User;
 import com.noosphere.mental_central.domain.Patient;
 import com.noosphere.mental_central.repository.VisitRepository;
+import com.noosphere.mental_central.repository.search.VisitSearchRepository;
 import com.noosphere.mental_central.service.VisitService;
 import com.noosphere.mental_central.service.dto.VisitCriteria;
 import com.noosphere.mental_central.service.VisitQueryService;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -23,11 +29,14 @@ import java.time.Instant;
 import java.time.ZonedDateTime;
 import java.time.ZoneOffset;
 import java.time.ZoneId;
+import java.util.Collections;
 import java.util.List;
 
 import static com.noosphere.mental_central.web.rest.TestUtil.sameInstant;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -35,6 +44,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Integration tests for the {@link VisitResource} REST controller.
  */
 @SpringBootTest(classes = MentalCentralApp.class)
+@ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
 @WithMockUser
 public class VisitResourceIT {
@@ -54,6 +64,14 @@ public class VisitResourceIT {
 
     @Autowired
     private VisitService visitService;
+
+    /**
+     * This repository is mocked in the com.noosphere.mental_central.repository.search test package.
+     *
+     * @see com.noosphere.mental_central.repository.search.VisitSearchRepositoryMockConfiguration
+     */
+    @Autowired
+    private VisitSearchRepository mockVisitSearchRepository;
 
     @Autowired
     private VisitQueryService visitQueryService;
@@ -145,6 +163,9 @@ public class VisitResourceIT {
         assertThat(testVisit.getType()).isEqualTo(DEFAULT_TYPE);
         assertThat(testVisit.getTime()).isEqualTo(DEFAULT_TIME);
         assertThat(testVisit.getTherapy()).isEqualTo(DEFAULT_THERAPY);
+
+        // Validate the Visit in Elasticsearch
+        verify(mockVisitSearchRepository, times(1)).save(testVisit);
     }
 
     @Test
@@ -164,6 +185,9 @@ public class VisitResourceIT {
         // Validate the Visit in the database
         List<Visit> visitList = visitRepository.findAll();
         assertThat(visitList).hasSize(databaseSizeBeforeCreate);
+
+        // Validate the Visit in Elasticsearch
+        verify(mockVisitSearchRepository, times(0)).save(visit);
     }
 
 
@@ -622,6 +646,9 @@ public class VisitResourceIT {
         assertThat(testVisit.getType()).isEqualTo(UPDATED_TYPE);
         assertThat(testVisit.getTime()).isEqualTo(UPDATED_TIME);
         assertThat(testVisit.getTherapy()).isEqualTo(UPDATED_THERAPY);
+
+        // Validate the Visit in Elasticsearch
+        verify(mockVisitSearchRepository, times(2)).save(testVisit);
     }
 
     @Test
@@ -638,6 +665,9 @@ public class VisitResourceIT {
         // Validate the Visit in the database
         List<Visit> visitList = visitRepository.findAll();
         assertThat(visitList).hasSize(databaseSizeBeforeUpdate);
+
+        // Validate the Visit in Elasticsearch
+        verify(mockVisitSearchRepository, times(0)).save(visit);
     }
 
     @Test
@@ -656,5 +686,27 @@ public class VisitResourceIT {
         // Validate the database contains one less item
         List<Visit> visitList = visitRepository.findAll();
         assertThat(visitList).hasSize(databaseSizeBeforeDelete - 1);
+
+        // Validate the Visit in Elasticsearch
+        verify(mockVisitSearchRepository, times(1)).deleteById(visit.getId());
+    }
+
+    @Test
+    @Transactional
+    public void searchVisit() throws Exception {
+        // Configure the mock search repository
+        // Initialize the database
+        visitService.save(visit);
+        when(mockVisitSearchRepository.search(queryStringQuery("id:" + visit.getId()), PageRequest.of(0, 20)))
+            .thenReturn(new PageImpl<>(Collections.singletonList(visit), PageRequest.of(0, 1), 1));
+
+        // Search the visit
+        restVisitMockMvc.perform(get("/api/_search/visits?query=id:" + visit.getId()))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(visit.getId().intValue())))
+            .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE)))
+            .andExpect(jsonPath("$.[*].time").value(hasItem(sameInstant(DEFAULT_TIME))))
+            .andExpect(jsonPath("$.[*].therapy").value(hasItem(DEFAULT_THERAPY)));
     }
 }

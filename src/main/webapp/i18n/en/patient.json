@@ -5,6 +5,7 @@
         "title": "Patients",
         "createLabel": "Create a new Patient",
         "createOrEditLabel": "Create or edit a Patient",
+        "search": "Search for Patient",
         "notFound": "No Patients found"
       },
       "created": "A new Patient is created with identifier {{ param }}",
@@ -21,7 +22,6 @@
       "address": "Address",
       "phoneNumber": "Phone Number",
       "diagnosis": "Diagnosis",
-      "search": "Search",
       "visit": "Visit"
     }
   }

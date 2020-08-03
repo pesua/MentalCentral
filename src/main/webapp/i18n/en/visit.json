@@ -5,6 +5,7 @@
         "title": "Visits",
         "createLabel": "Create a visit",
         "createOrEditLabel": "Create or edit a Visit",
+        "search": "Search for Visit",
         "notFound": "No Visits found"
       },
       "created": "A new Visit is created with identifier {{ param }}",

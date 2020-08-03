@@ -5,6 +5,7 @@ import com.noosphere.mental_central.domain.Authority;
 import com.noosphere.mental_central.domain.User;
 import com.noosphere.mental_central.repository.AuthorityRepository;
 import com.noosphere.mental_central.repository.UserRepository;
+import com.noosphere.mental_central.repository.search.UserSearchRepository;
 import com.noosphere.mental_central.security.AuthoritiesConstants;
 import com.noosphere.mental_central.security.SecurityUtils;
 import com.noosphere.mental_central.service.dto.UserDTO;
@@ -40,15 +41,17 @@ public class UserService {
 
     private final PasswordEncoder passwordEncoder;
 
+    private final UserSearchRepository userSearchRepository;
+
     private final AuthorityRepository authorityRepository;
 
     private final CacheManager cacheManager;
-
     private final UserMapper userMapper;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository, CacheManager cacheManager, UserMapper userMapper) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, UserSearchRepository userSearchRepository, AuthorityRepository authorityRepository, CacheManager cacheManager, UserMapper userMapper) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.userSearchRepository = userSearchRepository;
         this.authorityRepository = authorityRepository;
         this.cacheManager = cacheManager;
         this.userMapper = userMapper;
@@ -65,6 +68,7 @@ public class UserService {
                 // activate given user for the registration key.
                 user.setActivated(true);
                 user.setActivationKey(null);
+                userSearchRepository.save(user);
                 this.clearUserCaches(user);
                 log.debug("Activated user: {}", user);
                 return user;
@@ -128,6 +132,7 @@ public class UserService {
         authorityRepository.findById(AuthoritiesConstants.DOCTOR).ifPresent(authorities::add);
         newUser.setAuthorities(authorities);
         userRepository.save(newUser);
+        userSearchRepository.save(newUser);
         this.clearUserCaches(newUser);
         log.debug("Created Information for User: {}", newUser);
         return newUser;
@@ -135,7 +140,7 @@ public class UserService {
 
     private boolean removeNonActivatedUser(User existingUser) {
         if (existingUser.getActivated()) {
-            return false;
+             return false;
         }
         userRepository.delete(existingUser);
         userRepository.flush();
@@ -171,6 +176,7 @@ public class UserService {
             user.setAuthorities(authorities);
         }
         userRepository.save(user);
+        userSearchRepository.save(user);
         this.clearUserCaches(user);
         log.debug("Created Information for User: {}", user);
         return user;
@@ -205,6 +211,7 @@ public class UserService {
                     .filter(Optional::isPresent)
                     .map(Optional::get)
                     .forEach(managedAuthorities::add);
+                userSearchRepository.save(user);
                 this.clearUserCaches(user);
                 log.debug("Changed Information for User: {}", user);
                 return user;
@@ -215,6 +222,7 @@ public class UserService {
     public void deleteUser(String login) {
         userRepository.findOneByLogin(login).ifPresent(user -> {
             userRepository.delete(user);
+            userSearchRepository.delete(user);
             this.clearUserCaches(user);
             log.debug("Deleted User: {}", user);
         });
@@ -240,6 +248,7 @@ public class UserService {
                 }
                 user.setLangKey(langKey);
                 user.setImageUrl(imageUrl);
+                userSearchRepository.save(user);
                 this.clearUserCaches(user);
                 log.debug("Changed Information for User: {}", user);
             });
@@ -297,6 +306,7 @@ public class UserService {
             .forEach(user -> {
                 log.debug("Deleting not activated user {}", user.getLogin());
                 userRepository.delete(user);
+                userSearchRepository.delete(user);
                 this.clearUserCaches(user);
             });
     }

@@ -4,15 +4,21 @@ import com.noosphere.mental_central.MentalCentralApp;
 import com.noosphere.mental_central.domain.Patient;
 import com.noosphere.mental_central.domain.Visit;
 import com.noosphere.mental_central.repository.PatientRepository;
+import com.noosphere.mental_central.repository.search.PatientSearchRepository;
 import com.noosphere.mental_central.service.PatientService;
 import com.noosphere.mental_central.service.dto.PatientCriteria;
 import com.noosphere.mental_central.service.PatientQueryService;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -20,10 +26,13 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -31,6 +40,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Integration tests for the {@link PatientResource} REST controller.
  */
 @SpringBootTest(classes = MentalCentralApp.class)
+@ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
 @WithMockUser
 public class PatientResourceIT {
@@ -57,6 +67,14 @@ public class PatientResourceIT {
 
     @Autowired
     private PatientService patientService;
+
+    /**
+     * This repository is mocked in the com.noosphere.mental_central.repository.search test package.
+     *
+     * @see com.noosphere.mental_central.repository.search.PatientSearchRepositoryMockConfiguration
+     */
+    @Autowired
+    private PatientSearchRepository mockPatientSearchRepository;
 
     @Autowired
     private PatientQueryService patientQueryService;
@@ -124,6 +142,9 @@ public class PatientResourceIT {
         assertThat(testPatient.getAddress()).isEqualTo(DEFAULT_ADDRESS);
         assertThat(testPatient.getPhoneNumber()).isEqualTo(DEFAULT_PHONE_NUMBER);
         assertThat(testPatient.getDiagnosis()).isEqualTo(DEFAULT_DIAGNOSIS);
+
+        // Validate the Patient in Elasticsearch
+        verify(mockPatientSearchRepository, times(1)).save(testPatient);
     }
 
     @Test
@@ -143,6 +164,9 @@ public class PatientResourceIT {
         // Validate the Patient in the database
         List<Patient> patientList = patientRepository.findAll();
         assertThat(patientList).hasSize(databaseSizeBeforeCreate);
+
+        // Validate the Patient in Elasticsearch
+        verify(mockPatientSearchRepository, times(0)).save(patient);
     }
 
 
@@ -782,6 +806,9 @@ public class PatientResourceIT {
         assertThat(testPatient.getAddress()).isEqualTo(UPDATED_ADDRESS);
         assertThat(testPatient.getPhoneNumber()).isEqualTo(UPDATED_PHONE_NUMBER);
         assertThat(testPatient.getDiagnosis()).isEqualTo(UPDATED_DIAGNOSIS);
+
+        // Validate the Patient in Elasticsearch
+        verify(mockPatientSearchRepository, times(2)).save(testPatient);
     }
 
     @Test
@@ -798,6 +825,9 @@ public class PatientResourceIT {
         // Validate the Patient in the database
         List<Patient> patientList = patientRepository.findAll();
         assertThat(patientList).hasSize(databaseSizeBeforeUpdate);
+
+        // Validate the Patient in Elasticsearch
+        verify(mockPatientSearchRepository, times(0)).save(patient);
     }
 
     @Test
@@ -816,5 +846,29 @@ public class PatientResourceIT {
         // Validate the database contains one less item
         List<Patient> patientList = patientRepository.findAll();
         assertThat(patientList).hasSize(databaseSizeBeforeDelete - 1);
+
+        // Validate the Patient in Elasticsearch
+        verify(mockPatientSearchRepository, times(1)).deleteById(patient.getId());
+    }
+
+    @Test
+    @Transactional
+    public void searchPatient() throws Exception {
+        // Configure the mock search repository
+        // Initialize the database
+        patientService.save(patient);
+        when(mockPatientSearchRepository.search(queryStringQuery("id:" + patient.getId()), PageRequest.of(0, 20)))
+            .thenReturn(new PageImpl<>(Collections.singletonList(patient), PageRequest.of(0, 1), 1));
+
+        // Search the patient
+        restPatientMockMvc.perform(get("/api/_search/patients?query=id:" + patient.getId()))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(patient.getId().intValue())))
+            .andExpect(jsonPath("$.[*].fullName").value(hasItem(DEFAULT_FULL_NAME)))
+            .andExpect(jsonPath("$.[*].birthDate").value(hasItem(DEFAULT_BIRTH_DATE.toString())))
+            .andExpect(jsonPath("$.[*].address").value(hasItem(DEFAULT_ADDRESS)))
+            .andExpect(jsonPath("$.[*].phoneNumber").value(hasItem(DEFAULT_PHONE_NUMBER)))
+            .andExpect(jsonPath("$.[*].diagnosis").value(hasItem(DEFAULT_DIAGNOSIS)));
     }
 }

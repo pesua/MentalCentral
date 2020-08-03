@@ -3,6 +3,7 @@ package com.noosphere.mental_central.service;
 import com.noosphere.mental_central.MentalCentralApp;
 import com.noosphere.mental_central.config.Constants;
 import com.noosphere.mental_central.domain.User;
+import com.noosphere.mental_central.repository.search.UserSearchRepository;
 import com.noosphere.mental_central.repository.UserRepository;
 import com.noosphere.mental_central.service.dto.UserDTO;
 
@@ -27,6 +28,9 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 /**
@@ -53,6 +57,14 @@ public class UserServiceIT {
 
     @Autowired
     private UserService userService;
+
+    /**
+     * This repository is mocked in the com.noosphere.mental_central.repository.search test package.
+     *
+     * @see com.noosphere.mental_central.repository.search.UserSearchRepositoryMockConfiguration
+     */
+    @Autowired
+    private UserSearchRepository mockUserSearchRepository;
 
     @Autowired
     private AuditingHandler auditingHandler;
@@ -168,6 +180,9 @@ public class UserServiceIT {
         userService.removeNotActivatedUsers();
         users = userRepository.findAllByActivatedIsFalseAndActivationKeyIsNotNullAndCreatedDateBefore(threeDaysAgo);
         assertThat(users).isEmpty();
+
+        // Verify Elasticsearch mock
+        verify(mockUserSearchRepository, times(1)).delete(user);
     }
 
     @Test
@@ -185,6 +200,9 @@ public class UserServiceIT {
         userService.removeNotActivatedUsers();
         Optional<User> maybeDbUser = userRepository.findById(dbUser.getId());
         assertThat(maybeDbUser).contains(dbUser);
+
+        // Verify Elasticsearch mock
+        verify(mockUserSearchRepository, never()).delete(user);
     }
 
     @Test

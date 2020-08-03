@@ -27,6 +27,11 @@ eureka:
     service-url:
       defaultZone: http://admin:${jhipster.registry.password}@localhost:8761/eureka/
 
+management:
+  health:
+    elasticsearch:
+      enabled: false
+
 spring:
   profiles:
     active: dev
@@ -57,9 +62,14 @@ spring:
   jpa:
     database-platform: io.github.jhipster.domain.util.FixedH2Dialect
     show-sql: true
+  data:
+    elasticsearch:
+      properties:
+        path:
+          home: target/elasticsearch
   liquibase:
     # Remove 'faker' if you do not want the sample data to be loaded automatically
-    contexts: dev, faker
+    contexts: dev
   mail:
     host: localhost
     port: 25

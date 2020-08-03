@@ -2,6 +2,7 @@ package com.noosphere.mental_central.service;
 
 import com.noosphere.mental_central.domain.Patient;
 import com.noosphere.mental_central.repository.PatientRepository;
+import com.noosphere.mental_central.repository.search.PatientSearchRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,8 +11,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
+
+import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * Service Implementation for managing {@link Patient}.
@@ -24,8 +26,11 @@ public class PatientService {
 
     private final PatientRepository patientRepository;
 
-    public PatientService(PatientRepository patientRepository) {
+    private final PatientSearchRepository patientSearchRepository;
+
+    public PatientService(PatientRepository patientRepository, PatientSearchRepository patientSearchRepository) {
         this.patientRepository = patientRepository;
+        this.patientSearchRepository = patientSearchRepository;
     }
 
     /**
@@ -36,7 +41,9 @@ public class PatientService {
      */
     public Patient save(Patient patient) {
         log.debug("Request to save Patient : {}", patient);
-        return patientRepository.save(patient);
+        Patient result = patientRepository.save(patient);
+        patientSearchRepository.save(result);
+        return result;
     }
 
     /**
@@ -50,6 +57,7 @@ public class PatientService {
         log.debug("Request to get all Patients");
         return patientRepository.findAll(pageable);
     }
+
 
     /**
      * Get one patient by id.
@@ -71,5 +79,18 @@ public class PatientService {
     public void delete(Long id) {
         log.debug("Request to delete Patient : {}", id);
         patientRepository.deleteById(id);
+        patientSearchRepository.deleteById(id);
     }
+
+    /**
+     * Search for the patient corresponding to the query.
+     *
+     * @param query the query of the search.
+     * @param pageable the pagination information.
+     * @return the list of entities.
+     */
+    @Transactional(readOnly = true)
+    public Page<Patient> search(String query, Pageable pageable) {
+        log.debug("Request to search for a page of Patients for query {}", query);
+        return patientSearchRepository.search(queryStringQuery(query), pageable);    }
 }

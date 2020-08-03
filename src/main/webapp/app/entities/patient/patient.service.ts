@@ -6,7 +6,7 @@ import * as moment from 'moment';
 
 import { DATE_FORMAT } from 'app/shared/constants/input.constants';
 import { SERVER_API_URL } from 'app/app.constants';
-import { createRequestOption } from 'app/shared/util/request-util';
+import { createRequestOption, SearchWithPagination } from 'app/shared/util/request-util';
 import { IPatient } from 'app/shared/model/patient.model';
 
 type EntityResponseType = HttpResponse<IPatient>;
@@ -15,6 +15,7 @@ type EntityArrayResponseType = HttpResponse<IPatient[]>;
 @Injectable({ providedIn: 'root' })
 export class PatientService {
   public resourceUrl = SERVER_API_URL + 'api/patients';
+  public resourceSearchUrl = SERVER_API_URL + 'api/_search/patients';
 
   constructor(protected http: HttpClient) {}
 
@@ -54,6 +55,13 @@ export class PatientService {
 
   delete(id: number): Observable<HttpResponse<{}>> {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
+  }
+
+  search(req: SearchWithPagination): Observable<EntityArrayResponseType> {
+    const options = createRequestOption(req);
+    return this.http
+      .get<IPatient[]>(this.resourceSearchUrl, { params: options, observe: 'response' })
+      .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
 
   protected convertDateFromClient(patient: IPatient): IPatient {

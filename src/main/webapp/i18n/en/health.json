@@ -18,6 +18,7 @@
       "diskSpace": "Disk space",
       "mail": "Email",
       "ping": "Application",
+      "elasticsearch": "Elasticsearch",
       "db": "Database"
     },
     "table": {

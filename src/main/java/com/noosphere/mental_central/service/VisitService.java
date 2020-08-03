@@ -2,23 +2,18 @@ package com.noosphere.mental_central.service;
 
 import com.noosphere.mental_central.domain.Visit;
 import com.noosphere.mental_central.repository.VisitRepository;
-import com.noosphere.mental_central.security.AuthoritiesConstants;
-import com.noosphere.mental_central.security.SecurityUtils;
-import io.github.jhipster.web.util.PaginationUtil;
-import io.swagger.annotations.ApiParam;
+import com.noosphere.mental_central.repository.search.VisitSearchRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
+
+import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * Service Implementation for managing {@link Visit}.
@@ -31,8 +26,11 @@ public class VisitService {
 
     private final VisitRepository visitRepository;
 
-    public VisitService(VisitRepository visitRepository) {
+    private final VisitSearchRepository visitSearchRepository;
+
+    public VisitService(VisitRepository visitRepository, VisitSearchRepository visitSearchRepository) {
         this.visitRepository = visitRepository;
+        this.visitSearchRepository = visitSearchRepository;
     }
 
     /**
@@ -43,7 +41,9 @@ public class VisitService {
      */
     public Visit save(Visit visit) {
         log.debug("Request to save Visit : {}", visit);
-        return visitRepository.save(visit);
+        Visit result = visitRepository.save(visit);
+        visitSearchRepository.save(result);
+        return result;
     }
 
     /**
@@ -88,7 +88,18 @@ public class VisitService {
     public void delete(Long id) {
         log.debug("Request to delete Visit : {}", id);
         visitRepository.deleteById(id);
+        visitSearchRepository.deleteById(id);
     }
 
-
+    /**
+     * Search for the visit corresponding to the query.
+     *
+     * @param query the query of the search.
+     * @param pageable the pagination information.
+     * @return the list of entities.
+     */
+    @Transactional(readOnly = true)
+    public Page<Visit> search(String query, Pageable pageable) {
+        log.debug("Request to search for a page of Visits for query {}", query);
+        return visitSearchRepository.search(queryStringQuery(query), pageable);    }
 }
