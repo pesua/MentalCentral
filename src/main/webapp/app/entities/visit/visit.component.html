@@ -35,7 +35,7 @@
             <tr *ngFor="let visit of visits; trackBy: trackId">
                 <td><a [routerLink]="['/visit', visit.id, 'view']">{{ visit.id }}</a></td>
                 <td>{{ visit.type }}</td>
-                <td>{{ visit.time | date:'medium' }}</td>
+                <td>{{ visit.time | date:'dd-MM-yyyy mm:hh' }}</td>
                 <td>{{ visit.therapy }}</td>
                 <td>
                     {{ visit.user?.lastName }}
