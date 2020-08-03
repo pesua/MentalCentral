@@ -21,7 +21,8 @@
       "therapy": "Терапия",
       "doctor": "Доктор",
       "patient": "Пациент",
-      "createVisit": "Создать визит для {{ fullName }}"
+      "createVisit": "Создать визит для {{ fullName }}",
+      "appoint": "Назначить терапию"
     }
   }
 }
