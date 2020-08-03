@@ -22,7 +22,9 @@
       "doctor": "Доктор",
       "patient": "Пациент",
       "createVisit": "Создать визит для {{ fullName }}",
-      "appoint": "Назначить терапию"
+      "appoint": "Назначить терапию",
+      "stationary": "Стационарный",
+      "ambulatory": "Амбулаторный"
     }
   }
 }
