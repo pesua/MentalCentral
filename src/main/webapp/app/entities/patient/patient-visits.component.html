@@ -12,15 +12,11 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="mentalCentralApp.visit.type" for="field_type">Type</label>
-                    <input type="text" class="form-control" name="type" id="field_type"
-                           formControlName="type"/>
-                    <div *ngIf="editForm.get('type')!.invalid && (editForm.get('type')!.dirty || editForm.get('type')!.touched)">
-                        <small class="form-text text-danger"
-                               *ngIf="editForm.get('type')?.errors?.required" jhiTranslate="entity.validation.required">
-                            This field is required.
-                        </small>
-                    </div>
+                    <label class="form-control-label" jhiTranslate="mentalCentralApp.visit.type">Type</label>
+                    <p><input type="radio" value="{{'mentalCentralApp.visit.stationary' | translate}}" name="type" formControlName="type"
+                              ngModel> {{'mentalCentralApp.visit.stationary' | translate}}</p>
+                    <p><input type="radio" value="{{'mentalCentralApp.visit.ambulatory' | translate}}" name="type" formControlName="type"
+                              ngModel> {{'mentalCentralApp.visit.ambulatory' | translate}} </p>
                 </div>
 
                 <div class="form-group">
