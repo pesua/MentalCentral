@@ -3,7 +3,6 @@ import { RouterModule } from '@angular/router';
 
 import { MentalCentralSharedModule } from 'app/shared/shared.module';
 
-import { PasswordStrengthBarComponent } from './password/password-strength-bar.component';
 import { RegisterComponent } from './register/register.component';
 import { ActivateComponent } from './activate/activate.component';
 import { PasswordComponent } from './password/password.component';
@@ -18,7 +17,6 @@ import { accountState } from './account.route';
     ActivateComponent,
     RegisterComponent,
     PasswordComponent,
-    PasswordStrengthBarComponent,
     PasswordResetInitComponent,
     PasswordResetFinishComponent,
     SettingsComponent,
