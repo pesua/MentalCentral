@@ -32,7 +32,6 @@ public class UserExtra implements Serializable {
     private String phoneNumber;
 
     @OneToOne
-
     @MapsId
     @JoinColumn(name = "id")
     private User user;

@@ -28,9 +28,15 @@ public class UserDTO {
     @Size(max = 50)
     private String lastName;
 
+    @Size(max = 50)
+    private String middleName;
+
     @Email
     @Size(min = 5, max = 254)
     private String email;
+
+    @Pattern(regexp = "[+]380[0-9]{9}")
+    private String phoneNumber;
 
     @Size(max = 256)
     private String imageUrl;
@@ -104,12 +110,29 @@ public class UserDTO {
         this.lastName = lastName;
     }
 
+    public String getMiddleName() {
+        return middleName;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+
+
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getImageUrl() {

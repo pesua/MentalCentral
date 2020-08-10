@@ -3,13 +3,17 @@ package com.noosphere.mental_central.service;
 import com.noosphere.mental_central.config.Constants;
 import com.noosphere.mental_central.domain.Authority;
 import com.noosphere.mental_central.domain.User;
+import com.noosphere.mental_central.domain.UserExtra;
 import com.noosphere.mental_central.repository.AuthorityRepository;
+import com.noosphere.mental_central.repository.UserExtraRepository;
 import com.noosphere.mental_central.repository.UserRepository;
+import com.noosphere.mental_central.repository.search.UserExtraSearchRepository;
 import com.noosphere.mental_central.repository.search.UserSearchRepository;
 import com.noosphere.mental_central.security.AuthoritiesConstants;
 import com.noosphere.mental_central.security.SecurityUtils;
 import com.noosphere.mental_central.service.dto.UserDTO;
 import com.noosphere.mental_central.service.mapper.UserMapper;
+import com.noosphere.mental_central.web.rest.vm.ManagedUserVM;
 import io.github.jhipster.security.RandomUtil;
 
 import org.slf4j.Logger;
@@ -39,6 +43,10 @@ public class UserService {
 
     private final UserRepository userRepository;
 
+    private final UserExtraRepository userExtraRepository;
+
+    private final UserExtraSearchRepository userExtraSearchRepository;
+
     private final PasswordEncoder passwordEncoder;
 
     private final UserSearchRepository userSearchRepository;
@@ -46,10 +54,13 @@ public class UserService {
     private final AuthorityRepository authorityRepository;
 
     private final CacheManager cacheManager;
+
     private final UserMapper userMapper;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, UserSearchRepository userSearchRepository, AuthorityRepository authorityRepository, CacheManager cacheManager, UserMapper userMapper) {
+    public UserService(UserRepository userRepository, UserExtraRepository userExtraRepository, UserExtraSearchRepository userExtraSearchRepository, PasswordEncoder passwordEncoder, UserSearchRepository userSearchRepository, AuthorityRepository authorityRepository, CacheManager cacheManager, UserMapper userMapper) {
         this.userRepository = userRepository;
+        this.userExtraRepository = userExtraRepository;
+        this.userExtraSearchRepository = userExtraSearchRepository;
         this.passwordEncoder = passwordEncoder;
         this.userSearchRepository = userSearchRepository;
         this.authorityRepository = authorityRepository;
@@ -137,6 +148,15 @@ public class UserService {
         userSearchRepository.save(newUser);
         this.clearUserCaches(newUser);
         log.debug("Created Information for User: {}", newUser);
+
+        UserExtra newUserExtra = new UserExtra();
+        newUserExtra.setUser(newUser);
+        newUserExtra.setMiddleName(userDTO.getMiddleName());
+        newUserExtra.setPhoneNumber(userDTO.getPhoneNumber());
+        userExtraRepository.save(newUserExtra);
+        userExtraSearchRepository.save(newUserExtra);
+        log.debug("Changed Information for UserExtra: {}", newUserExtra);
+
         return newUser;
     }
 
@@ -144,6 +164,13 @@ public class UserService {
         if (existingUser.getActivated()) {
              return false;
         }
+
+        userExtraRepository.findById(existingUser.getId())
+            .ifPresent(userExtra -> {
+                userExtraRepository.delete(userExtra);
+                userExtraSearchRepository.delete(userExtra);
+            });
+
         userRepository.delete(existingUser);
         userRepository.flush();
         this.clearUserCaches(existingUser);
@@ -216,6 +243,19 @@ public class UserService {
                 userSearchRepository.save(user);
                 this.clearUserCaches(user);
                 log.debug("Changed Information for User: {}", user);
+
+                Optional<UserExtra> userExtra = userExtraRepository.findById(userDTO.getId());
+
+                if (userExtra.isPresent()) {
+                    UserExtra newUserExtra = userExtra.get();
+                    newUserExtra.setUser(user);
+                    newUserExtra.setMiddleName(userDTO.getMiddleName());
+                    newUserExtra.setPhoneNumber(userDTO.getPhoneNumber());
+                    userExtraRepository.save(newUserExtra);
+                    userExtraSearchRepository.save(newUserExtra);
+                    log.debug("Changed Information for UserExtra: {}", userExtra);
+                }
+
                 return user;
             })
             .map(UserDTO::new);
@@ -223,6 +263,12 @@ public class UserService {
 
     public void deleteUser(String login) {
         userRepository.findOneByLogin(login).ifPresent(user -> {
+            userExtraRepository.findById(user.getId())
+                .ifPresent(userExtra -> {
+                    userExtraRepository.delete(userExtra);
+                    userExtraSearchRepository.delete(userExtra);
+                });
+
             userRepository.delete(user);
             userSearchRepository.delete(user);
             this.clearUserCaches(user);
@@ -306,6 +352,12 @@ public class UserService {
         userRepository
             .findAllByActivatedIsFalseAndActivationKeyIsNotNullAndCreatedDateBefore(Instant.now().minus(3, ChronoUnit.DAYS))
             .forEach(user -> {
+                userExtraRepository.findById(user.getId())
+                    .ifPresent(userExtra -> {
+                        userExtraRepository.delete(userExtra);
+                        userExtraSearchRepository.delete(userExtra);
+                    });
+
                 log.debug("Deleting not activated user {}", user.getLogin());
                 userRepository.delete(user);
                 userSearchRepository.delete(user);
