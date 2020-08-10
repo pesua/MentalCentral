@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="MentalCentralApp" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <module name="mental-central" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.noosphere.mental_central.MentalCentralApp" />
+    <option name="ALTERNATIVE_JRE_PATH" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

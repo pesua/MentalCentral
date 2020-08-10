@@ -12,6 +12,10 @@ import { RouterModule } from '@angular/router';
         path: 'visit',
         loadChildren: () => import('./visit/visit.module').then(m => m.MentalCentralVisitModule),
       },
+      {
+        path: 'user-extra',
+        loadChildren: () => import('./user-extra/user-extra.module').then(m => m.MentalCentralUserExtraModule),
+      },
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ]),
   ],
