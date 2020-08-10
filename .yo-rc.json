@@ -41,7 +41,8 @@
     "blueprints": [],
     "skipUserManagement": false,
     "skipClient": false,
-    "skipServer": false
+    "skipServer": false,
+    "lastLiquibaseTimestamp": 1597072721000
   },
   "entities": ["Patient", "Visit"]
 }

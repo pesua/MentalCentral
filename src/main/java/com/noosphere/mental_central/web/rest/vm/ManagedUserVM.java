@@ -1,6 +1,8 @@
 package com.noosphere.mental_central.web.rest.vm;
 
 import com.noosphere.mental_central.service.dto.UserDTO;
+
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 /**

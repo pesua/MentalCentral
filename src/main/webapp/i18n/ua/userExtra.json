@@ -1,0 +1,25 @@
+{
+  "mentalCentralApp": {
+    "userExtra": {
+      "home": {
+        "title": "User Extras",
+        "createLabel": "Створити новий User Extra",
+        "createOrEditLabel": "Створити чи редагувати User Extra",
+        "search": "Знайти User Extra",
+        "notFound": "No User Extras found"
+      },
+      "created": "Новий User Extra створений з ідентифікатором {{ param }}",
+      "updated": "User Extra оновлений з ідентифікатором {{ param }}",
+      "deleted": "User Extra видалений з ідентифікатором {{ param }}",
+      "delete": {
+        "question": "Ви впевнені, що хочете видалити User Extra {{ id }}?"
+      },
+      "detail": {
+        "title": "User Extra"
+      },
+      "middleName": "Middle Name",
+      "phoneNumber": "Phone Number",
+      "user": "User"
+    }
+  }
+}

@@ -359,7 +359,7 @@ public class AccountResourceIT {
         assertThat(testUser4.get().getEmail()).isEqualTo("test-register-duplicate-email@example.com");
 
         testUser4.get().setActivated(true);
-        userService.updateUser((new UserDTO(testUser4.get())));
+        userService.updateUser((ManagedUserVM) new UserDTO(testUser4.get()));
 
         // Register 4th (already activated) user
         restAccountMockMvc.perform(

@@ -12,6 +12,7 @@ import com.noosphere.mental_central.web.rest.errors.BadRequestAlertException;
 import com.noosphere.mental_central.web.rest.errors.EmailAlreadyUsedException;
 import com.noosphere.mental_central.web.rest.errors.LoginAlreadyUsedException;
 
+import com.noosphere.mental_central.web.rest.vm.ManagedUserVM;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;

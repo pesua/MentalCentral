@@ -54,6 +54,7 @@ public class CacheConfiguration {
             createCache(cm, com.noosphere.mental_central.domain.Patient.class.getName());
             createCache(cm, com.noosphere.mental_central.domain.Patient.class.getName() + ".visits");
             createCache(cm, com.noosphere.mental_central.domain.Visit.class.getName());
+            createCache(cm, com.noosphere.mental_central.domain.UserExtra.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

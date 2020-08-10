@@ -9,6 +9,7 @@
         "main": "Сутності",
         "patient": "Пацієнти",
         "visit": "Візити",
+        "userExtra": "User Extra",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {
