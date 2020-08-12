@@ -4,6 +4,7 @@ import com.noosphere.mental_central.config.Constants;
 
 import com.noosphere.mental_central.domain.Authority;
 import com.noosphere.mental_central.domain.User;
+import com.noosphere.mental_central.domain.UserExtra;
 
 import javax.validation.constraints.*;
 import java.time.Instant;
@@ -66,6 +67,26 @@ public class UserDTO {
         this.firstName = user.getFirstName();
         this.lastName = user.getLastName();
         this.email = user.getEmail();
+        this.activated = user.getActivated();
+        this.imageUrl = user.getImageUrl();
+        this.langKey = user.getLangKey();
+        this.createdBy = user.getCreatedBy();
+        this.createdDate = user.getCreatedDate();
+        this.lastModifiedBy = user.getLastModifiedBy();
+        this.lastModifiedDate = user.getLastModifiedDate();
+        this.authorities = user.getAuthorities().stream()
+            .map(Authority::getName)
+            .collect(Collectors.toSet());
+    }
+
+    public UserDTO(User user, UserExtra userExtra) {
+        this.id = user.getId();
+        this.login = user.getLogin();
+        this.firstName = user.getFirstName();
+        this.lastName = user.getLastName();
+        this.middleName = userExtra.getMiddleName();
+        this.email = user.getEmail();
+        this.phoneNumber = userExtra.getPhoneNumber();
         this.activated = user.getActivated();
         this.imageUrl = user.getImageUrl();
         this.langKey = user.getLangKey();

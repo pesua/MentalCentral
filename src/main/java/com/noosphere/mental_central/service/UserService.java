@@ -13,9 +13,7 @@ import com.noosphere.mental_central.security.AuthoritiesConstants;
 import com.noosphere.mental_central.security.SecurityUtils;
 import com.noosphere.mental_central.service.dto.UserDTO;
 import com.noosphere.mental_central.service.mapper.UserMapper;
-import com.noosphere.mental_central.web.rest.vm.ManagedUserVM;
 import io.github.jhipster.security.RandomUtil;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.CacheManager;
@@ -162,7 +160,7 @@ public class UserService {
 
     private boolean removeNonActivatedUser(User existingUser) {
         if (existingUser.getActivated()) {
-             return false;
+            return false;
         }
 
         userExtraRepository.findById(existingUser.getId())
@@ -328,8 +326,10 @@ public class UserService {
     public List<UserDTO> getAllDoctors() {
         Authority doctors = authorityRepository.findById(AuthoritiesConstants.DOCTOR).get();
         List<User> userList = userRepository.findAll(Specification.where(isDoctor(doctors)));
+        List<UserExtra> userExtraList = userExtraRepository.findAllById(userList.stream()
+            .map(User::getId).collect(Collectors.toList()));
 
-        return userMapper.usersToUserDTOs(userList);
+        return userMapper.usersToUserDTOs(userList, userExtraList);
     }
 
     @Transactional(readOnly = true)
@@ -367,6 +367,7 @@ public class UserService {
 
     /**
      * Gets a list of all the authorities.
+     *
      * @return a list of all the authorities.
      */
     @Transactional(readOnly = true)
