@@ -2,8 +2,8 @@ package com.noosphere.mental_central.service.mapper;
 
 import com.noosphere.mental_central.domain.Authority;
 import com.noosphere.mental_central.domain.User;
+import com.noosphere.mental_central.domain.UserExtra;
 import com.noosphere.mental_central.service.dto.UserDTO;
-
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 /**
  * Mapper for the entity {@link User} and its DTO called {@link UserDTO}.
- *
+ * <p>
  * Normal mappers are generated using MapStruct, this one is hand-coded as MapStruct
  * support is still in beta, and requires a manual step with an IDE.
  */
@@ -25,8 +25,29 @@ public class UserMapper {
             .collect(Collectors.toList());
     }
 
+    public List<UserDTO> usersToUserDTOs(List<User> users, List<UserExtra> userExtras) {
+        List<UserDTO> userDTOList = new ArrayList<>();
+
+        users.stream()
+            .filter(Objects::nonNull)
+            .forEach(u -> {
+                Optional<UserDTO> userDTO = userExtras.stream()
+                    .filter(ue -> Objects.equals(ue.getId(), u.getId()))
+                    .map(ue -> userToUserDTO(u, ue))
+                    .findFirst();
+
+                userDTO.ifPresent(userDTOList::add);
+            });
+
+        return userDTOList;
+    }
+
     public UserDTO userToUserDTO(User user) {
         return new UserDTO(user);
+    }
+
+    public UserDTO userToUserDTO(User user, UserExtra userExtra) {
+        return new UserDTO(user, userExtra);
     }
 
     public List<User> userDTOsToUsers(List<UserDTO> userDTOs) {
