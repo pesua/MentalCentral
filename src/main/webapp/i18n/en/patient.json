@@ -6,7 +6,8 @@
         "createLabel": "Create a new Patient",
         "createOrEditLabel": "Create or edit a Patient",
         "search": "Search for Patient",
-        "notFound": "No Patients found"
+        "notFound": "No Patients found",
+        "assignDiagnose": "Assign diagnose"
       },
       "created": "A new Patient is created with identifier {{ param }}",
       "updated": "A Patient is updated with identifier {{ param }}",

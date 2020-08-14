@@ -66,7 +66,6 @@ public class PatientResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/patients")
-    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_RECEPTION')")
     public ResponseEntity<Patient> createPatient(@Valid @RequestBody Patient patient) throws URISyntaxException {
         log.debug("REST request to save Patient : {}", patient);
         if (patient.getId() != null) {
@@ -98,7 +97,6 @@ public class PatientResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/patients")
-    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_RECEPTION')")
     public ResponseEntity<Patient> updatePatient(@Valid @RequestBody Patient patient) throws URISyntaxException {
         log.debug("REST request to update Patient : {}", patient);
         if (patient.getId() == null) {
