@@ -8,10 +8,18 @@ import { PatientUpdateComponent } from './patient-update.component';
 import { PatientDeleteDialogComponent } from './patient-delete-dialog.component';
 import { patientRoute } from './patient.route';
 import { PatientVisitsComponent } from './patient-visits.component';
+import { FilterVisitsPipe } from './filter-visits.pipe';
 
 @NgModule({
   imports: [MentalCentralSharedModule, RouterModule.forChild(patientRoute)],
-  declarations: [PatientComponent, PatientDetailComponent, PatientUpdateComponent, PatientDeleteDialogComponent, PatientVisitsComponent],
+  declarations: [
+    PatientComponent,
+    PatientDetailComponent,
+    PatientUpdateComponent,
+    PatientDeleteDialogComponent,
+    PatientVisitsComponent,
+    FilterVisitsPipe,
+  ],
   entryComponents: [PatientDeleteDialogComponent],
 })
 export class MentalCentralPatientModule {}

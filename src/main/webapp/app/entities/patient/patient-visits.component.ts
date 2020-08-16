@@ -17,6 +17,7 @@ type SelectableEntity = IUser;
   templateUrl: './patient-visits.component.html',
 })
 export class PatientVisitsComponent implements OnInit {
+  visits!: IVisit[];
   patient!: IPatient;
   isSaving = false;
   users: IUser[] = [];
@@ -47,6 +48,8 @@ export class PatientVisitsComponent implements OnInit {
     this.activatedRoute.data.subscribe(({ patient }) => (this.patient = patient));
 
     this.userService.findAllDoctors().subscribe((res: HttpResponse<IUser[]>) => (this.users = res.body || []));
+
+    this.visitService.query().subscribe((res: HttpResponse<IVisit[]>) => (this.visits = res.body || []));
   }
 
   save(): void {

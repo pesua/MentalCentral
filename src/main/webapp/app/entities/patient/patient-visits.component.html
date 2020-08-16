@@ -59,6 +59,13 @@
                         This field is required.
                     </small>
                 </div>
+
+            </div>
+            <div class = "form-group" *ngIf="editForm.get('user')!.value">
+                <p>Графік лікаря {{editForm.get('user')!.value.firstName}}</p>
+                <tr *ngFor="let visit of visits | filterVisits: editForm.get('user')!.value.id">
+                    <td>{{ visit.time | date:'dd.MM.yyyy HH:mm' }}</td>
+                </tr>
             </div>
 
             <div>
