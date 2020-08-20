@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IPatient } from '../../shared/model/patient.model';
 import { VisitService } from '../visit/visit.service';
@@ -16,7 +16,9 @@ type SelectableEntity = IUser;
 
 @Component({
   selector: 'jhi-patient-visits',
+
   templateUrl: './patient-visits.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PatientVisitsComponent implements OnInit {
   visits!: IVisit[];

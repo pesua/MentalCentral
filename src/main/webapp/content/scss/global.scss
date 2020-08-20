@@ -34,6 +34,17 @@ a:not([href]):not([tabindex]):hover.dropdown-item {
   background-color: mix($dropdown-link-hover-bg, $dropdown-link-active-bg, 50%);
 }
 
+.viewport {
+  height: 120px;
+  width: 200px;
+  border: 1px solid cornflowerblue;
+  border-radius: 1%;
+}
+
+.item {
+  height: 40px;
+}
+
 a:hover {
   /* make sure browsers use the pointer cursor for anchors, even with no href */
   cursor: pointer;
