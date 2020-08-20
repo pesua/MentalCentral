@@ -11,7 +11,9 @@ import { PatientService } from './patient.service';
 import * as moment from 'moment';
 import { DATE_TIME_FORMAT } from '../../shared/constants/input.constants';
 import { Observable } from 'rxjs';
+
 type SelectableEntity = IUser;
+
 @Component({
   selector: 'jhi-patient-visits',
   templateUrl: './patient-visits.component.html',
@@ -22,6 +24,8 @@ export class PatientVisitsComponent implements OnInit {
   isSaving = false;
   users: IUser[] = [];
   therapy = '';
+  choosenTime!: Date;
+  sortingVisits!: IVisit[];
 
   editForm = this.fb.group({
     id: [],
@@ -84,6 +88,29 @@ export class PatientVisitsComponent implements OnInit {
 
   protected onSaveError(): void {
     this.isSaving = false;
+  }
+
+  public isCorrectChosenTime(): boolean {
+    this.choosenTime = this.editForm.get(['time'])!.value;
+    for (let i = 0; i < this.visits.length; i++) {
+      if (
+        this.choosenTime.getDate() === this.visits[i].time!.date() &&
+        this.choosenTime.getFullYear() === this.visits[i].time!.year() &&
+        this.choosenTime.getHours() * 60 +
+          this.choosenTime.getMinutes() -
+          this.visits[i].time!.hours() * 60 +
+          this.visits[i].time!.minutes() <=
+          60 &&
+        this.choosenTime.getHours() * 60 +
+          this.choosenTime.getMinutes() -
+          this.visits[i].time!.hours() * 60 +
+          this.visits[i].time!.minutes() >=
+          -60
+      ) {
+        return true;
+      }
+    }
+    return false;
   }
 
   trackById(index: number, item: SelectableEntity): any {
