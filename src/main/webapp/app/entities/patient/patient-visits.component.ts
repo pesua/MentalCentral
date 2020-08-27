@@ -92,29 +92,6 @@ export class PatientVisitsComponent implements OnInit {
     this.isSaving = false;
   }
 
-  public isCorrectChosenTime(): boolean {
-    this.choosenTime = this.editForm.get(['time'])!.value;
-    for (let i = 0; i < this.visits.length; i++) {
-      if (
-        this.choosenTime.getDate() === this.visits[i].time!.date() &&
-        this.choosenTime.getFullYear() === this.visits[i].time!.year() &&
-        this.choosenTime.getHours() * 60 +
-          this.choosenTime.getMinutes() -
-          this.visits[i].time!.hours() * 60 +
-          this.visits[i].time!.minutes() <=
-          60 &&
-        this.choosenTime.getHours() * 60 +
-          this.choosenTime.getMinutes() -
-          this.visits[i].time!.hours() * 60 +
-          this.visits[i].time!.minutes() >=
-          -60
-      ) {
-        return true;
-      }
-    }
-    return false;
-  }
-
   trackById(index: number, item: SelectableEntity): any {
     return item.id;
   }
