@@ -3,9 +3,10 @@ package com.noosphere.mental_central.service;
 import com.noosphere.mental_central.domain.Patient;
 import com.noosphere.mental_central.repository.PatientRepository;
 import com.noosphere.mental_central.repository.search.PatientSearchRepository;
+import org.elasticsearch.common.unit.Fuzziness;
+import org.elasticsearch.index.query.MultiMatchQueryBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
+import static org.elasticsearch.index.query.QueryBuilders.multiMatchQuery;
 
 /**
  * Service Implementation for managing {@link Patient}.
@@ -85,12 +86,17 @@ public class PatientService {
     /**
      * Search for the patient corresponding to the query.
      *
-     * @param query the query of the search.
+     * @param query    the query of the search.
      * @param pageable the pagination information.
      * @return the list of entities.
      */
     @Transactional(readOnly = true)
     public Page<Patient> search(String query, Pageable pageable) {
+        MultiMatchQueryBuilder multiMatchQueryBuilder = multiMatchQuery(
+            query, Patient.getSearchFieldNames()
+        ).fuzziness(Fuzziness.AUTO);
+
         log.debug("Request to search for a page of Patients for query {}", query);
-        return patientSearchRepository.search(queryStringQuery(query), pageable);    }
+        return patientSearchRepository.search(multiMatchQueryBuilder, pageable);
+    }
 }

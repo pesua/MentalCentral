@@ -4,9 +4,8 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
-
-import org.springframework.data.elasticsearch.annotations.FieldType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -149,6 +148,14 @@ public class Patient implements Serializable {
         this.visits = visits;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
+
+    public static String[] getSearchFieldNames() {
+        return new String[]{
+            "fullName",
+            "address",
+            "phoneNumber"
+        };
+    }
 
     @Override
     public boolean equals(Object o) {
