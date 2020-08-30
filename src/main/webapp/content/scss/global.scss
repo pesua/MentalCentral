@@ -41,6 +41,14 @@ a:not([href]):not([tabindex]):hover.dropdown-item {
   border-radius: 1%;
 }
 
+.visits-viewport {
+  height: 160px;
+  width: 500px;
+  border: 1px solid cornflowerblue;
+  border-radius: 1%;
+  padding: 20px;
+}
+
 .item {
   height: 40px;
 }

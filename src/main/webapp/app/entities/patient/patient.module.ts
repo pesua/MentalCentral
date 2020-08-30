@@ -10,6 +10,7 @@ import { patientRoute } from './patient.route';
 import { PatientVisitsComponent } from './patient-visits.component';
 import { FilterVisitsPipe } from './filter-visits.pipe';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { FilterVisitsByPatientIdPipe } from './filter-visits-by-patient-id.pipe';
 
 @NgModule({
   imports: [MentalCentralSharedModule, RouterModule.forChild(patientRoute), ScrollingModule],
@@ -20,6 +21,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     PatientDeleteDialogComponent,
     PatientVisitsComponent,
     FilterVisitsPipe,
+    FilterVisitsByPatientIdPipe,
   ],
   entryComponents: [PatientDeleteDialogComponent],
 })
