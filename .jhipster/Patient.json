@@ -23,7 +23,7 @@
     },
     {
       "fieldName": "diagnosis",
-      "fieldType": "Integer"
+      "fieldType": "String"
     }
   ],
   "relationships": [

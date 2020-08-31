@@ -6,7 +6,7 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-    
+
     <!--
         Added the entity Patient.
     -->
@@ -27,7 +27,7 @@
             <column name="phone_number" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="diagnosis" type="integer">
+            <column name="diagnosis" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
@@ -57,7 +57,7 @@
             <column name="birth_date" type="date"/>
             <column name="address" type="string"/>
             <column name="phone_number" type="string"/>
-            <column name="diagnosis" type="numeric"/>
+            <column name="diagnosis" type="string"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

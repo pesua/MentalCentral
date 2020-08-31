@@ -35,7 +35,7 @@ public class PatientCriteria implements Serializable, Criteria {
 
     private StringFilter phoneNumber;
 
-    private IntegerFilter diagnosis;
+    private StringFilter diagnosis;
 
     private LongFilter visitId;
 
@@ -97,11 +97,11 @@ public class PatientCriteria implements Serializable, Criteria {
         this.phoneNumber = phoneNumber;
     }
 
-    public IntegerFilter getDiagnosis() {
+    public StringFilter getDiagnosis() {
         return diagnosis;
     }
 
-    public void setDiagnosis(IntegerFilter diagnosis) {
+    public void setDiagnosis(StringFilter diagnosis) {
         this.diagnosis = diagnosis;
     }
 

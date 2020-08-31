@@ -102,7 +102,7 @@ public class PatientQueryService extends QueryService<Patient> {
                 specification = specification.and(buildStringSpecification(criteria.getPhoneNumber(), Patient_.phoneNumber));
             }
             if (criteria.getDiagnosis() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getDiagnosis(), Patient_.diagnosis));
+                specification = specification.and(buildStringSpecification(criteria.getDiagnosis(), Patient_.diagnosis));
             }
             if (criteria.getVisitId() != null) {
                 specification = specification.and(buildSpecification(criteria.getVisitId(),

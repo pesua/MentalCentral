@@ -7,7 +7,7 @@ export interface IPatient {
   birthDate?: Moment;
   address?: string;
   phoneNumber?: string;
-  diagnosis?: number;
+  diagnosis?: string;
   visits?: IVisit[];
 }
 
@@ -18,7 +18,7 @@ export class Patient implements IPatient {
     public birthDate?: Moment,
     public address?: string,
     public phoneNumber?: string,
-    public diagnosis?: number,
+    public diagnosis?: string,
     public visits?: IVisit[]
   ) {}
 }

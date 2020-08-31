@@ -22,7 +22,7 @@ export class PatientUpdateComponent implements OnInit {
     birthDate: [null, [Validators.required]],
     address: [],
     phoneNumber: [null, [Validators.pattern('[+]380[0-9]{9}')]],
-    diagnosis: [],
+    diagnosis: [null],
   });
 
   constructor(protected patientService: PatientService, protected activatedRoute: ActivatedRoute, private fb: FormBuilder) {}

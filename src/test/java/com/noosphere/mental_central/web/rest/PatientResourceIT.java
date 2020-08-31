@@ -58,9 +58,9 @@ public class PatientResourceIT {
     private static final String DEFAULT_PHONE_NUMBER = "+380493900703";
     private static final String UPDATED_PHONE_NUMBER = "+380416227041";
 
-    private static final Integer DEFAULT_DIAGNOSIS = 1;
-    private static final Integer UPDATED_DIAGNOSIS = 2;
-    private static final Integer SMALLER_DIAGNOSIS = 1 - 1;
+    private static final String DEFAULT_DIAGNOSIS = "a";
+    private static final String UPDATED_DIAGNOSIS = "b";
+    private static final String SMALLER_DIAGNOSIS = "a";
 
     @Autowired
     private PatientRepository patientRepository;
@@ -225,7 +225,7 @@ public class PatientResourceIT {
             .andExpect(jsonPath("$.[*].phoneNumber").value(hasItem(DEFAULT_PHONE_NUMBER)))
             .andExpect(jsonPath("$.[*].diagnosis").value(hasItem(DEFAULT_DIAGNOSIS)));
     }
-    
+
     @Test
     @Transactional
     public void getPatient() throws Exception {

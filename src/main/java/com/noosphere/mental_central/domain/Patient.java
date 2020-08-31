@@ -43,7 +43,7 @@ public class Patient implements Serializable {
     private String phoneNumber;
 
     @Column(name = "diagnosis")
-    private Integer diagnosis;
+    private String diagnosis;
 
     @OneToMany(mappedBy = "patient")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -110,16 +110,16 @@ public class Patient implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
-    public Integer getDiagnosis() {
+    public String getDiagnosis() {
         return diagnosis;
     }
 
-    public Patient diagnosis(Integer diagnosis) {
+    public Patient diagnosis(String diagnosis) {
         this.diagnosis = diagnosis;
         return this;
     }
 
-    public void setDiagnosis(Integer diagnosis) {
+    public void setDiagnosis(String diagnosis) {
         this.diagnosis = diagnosis;
     }
 
