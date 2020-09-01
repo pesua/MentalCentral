@@ -24,8 +24,8 @@
                 <tr>
                     <th scope="col"><span jhiTranslate="mentalCentralApp.visit.type">Type</span></th>
                     <th scope="col" ><span jhiTranslate="mentalCentralApp.visit.time">Time</span></th>
-                    <th scope="col"  ><span jhiTranslate="mentalCentralApp.visit.therapy">Therapy</span></th>
                     <th scope="col" ><span jhiTranslate="mentalCentralApp.visit.patient">Patient</span></th>
+                    <th scope="col" ><span jhiTranslate="mentalCentralApp.patient.diagnosis">Diagnosis</span></th>
                     <th scope="col"></th>
                 </tr>
             </thead>
@@ -33,10 +33,14 @@
             <tr *ngFor="let visit of visits; trackBy: trackId">
                 <td>{{ visit.type }}</td>
                 <td>{{ visit.time | date:'dd.MM.yyyy HH:mm' }}</td>
-                <td>{{ visit.therapy }}</td>
                 <td>
                     <div *ngIf="visit.patient">
-                        <a [routerLink]="['/patient', visit.patient?.id, 'view']" >{{ visit.patient?.fullName }}</a>
+                        {{ visit.patient?.fullName }}
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="visit.patient">
+                        <a [routerLink]="['/patient', visit.patient?.id, 'edit']" >{{ visit.patient?.diagnosis }}</a>
                     </div>
                 </td>
                 <td class="text-right">

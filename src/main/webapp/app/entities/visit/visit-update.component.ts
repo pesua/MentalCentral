@@ -23,6 +23,7 @@ export class VisitUpdateComponent implements OnInit {
   isSaving = false;
   users: IUser[] = [];
   patients: IPatient[] = [];
+  visits!: IVisit[];
 
   editForm = this.fb.group({
     id: [],
@@ -51,6 +52,8 @@ export class VisitUpdateComponent implements OnInit {
       this.updateForm(visit);
 
       this.userService.findAllDoctors().subscribe((res: HttpResponse<IUser[]>) => (this.users = res.body || []));
+
+      this.visitService.query().subscribe((res: HttpResponse<IVisit[]>) => (this.visits = res.body || []));
 
       this.patientService.queryWithoutPagination().subscribe((res: HttpResponse<IPatient[]>) => (this.patients = res.body || []));
     });

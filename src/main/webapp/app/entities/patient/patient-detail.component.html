@@ -28,20 +28,7 @@
                 <dd>
                     <span>{{ patient.diagnosis }}</span>
                 </dd>
-                <div *jhiHasAnyAuthority="'ROLE_DOCTOR'">
-                    <dt>Історія візитів</dt>
-                <dd>
-                    <cdk-virtual-scroll-viewport itemSize="30" class = "visits-viewport">
-                        <div class = "item" *cdkVirtualFor="let visit of visits | filterVisitsByPatientId: patient.id">
-                            <p>{{ visit.type}}
-                            {{ visit.time | date:'dd.MM.yyyy HH:mm' }}
-                            {{ visit.therapy}}
-                            </p>
-                        </div>
 
-                    </cdk-virtual-scroll-viewport>
-                </dd>
-                </div>
             </dl>
 
             <button type="submit"

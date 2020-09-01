@@ -1,5 +1,6 @@
 package com.noosphere.mental_central.service;
 
+import com.noosphere.mental_central.domain.Patient;
 import com.noosphere.mental_central.domain.Visit;
 import com.noosphere.mental_central.repository.VisitRepository;
 import com.noosphere.mental_central.repository.search.VisitSearchRepository;
@@ -90,6 +91,7 @@ public class VisitService {
         visitRepository.deleteById(id);
         visitSearchRepository.deleteById(id);
     }
+
 
     /**
      * Search for the visit corresponding to the query.
