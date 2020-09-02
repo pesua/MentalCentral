@@ -153,7 +153,8 @@ public class Patient implements Serializable {
         return new String[]{
             "fullName",
             "address",
-            "phoneNumber"
+            "phoneNumber",
+            "diagnosis"
         };
     }
 
