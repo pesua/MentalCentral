@@ -9,9 +9,20 @@
                 <jhi-alert-error></jhi-alert-error>
 
                 <div class="form-group" *jhiHasAnyAuthority="'ROLE_DOCTOR'">
-                    <label class="form-control-label" jhiTranslate="mentalCentralApp.visit.therapy" for="field_therapy">Therapy</label>
                     <input type="text" class="form-control" name="therapy" id="field_therapy"
                            formControlName="therapy"/>
+                    <dt jhiTranslate="mentalCentralApp.visit.history">History of visits</dt>
+                    <dd>
+                        <cdk-virtual-scroll-viewport itemSize="50" class = "visits-viewport">
+                            <div class = "item" *cdkVirtualFor="let visit of visits | filterVisitsByPatientId: editForm.get('patient')!.value?.id">
+                                <p>{{ visit.time | date:'dd.MM.yyyy' }}
+
+                                    <em>{{ visit.therapy}}</em>
+                                </p>
+                            </div>
+
+                        </cdk-virtual-scroll-viewport>
+                    </dd>
                 </div>
                 <div *jhiHasAnyAuthority="'ROLE_RECEPTION'">
                     <div class="form-group">

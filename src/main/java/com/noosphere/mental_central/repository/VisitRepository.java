@@ -16,7 +16,7 @@ import java.util.List;
 @Repository
 public interface VisitRepository extends JpaRepository<Visit, Long>, JpaSpecificationExecutor<Visit> {
 
-    @Query("select visit from Visit visit where visit.user.login = ?#{principal.username}")
+    @Query("select visit from Visit visit where visit.user.login = ?#{principal.username} order by visit.time asc")
     Page<Visit> findByUserIsCurrentUser(Pageable pageable);
 
     @Query("select visit from Visit visit order by visit.time asc ")

@@ -1,7 +1,7 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <div *ngIf="visit">
-            <h2><span jhiTranslate="mentalCentralApp.visit.detail.title">Visit</span> {{ visit.id }}</h2>
+            <h2><span jhiTranslate="mentalCentralApp.visit.detail.title">Visit</span> {{ visit.patient!.fullName }}</h2>
 
             <hr>
 
@@ -14,7 +14,8 @@
                 </dd>
                 <dt><span jhiTranslate="mentalCentralApp.visit.time">Time</span></dt>
                 <dd>
-                    <span>{{ visit.time }}</span>
+                    <span>{{ visit.time | date: 'dd.MM.yyyy' }}</span>
+
                 </dd>
                 <dt><span jhiTranslate="mentalCentralApp.visit.therapy">Therapy</span></dt>
                 <dd>
@@ -27,7 +28,13 @@
                 <dt><span jhiTranslate="mentalCentralApp.visit.patient">Patient</span></dt>
                 <dd>
                     <div *ngIf="visit.patient">
-                        <a [routerLink]="['/patient', visit.patient?.id, 'view']">{{ visit.patient?.fullName }}</a>
+                        {{ visit.patient?.fullName }}
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="mentalCentralApp.patient.diagnosis">Diagnosis</span></dt>
+                <dd>
+                    <div *ngIf="visit.patient">
+                        {{ visit.patient?.diagnosis }}
                     </div>
                 </dd>
             </dl>
@@ -38,7 +45,7 @@
                 <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
             </button>
 
-            <button type="button"
+            <button type="button " *jhiHasAnyAuthority="'ROLE_RECEPTION'"
                     [routerLink]="['/visit', visit.id, 'edit']"
                     class="btn btn-primary">
                 <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>

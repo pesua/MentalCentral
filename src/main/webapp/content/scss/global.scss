@@ -41,6 +41,14 @@ a:not([href]):not([tabindex]):hover.dropdown-item {
   border-radius: 1%;
 }
 
+.visits-viewport {
+  height: 160px;
+  width: 100%;
+  border: 1px solid gainsboro;
+  border-radius: 1%;
+  padding: 20px;
+}
+
 .item {
   height: 40px;
 }

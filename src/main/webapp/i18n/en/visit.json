@@ -17,6 +17,7 @@
       "detail": {
         "title": "Visit"
       },
+      "history": "History of visits",
       "type": "Type",
       "time": "Time",
       "therapy": "Therapy",

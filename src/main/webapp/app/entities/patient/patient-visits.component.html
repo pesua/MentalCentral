@@ -4,7 +4,6 @@
             <h2 id="jhi-visit-heading" jhiTranslate="mentalCentralApp.visit.createVisit"
                 [translateValues]="{ fullName: patient.fullName }">Create a visit for</h2>
 
-            <div>
                 <jhi-alert-error></jhi-alert-error>
 
                 <div class="form-group" [hidden]="!editForm.get('id')!.value">
@@ -38,8 +37,6 @@
                         This field is required.
                     </small>
                 </div>
-
-            </div>
             <div class = "form-group" *ngIf="editForm.get('user')!.value">
                 <p>Графік лікаря {{editForm.get('user')!.value.firstName}}</p>
                 <cdk-virtual-scroll-viewport itemSize="30" class = "viewport">
