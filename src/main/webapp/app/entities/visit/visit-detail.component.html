@@ -45,6 +45,11 @@
                 <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
             </button>
 
+            <button
+                    (click)="creatingAndDownloadingPDF()"
+                    class="btn btn-info"> Скачати ПДФ
+            </button>
+
             <button type="button " *jhiHasAnyAuthority="'ROLE_RECEPTION'"
                     [routerLink]="['/visit', visit.id, 'edit']"
                     class="btn btn-primary">
