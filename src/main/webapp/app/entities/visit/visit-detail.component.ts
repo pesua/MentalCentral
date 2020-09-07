@@ -29,11 +29,17 @@ export class VisitDetailComponent implements OnInit {
     doc.addSection({
       children: [
         new Paragraph({
-          text: 'Обласная клиническая больница им. И.И. Мечникова',
           alignment: AlignmentType.CENTER,
           spacing: {
             after: 50,
           },
+          children: [
+            new TextRun({
+              text: 'Обласная клиническая больница им. И.И. Мечникова',
+              size: 30,
+              bold: true,
+            }),
+          ],
         }),
         new Paragraph({
           tabStops: [

@@ -26,7 +26,8 @@
       "createVisit": "Create a visit for {{ fullName }}",
       "appoint": "Appoint therapy",
       "stationary": "Stationary",
-      "ambulatory": "Ambulatory"
+      "ambulatory": "Ambulatory",
+      "docx": "Download docx"
     }
   }
 }

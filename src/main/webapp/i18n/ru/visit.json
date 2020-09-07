@@ -26,7 +26,8 @@
       "createVisit": "Создать визит для {{ fullName }}",
       "appoint": "Назначить терапию",
       "stationary": "Стационарный",
-      "ambulatory": "Амбулаторный"
+      "ambulatory": "Амбулаторный",
+      "docx": "Скачать docx"
     }
   }
 }
