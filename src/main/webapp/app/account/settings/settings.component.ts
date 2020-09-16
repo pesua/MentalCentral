@@ -17,6 +17,9 @@ export class SettingsComponent implements OnInit {
   settingsForm = this.fb.group({
     firstName: [undefined, [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
     lastName: [undefined, [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
+    middleName: [undefined, [Validators.maxLength(50)]],
+    phoneNumber: [undefined, [Validators.pattern('[+]380[0-9]{9}')]],
+    degree: [undefined, [Validators.maxLength(50)]],
     email: [undefined, [Validators.required, Validators.minLength(5), Validators.maxLength(254), Validators.email]],
     langKey: [undefined],
   });
@@ -29,6 +32,9 @@ export class SettingsComponent implements OnInit {
         this.settingsForm.patchValue({
           firstName: account.firstName,
           lastName: account.lastName,
+          middleName: account.middleName,
+          phoneNumber: account.phoneNumber,
+          degree: account.degree,
           email: account.email,
           langKey: account.langKey,
         });
@@ -43,6 +49,9 @@ export class SettingsComponent implements OnInit {
 
     this.account.firstName = this.settingsForm.get('firstName')!.value;
     this.account.lastName = this.settingsForm.get('lastName')!.value;
+    this.account.middleName = this.settingsForm.get('middleName')!.value;
+    this.account.phoneNumber = this.settingsForm.get('phoneNumber')!.value;
+    this.account.degree = this.settingsForm.get('degree')!.value;
     this.account.email = this.settingsForm.get('email')!.value;
     this.account.langKey = this.settingsForm.get('langKey')!.value;
 

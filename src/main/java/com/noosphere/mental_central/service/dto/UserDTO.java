@@ -39,6 +39,9 @@ public class UserDTO {
     @Pattern(regexp = "[+]380[0-9]{9}")
     private String phoneNumber;
 
+    @Size(max = 50)
+    private String degree;
+
     @Size(max = 256)
     private String imageUrl;
 
@@ -87,6 +90,7 @@ public class UserDTO {
         this.middleName = userExtra.getMiddleName();
         this.email = user.getEmail();
         this.phoneNumber = userExtra.getPhoneNumber();
+        this.degree = userExtra.getDegree();
         this.activated = user.getActivated();
         this.imageUrl = user.getImageUrl();
         this.langKey = user.getLangKey();
@@ -237,5 +241,13 @@ public class UserDTO {
             ", lastModifiedDate=" + lastModifiedDate +
             ", authorities=" + authorities +
             "}";
+    }
+
+    public String getDegree() {
+        return degree;
+    }
+
+    public void setDegree(String degree) {
+        this.degree = degree;
     }
 }

@@ -151,6 +151,7 @@ public class UserService {
         newUserExtra.setUser(newUser);
         newUserExtra.setMiddleName(userDTO.getMiddleName());
         newUserExtra.setPhoneNumber(userDTO.getPhoneNumber());
+        newUserExtra.setDegree(userDTO.getDegree());
         userExtraRepository.save(newUserExtra);
         userExtraSearchRepository.save(newUserExtra);
         log.debug("Changed Information for UserExtra: {}", newUserExtra);
@@ -249,6 +250,7 @@ public class UserService {
                     newUserExtra.setUser(user);
                     newUserExtra.setMiddleName(userDTO.getMiddleName());
                     newUserExtra.setPhoneNumber(userDTO.getPhoneNumber());
+                    newUserExtra.setDegree(userDTO.getDegree());
                     userExtraRepository.save(newUserExtra);
                     userExtraSearchRepository.save(newUserExtra);
                     log.debug("Changed Information for UserExtra: {}", userExtra);
@@ -294,6 +296,44 @@ public class UserService {
                 }
                 user.setLangKey(langKey);
                 user.setImageUrl(imageUrl);
+                userSearchRepository.save(user);
+                this.clearUserCaches(user);
+                log.debug("Changed Information for User: {}", user);
+            });
+    }
+
+    public void updateUser(String firstName,
+                           String lastName,
+                           String middleName,
+                           String phoneNumber,
+                           String degree,
+                           String email,
+                           String langKey,
+                           String imageUrl) {
+        SecurityUtils.getCurrentUserLogin()
+            .flatMap(userRepository::findOneByLogin)
+            .ifPresent(user -> {
+                user.setFirstName(firstName);
+                user.setLastName(lastName);
+                if (email != null) {
+                    user.setEmail(email.toLowerCase());
+                }
+                user.setLangKey(langKey);
+                user.setImageUrl(imageUrl);
+
+                Optional<UserExtra> userExtra = userExtraRepository.findById(user.getId());
+
+                if (userExtra.isPresent()) {
+                    UserExtra newUserExtra = userExtra.get();
+                    newUserExtra.setUser(user);
+                    newUserExtra.setMiddleName(middleName);
+                    newUserExtra.setPhoneNumber(phoneNumber);
+                    newUserExtra.setDegree(degree);
+                    userExtraRepository.save(newUserExtra);
+                    userExtraSearchRepository.save(newUserExtra);
+                    log.debug("Changed Information for UserExtra: {}", userExtra);
+                }
+
                 userSearchRepository.save(user);
                 this.clearUserCaches(user);
                 log.debug("Changed Information for User: {}", user);

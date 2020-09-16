@@ -1,5 +1,5 @@
-id;middle_name;phone_number
-1;;
-2;Admin;
-3;Doctor;
-4;Reception;
+id;middle_name;phone_number;degree
+1;;;admin
+2;Admin;;
+3;Doctor;;
+4;Reception;;

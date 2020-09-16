@@ -34,6 +34,7 @@ export class UserManagementUpdateComponent implements OnInit {
     lastName: ['', [Validators.maxLength(50)]],
     middleName: ['', [Validators.maxLength(50)]],
     phoneNumber: ['', [Validators.pattern('[+]380[0-9]{9}')]],
+    degree: ['', [Validators.maxLength(50)]],
     email: ['', [Validators.minLength(5), Validators.maxLength(254), Validators.email]],
     password: ['', [Validators.minLength(4), Validators.maxLength(50)]],
     confirmPassword: ['', [Validators.minLength(4), Validators.maxLength(50)]],
@@ -61,6 +62,7 @@ export class UserManagementUpdateComponent implements OnInit {
           this.userExtraService.find(user.id).subscribe(userExtra => {
             user.middleName = userExtra.body!.middleName;
             user.phoneNumber = userExtra.body!.phoneNumber;
+            user.degree = userExtra.body!.degree;
 
             this.updateForm(user);
           });
@@ -82,14 +84,14 @@ export class UserManagementUpdateComponent implements OnInit {
 
     this.updateUser(this.user);
 
-    if (this.user.password !== this.editForm.get(['confirmPassword'])!.value) {
-      this.doNotMatch = true;
+    if (this.user.id !== undefined) {
+      this.userService.update(this.user).subscribe(
+        () => this.onSaveSuccess(),
+        () => this.onSaveError()
+      );
     } else {
-      if (this.user.id !== undefined) {
-        this.userService.update(this.user).subscribe(
-          () => this.onSaveSuccess(),
-          () => this.onSaveError()
-        );
+      if (this.user.password !== this.editForm.get(['confirmPassword'])!.value) {
+        this.doNotMatch = true;
       } else {
         this.registerService.save(this.user).subscribe(
           () => this.onSaveSuccess(),
@@ -108,6 +110,7 @@ export class UserManagementUpdateComponent implements OnInit {
       middleName: user.middleName,
       email: user.email,
       phoneNumber: user.phoneNumber,
+      degree: user.degree,
       activated: user.activated,
       langKey: user.langKey,
       authorities: user.authorities,
