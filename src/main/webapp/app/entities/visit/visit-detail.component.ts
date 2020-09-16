@@ -93,7 +93,8 @@ export class VisitDetailComponent implements OnInit {
           ],
         }),
         new Paragraph({
-          text: 'Консультировал врач ' + this.visit!.user!.lastName + ' ' + this.visit!.user!.firstName,
+          text:
+            'Консультировал врач ' + this.visit!.user!.lastName + ' ' + this.visit!.user!.firstName + ' (' + this.visit!.user!.degree + ')',
           alignment: AlignmentType.CENTER,
           spacing: {
             after: 50,
