@@ -33,6 +33,8 @@ public class VisitCriteria implements Serializable, Criteria {
 
     private StringFilter therapy;
 
+    private StringFilter note;
+
     private LongFilter userId;
 
     private LongFilter patientId;
@@ -45,6 +47,7 @@ public class VisitCriteria implements Serializable, Criteria {
         this.type = other.type == null ? null : other.type.copy();
         this.time = other.time == null ? null : other.time.copy();
         this.therapy = other.therapy == null ? null : other.therapy.copy();
+        this.note = other.note == null ? null : other.note.copy();
         this.userId = other.userId == null ? null : other.userId.copy();
         this.patientId = other.patientId == null ? null : other.patientId.copy();
     }
@@ -84,6 +87,14 @@ public class VisitCriteria implements Serializable, Criteria {
 
     public void setTherapy(StringFilter therapy) {
         this.therapy = therapy;
+    }
+
+    public StringFilter getNote() {
+        return note;
+    }
+
+    public void setNote(StringFilter note) {
+        this.note = note;
     }
 
     public LongFilter getUserId() {

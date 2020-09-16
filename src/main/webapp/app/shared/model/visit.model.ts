@@ -9,6 +9,7 @@ export interface IVisit {
   therapy?: string;
   user?: IUser;
   patient?: IPatient;
+  note?: string;
 }
 
 export class Visit implements IVisit {
@@ -18,6 +19,7 @@ export class Visit implements IVisit {
     public time?: Moment,
     public therapy?: string,
     public user?: IUser,
-    public patient?: IPatient
+    public patient?: IPatient,
+    public note?: string
   ) {}
 }

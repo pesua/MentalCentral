@@ -11,6 +11,9 @@
                 <div class="form-group" *jhiHasAnyAuthority="'ROLE_DOCTOR'">
                     <input type="text" class="form-control" name="therapy" id="field_therapy"
                            formControlName="therapy"/>
+                    <dt jhiTranslate="mentalCentralApp.visit.note">Note</dt>
+                    <input type="text" class="form-control" name="note" id="field_note"
+                           formControlName="note"/>
                     <dt jhiTranslate="mentalCentralApp.visit.history">History of visits</dt>
                     <dd>
                         <cdk-virtual-scroll-viewport itemSize="50" class = "visits-viewport">
@@ -23,6 +26,7 @@
 
                         </cdk-virtual-scroll-viewport>
                     </dd>
+
                 </div>
                 <div *jhiHasAnyAuthority="'ROLE_RECEPTION'">
                     <div class="form-group">
