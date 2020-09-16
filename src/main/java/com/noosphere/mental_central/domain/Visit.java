@@ -38,6 +38,9 @@ public class Visit implements Serializable {
     @Column(name = "therapy")
     private String therapy;
 
+    @Column(name = "note")
+    private String note;
+
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties(value = "visits", allowSetters = true)
@@ -61,6 +64,7 @@ public class Visit implements Serializable {
         return type;
     }
 
+
     public Visit type(String type) {
         this.type = type;
         return this;
@@ -68,6 +72,19 @@ public class Visit implements Serializable {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public Visit note(String note) {
+        this.note = note;
+        return this;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 
     public ZonedDateTime getTime() {

@@ -98,6 +98,9 @@ public class VisitQueryService extends QueryService<Visit> {
             if (criteria.getTherapy() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getTherapy(), Visit_.therapy));
             }
+            if (criteria.getNote() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getTherapy(), Visit_.note));
+            }
             if (criteria.getUserId() != null) {
                 specification = specification.and(buildSpecification(criteria.getUserId(),
                     root -> root.join(Visit_.user, JoinType.LEFT).get(User_.id)));

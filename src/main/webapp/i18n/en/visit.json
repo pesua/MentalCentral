@@ -27,7 +27,8 @@
       "appoint": "Appoint therapy",
       "stationary": "Stationary",
       "ambulatory": "Ambulatory",
-      "docx": "Download docx"
+      "docx": "Download docx",
+      "note": "Note"
     }
   }
 }

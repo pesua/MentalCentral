@@ -32,6 +32,7 @@ export class VisitUpdateComponent implements OnInit {
     therapy: [],
     user: [null, Validators.required],
     patient: [null, Validators.required],
+    note: [],
   });
 
   constructor(
@@ -67,6 +68,7 @@ export class VisitUpdateComponent implements OnInit {
       therapy: visit.therapy,
       user: visit.user,
       patient: visit.patient,
+      note: visit.note,
     });
   }
 
@@ -93,6 +95,7 @@ export class VisitUpdateComponent implements OnInit {
       therapy: this.editForm.get(['therapy'])!.value,
       user: this.editForm.get(['user'])!.value,
       patient: this.editForm.get(['patient'])!.value,
+      note: this.editForm.get(['note'])!.value,
     };
   }
 
