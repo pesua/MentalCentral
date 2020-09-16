@@ -6,6 +6,12 @@
       "firstname.placeholder": "Ваше ім'я",
       "lastname": "Прізвище",
       "lastname.placeholder": "Ваше прізвище",
+      "middleName": "Побатькові",
+      "middleName.placeholder": "Ваше побатькові",
+      "phoneNumber": "Номер телефону",
+      "phoneNumber.placeholder": "Ваш номер телефону",
+      "degree": "Вчений ступінь",
+      "degree.placeholder": "Ваш вчений ступінь",
       "language": "Мова",
       "button": "Зберегти"
     },

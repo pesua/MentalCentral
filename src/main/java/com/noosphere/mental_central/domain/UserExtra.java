@@ -31,6 +31,10 @@ public class UserExtra implements Serializable {
     @Column(name = "phone_number")
     private String phoneNumber;
 
+    @Size(max = 50)
+    @Column(name = "degree", length = 50)
+    private String degree;
+
     @OneToOne
     @MapsId
     @JoinColumn(name = "id")
@@ -71,6 +75,14 @@ public class UserExtra implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
+    public String getDegree() {
+        return degree;
+    }
+
+    public void setDegree(String degree) {
+        this.degree = degree;
+    }
+
     public User getUser() {
         return user;
     }
@@ -108,6 +120,8 @@ public class UserExtra implements Serializable {
             "id=" + getId() +
             ", middleName='" + getMiddleName() + "'" +
             ", phoneNumber='" + getPhoneNumber() + "'" +
+            ", degree='" + getDegree() +"'" +
             "}";
     }
+
 }

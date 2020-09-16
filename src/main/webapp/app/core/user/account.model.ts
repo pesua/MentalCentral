@@ -6,6 +6,9 @@ export class Account {
     public firstName: string,
     public langKey: string,
     public lastName: string,
+    public middleName: string,
+    public phoneNumber: string,
+    public degree: string,
     public login: string,
     public imageUrl: string
   ) {}

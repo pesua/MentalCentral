@@ -1,16 +1,19 @@
 package com.noosphere.mental_central.web.rest;
 
 import com.noosphere.mental_central.domain.User;
+import com.noosphere.mental_central.domain.UserExtra;
 import com.noosphere.mental_central.repository.UserRepository;
 import com.noosphere.mental_central.security.SecurityUtils;
 import com.noosphere.mental_central.service.MailService;
+import com.noosphere.mental_central.service.UserExtraService;
 import com.noosphere.mental_central.service.UserService;
 import com.noosphere.mental_central.service.dto.PasswordChangeDTO;
 import com.noosphere.mental_central.service.dto.UserDTO;
-import com.noosphere.mental_central.web.rest.errors.*;
+import com.noosphere.mental_central.web.rest.errors.EmailAlreadyUsedException;
+import com.noosphere.mental_central.web.rest.errors.InvalidPasswordException;
+import com.noosphere.mental_central.web.rest.errors.LoginAlreadyUsedException;
 import com.noosphere.mental_central.web.rest.vm.KeyAndPasswordVM;
 import com.noosphere.mental_central.web.rest.vm.ManagedUserVM;
-
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.*;
+import java.util.Optional;
 
 /**
  * REST controller for managing the current user's account.
@@ -40,12 +43,15 @@ public class AccountResource {
 
     private final UserService userService;
 
+    private final UserExtraService userExtraService;
+
     private final MailService mailService;
 
-    public AccountResource(UserRepository userRepository, UserService userService, MailService mailService) {
+    public AccountResource(UserRepository userRepository, UserService userService, UserExtraService userExtraService, MailService mailService) {
 
         this.userRepository = userRepository;
         this.userService = userService;
+        this.userExtraService = userExtraService;
         this.mailService = mailService;
     }
 
@@ -53,7 +59,7 @@ public class AccountResource {
      * {@code POST  /register} : register the user.
      *
      * @param managedUserVM the managed user View Model.
-     * @throws InvalidPasswordException {@code 400 (Bad Request)} if the password is incorrect.
+     * @throws InvalidPasswordException  {@code 400 (Bad Request)} if the password is incorrect.
      * @throws EmailAlreadyUsedException {@code 400 (Bad Request)} if the email is already used.
      * @throws LoginAlreadyUsedException {@code 400 (Bad Request)} if the login is already used.
      */
@@ -101,9 +107,13 @@ public class AccountResource {
      */
     @GetMapping("/account")
     public UserDTO getAccount() {
-        return userService.getUserWithAuthorities()
-            .map(UserDTO::new)
+        User userWithAuthorities = userService.getUserWithAuthorities()
             .orElseThrow(() -> new AccountResourceException("User could not be found"));
+
+        UserExtra userExtra = userExtraService.findOne(userWithAuthorities.getId())
+            .orElseThrow(() -> new AccountResourceException("UserExtra could not be found"));
+
+        return new UserDTO(userWithAuthorities, userExtra);
     }
 
     /**
@@ -111,7 +121,7 @@ public class AccountResource {
      *
      * @param userDTO the current user information.
      * @throws EmailAlreadyUsedException {@code 400 (Bad Request)} if the email is already used.
-     * @throws RuntimeException {@code 500 (Internal Server Error)} if the user login wasn't found.
+     * @throws RuntimeException          {@code 500 (Internal Server Error)} if the user login wasn't found.
      */
     @PostMapping("/account")
     public void saveAccount(@Valid @RequestBody UserDTO userDTO) {
@@ -124,8 +134,8 @@ public class AccountResource {
         if (!user.isPresent()) {
             throw new AccountResourceException("User could not be found");
         }
-        userService.updateUser(userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail(),
-            userDTO.getLangKey(), userDTO.getImageUrl());
+        userService.updateUser(userDTO.getFirstName(), userDTO.getLastName(), userDTO.getMiddleName(),
+            userDTO.getPhoneNumber(), userDTO.getDegree(), userDTO.getEmail(), userDTO.getLangKey(), userDTO.getImageUrl());
     }
 
     /**
@@ -164,7 +174,7 @@ public class AccountResource {
      *
      * @param keyAndPassword the generated key and the new password.
      * @throws InvalidPasswordException {@code 400 (Bad Request)} if the password is incorrect.
-     * @throws RuntimeException {@code 500 (Internal Server Error)} if the password could not be reset.
+     * @throws RuntimeException         {@code 500 (Internal Server Error)} if the password could not be reset.
      */
     @PostMapping(path = "/account/reset-password/finish")
     public void finishPasswordReset(@RequestBody KeyAndPasswordVM keyAndPassword) {
