@@ -18,7 +18,7 @@ export class SettingsComponent implements OnInit {
     firstName: [undefined, [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
     lastName: [undefined, [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
     middleName: [undefined, [Validators.maxLength(50)]],
-    phoneNumber: [undefined, [Validators.pattern('[+]380[0-9]{9}')]],
+    phoneNumber: ['', [Validators.pattern('[+]380[0-9]{9}')]],
     degree: [undefined, [Validators.maxLength(50)]],
     email: [undefined, [Validators.required, Validators.minLength(5), Validators.maxLength(254), Validators.email]],
     langKey: [undefined],

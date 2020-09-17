@@ -27,7 +27,7 @@ public class UserExtra implements Serializable {
     @Column(name = "middle_name", length = 50)
     private String middleName;
 
-    @Pattern(regexp = "([+]380[0-9]{9})")
+    @Pattern(regexp = "^$|([+]380[0-9]{9})")
     @Column(name = "phone_number")
     private String phoneNumber;
 

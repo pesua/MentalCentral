@@ -5,6 +5,7 @@ import { AlignmentType, Document, Packer, Paragraph, TabStopPosition, TabStopTyp
 import { saveAs } from 'file-saver';
 
 import { IVisit } from 'app/shared/model/visit.model';
+import { UserExtraService } from '../user-extra/user-extra.service';
 
 @Component({
   selector: 'jhi-visit-detail',
@@ -13,10 +14,16 @@ import { IVisit } from 'app/shared/model/visit.model';
 export class VisitDetailComponent implements OnInit {
   visit: IVisit | null = null;
 
-  constructor(protected activatedRoute: ActivatedRoute) {}
+  constructor(protected activatedRoute: ActivatedRoute, private userExtraService: UserExtraService) {}
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ visit }) => (this.visit = visit));
+
+    this.userExtraService.find(this.visit!.user!.id).subscribe(userExtra => {
+      this.visit!.user!.middleName = userExtra.body!.middleName;
+      this.visit!.user!.phoneNumber = userExtra.body!.phoneNumber;
+      this.visit!.user!.degree = userExtra.body!.degree;
+    });
   }
 
   previousState(): void {

@@ -36,7 +36,7 @@ public class UserDTO {
     @Size(min = 5, max = 254)
     private String email;
 
-    @Pattern(regexp = "[+]380[0-9]{9}")
+    @Pattern(regexp = "^$|([+]380[0-9]{9})")
     private String phoneNumber;
 
     @Size(max = 50)
