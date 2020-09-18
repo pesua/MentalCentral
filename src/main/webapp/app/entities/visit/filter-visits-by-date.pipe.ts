@@ -14,6 +14,6 @@ export class FilterVisitsByDatePipe implements PipeTransform {
       return [];
     }
 
-    return items.filter(item => this.date.diff(item.time, 'hour') <= 12);
+    return items.filter(item => this.date.diff(item.time, 'hour') <= 12 && this.date.diff(item.time, 'day') > -7);
   }
 }

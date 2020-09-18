@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, LOCALE_ID } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AlignmentType, Document, Packer, Paragraph, TabStopPosition, TabStopType, TextRun } from 'docx';
 
@@ -6,15 +6,20 @@ import { saveAs } from 'file-saver';
 
 import { IVisit } from 'app/shared/model/visit.model';
 import { UserExtraService } from '../user-extra/user-extra.service';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'jhi-visit-detail',
   templateUrl: './visit-detail.component.html',
 })
 export class VisitDetailComponent implements OnInit {
+  now = new Date();
+  nowFormatted: string;
   visit: IVisit | null = null;
 
-  constructor(protected activatedRoute: ActivatedRoute, private userExtraService: UserExtraService) {}
+  constructor(@Inject(LOCALE_ID) locale: string, protected activatedRoute: ActivatedRoute, private userExtraService: UserExtraService) {
+    this.nowFormatted = formatDate(this.now, 'dd.MM.yyyy', locale);
+  }
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ visit }) => (this.visit = visit));
@@ -132,7 +137,7 @@ export class VisitDetailComponent implements OnInit {
           },
         }),
         new Paragraph({
-          text: new Date().getDate().toString() + '.' + (new Date().getMonth() + 1).toString() + '.' + new Date().getFullYear().toString(),
+          text: this.nowFormatted,
           spacing: {
             after: 50,
           },
