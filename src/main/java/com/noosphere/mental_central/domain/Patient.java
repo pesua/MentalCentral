@@ -1,11 +1,13 @@
 package com.noosphere.mental_central.domain;
 
+import com.noosphere.mental_central.domain.validation.BirthDateConstraint;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -32,6 +34,7 @@ public class Patient implements Serializable {
     private String fullName;
 
     @NotNull
+    @BirthDateConstraint
     @Column(name = "birth_date", nullable = false)
     private LocalDate birthDate;
 

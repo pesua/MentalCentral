@@ -12,6 +12,8 @@ public final class Constants {
     public static final String DEFAULT_LANGUAGE = "ua";
     public static final String ANONYMOUS_USER = "anonymoususer";
 
+    public static final int MIN_PATIENT_AGE = 1;
+
     private Constants() {
     }
 }
