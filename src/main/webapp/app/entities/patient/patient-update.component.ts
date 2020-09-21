@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 import { IPatient, Patient } from 'app/shared/model/patient.model';
 import { PatientService } from './patient.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'jhi-patient-update',
@@ -50,11 +51,10 @@ export class PatientUpdateComponent implements OnInit {
 
   save(): void {
     this.isSaving = true;
+
     const patient = this.createFromForm();
     if (patient.id !== undefined) {
       this.subscribeToSaveResponse(this.patientService.update(patient));
-    } else {
-      this.subscribeToSaveResponse(this.patientService.create(patient));
     }
   }
 
@@ -68,6 +68,19 @@ export class PatientUpdateComponent implements OnInit {
       phoneNumber: this.editForm.get(['phoneNumber'])!.value,
       diagnosis: this.editForm.get(['diagnosis'])!.value,
     };
+  }
+
+  public checkIfOldEnough(): boolean {
+    const birthDate: Date = this.editForm.get(['birthDate'])!.value;
+    const age = moment().diff(birthDate, 'years');
+
+    if (age < 1) {
+      this.editForm.get(['birthDate'])!.setErrors({ notOldEnough: 'Patient has to be at least one year old.\n' });
+      return false;
+    } else {
+      this.editForm.get(['birthDate'])!.setErrors(null);
+      return true;
+    }
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IPatient>>): void {

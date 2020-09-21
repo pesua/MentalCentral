@@ -24,9 +24,9 @@ export class PatientVisitsComponent implements OnInit {
   visits!: IVisit[];
   patient!: IPatient;
   isSaving = false;
-  users: IUser[] = [];
+  users!: IUser[];
   therapy = '';
-  choosenTime!: Date;
+  chosenTime!: Date;
   sortingVisits!: IVisit[];
 
   editForm = this.fb.group({
@@ -51,9 +51,8 @@ export class PatientVisitsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.activatedRoute.data.subscribe(({ patient }) => (this.patient = patient));
-
     this.userService.findAllDoctors().subscribe((res: HttpResponse<IUser[]>) => (this.users = res.body || []));
+    this.activatedRoute.data.subscribe(({ patient }) => (this.patient = patient));
 
     this.visitService.query().subscribe((res: HttpResponse<IVisit[]>) => (this.visits = res.body || []));
   }

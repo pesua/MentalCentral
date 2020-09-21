@@ -368,8 +368,8 @@ public class UserService {
         List<User> userList = userRepository.findAll(Specification.where(isDoctor(doctors)));
         List<UserExtra> userExtraList = userExtraRepository.findAllById(userList.stream()
             .map(User::getId).collect(Collectors.toList()));
-
-        return userMapper.usersToUserDTOs(userList, userExtraList);
+        List<UserDTO> userDTOS = userMapper.usersToUserDTOs(userList, userExtraList);
+        return userDTOS;
     }
 
     @Transactional(readOnly = true)
