@@ -12,6 +12,7 @@ import { PatientComponent } from './patient.component';
 import { PatientDetailComponent } from './patient-detail.component';
 import { PatientUpdateComponent } from './patient-update.component';
 import { PatientVisitsComponent } from './patient-visits.component';
+import { PatientUpdateByDoctorComponent } from './patient-update-by-doctor.component';
 
 @Injectable({ providedIn: 'root' })
 export class PatientResolve implements Resolve<IPatient> {
@@ -40,7 +41,7 @@ export const patientRoute: Routes = [
     path: '',
     component: PatientComponent,
     data: {
-      authorities: [Authority.ADMIN, Authority.RECEPTION],
+      authorities: [Authority.ADMIN, Authority.RECEPTION, Authority.DOCTOR],
       pageTitle: 'mentalCentralApp.patient.home.title',
     },
     canActivate: [UserRouteAccessService],
@@ -70,6 +71,18 @@ export const patientRoute: Routes = [
     canActivate: [UserRouteAccessService],
   },
   {
+    path: 'newPatient',
+    component: PatientUpdateByDoctorComponent,
+    resolve: {
+      patient: PatientResolve,
+    },
+    data: {
+      authorities: [Authority.ADMIN, Authority.DOCTOR],
+      pageTitle: 'mentalCentralApp.patient.home.title',
+    },
+    canActivate: [UserRouteAccessService],
+  },
+  {
     path: ':id/edit',
     component: PatientUpdateComponent,
     resolve: {
@@ -77,6 +90,18 @@ export const patientRoute: Routes = [
     },
     data: {
       authorities: [Authority.ADMIN, Authority.RECEPTION, Authority.DOCTOR],
+      pageTitle: 'mentalCentralApp.patient.home.title',
+    },
+    canActivate: [UserRouteAccessService],
+  },
+  {
+    path: ':id/editByDoctor',
+    component: PatientUpdateByDoctorComponent,
+    resolve: {
+      patient: PatientResolve,
+    },
+    data: {
+      authorities: [Authority.ADMIN, Authority.DOCTOR],
       pageTitle: 'mentalCentralApp.patient.home.title',
     },
     canActivate: [UserRouteAccessService],

@@ -2,7 +2,14 @@
     <h2 id="page-heading">
         <span jhiTranslate="mentalCentralApp.patient.home.title">Patients</span>
 
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-patient" [routerLink]="['/patient/new']">
+        <button *jhiHasAnyAuthority="'ROLE_RECEPTION'" id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-patient" [routerLink]="['/patient/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span class="hidden-sm-down"  jhiTranslate="mentalCentralApp.patient.home.createLabel">
+            Create a new Patient
+            </span>
+        </button>
+
+        <button *jhiHasAnyAuthority="'ROLE_DOCTOR'" id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-patient" [routerLink]="['/patient/newPatient']">
             <fa-icon icon="plus"></fa-icon>
             <span class="hidden-sm-down"  jhiTranslate="mentalCentralApp.patient.home.createLabel">
             Create a new Patient
@@ -68,12 +75,19 @@
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                         </button>
 
-                            <button type="submit"
+                            <button type="submit" *jhiHasAnyAuthority="'ROLE_RECEPTION'"
                                     [routerLink]="['/patient', patient.id, 'edit']"
                                     class="btn btn-primary btn-sm">
                                 <fa-icon icon="pencil-alt"></fa-icon>
                                 <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                             </button>
+
+                        <button type="submit" *jhiHasAnyAuthority="'ROLE_DOCTOR'"
+                                [routerLink]="['/patient', patient.id, 'editByDoctor']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon icon="pencil-alt"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
 
                             <button type="submit" (click)="delete(patient)"
                                     class="btn btn-danger btn-sm">
