@@ -4,7 +4,6 @@ import com.noosphere.mental_central.domain.Patient;
 import com.noosphere.mental_central.repository.PatientRepository;
 import com.noosphere.mental_central.service.PatientQueryService;
 import com.noosphere.mental_central.service.PatientService;
-import com.noosphere.mental_central.web.rest.errors.BadRequestAlertException;
 import com.noosphere.mental_central.service.dto.PatientCriteria;
 import com.noosphere.mental_central.web.rest.errors.BadRequestAlertException;
 import com.noosphere.mental_central.web.rest.errors.PatientAlreadyExistsException;
@@ -18,19 +17,16 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.StreamSupport;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * REST controller for managing {@link com.noosphere.mental_central.domain.Patient}.
@@ -179,7 +175,7 @@ public class PatientResource {
      * {@code SEARCH  /_search/patients?query=:query} : search for the patient corresponding
      * to the query.
      *
-     * @param query the query of the patient search.
+     * @param query    the query of the patient search.
      * @param pageable the pagination information.
      * @return the result of the search.
      */
@@ -189,5 +185,5 @@ public class PatientResource {
         Page<Patient> page = patientService.search(query, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
-        }
+    }
 }
