@@ -1,69 +1,89 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-            <h2  *jhiHasAnyAuthority="'ROLE_RECEPTION'"
-                 id="jhi-patient-heading" jhiTranslate="mentalCentralApp.patient.home.createOrEditLabel">Create or edit a Patient
+            <h2 *jhiHasAnyAuthority="'ROLE_RECEPTION'"
+                id="jhi-patient-heading" jhiTranslate="mentalCentralApp.patient.home.createOrEditLabel">Create or edit a
+                Patient
             </h2>
-            <h2  *jhiHasAnyAuthority="'ROLE_DOCTOR'"
-                 id="jhi-patient-heading" jhiTranslate="mentalCentralApp.patient.home.assignDiagnose">Assign diagnose
+            <h2 *jhiHasAnyAuthority="'ROLE_DOCTOR'"
+                id="jhi-patient-heading" jhiTranslate="mentalCentralApp.patient.home.assignDiagnose">Assign diagnose
             </h2>
 
             <div>
                 <jhi-alert-error></jhi-alert-error>
 
-                <div  class="form-group" *jhiHasAnyAuthority="'ROLE_RECEPTION'" [hidden]="!editForm.get('id')!.value">
+                <div class="form-group" *jhiHasAnyAuthority="'ROLE_RECEPTION'" [hidden]="!editForm.get('id')!.value">
                     <label for="id" jhiTranslate="global.field.id">ID</label>
-                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly/>
                 </div>
 
                 <div class="form-group" *jhiHasAnyAuthority="'ROLE_RECEPTION'">
-                    <label class="form-control-label" jhiTranslate="mentalCentralApp.patient.fullName" for="field_fullName">Full Name</label>
+                    <label class="form-control-label" jhiTranslate="mentalCentralApp.patient.fullName"
+                           for="field_fullName">Full Name</label>
                     <input type="text" class="form-control" name="fullName" id="field_fullName"
                            formControlName="fullName"/>
-                    <div *ngIf="editForm.get('fullName')!.invalid && (editForm.get('fullName')!.dirty || editForm.get('fullName')!.touched)">
+                    <div
+                        *ngIf="editForm.get('fullName')!.invalid && (editForm.get('fullName')!.dirty || editForm.get('fullName')!.touched)">
                         <small class="form-text text-danger"
-                               *ngIf="editForm.get('fullName')?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
+                               *ngIf="editForm.get('fullName')?.errors?.required"
+                               jhiTranslate="entity.validation.required">
+                            This field is required.
                         </small>
                     </div>
                 </div>
 
                 <div class="form-group" *jhiHasAnyAuthority="'ROLE_RECEPTION'">
-                    <label class="form-control-label" jhiTranslate="mentalCentralApp.patient.birthDate" for="field_birthDate">Birth Date</label>
+                    <label class="form-control-label" jhiTranslate="mentalCentralApp.patient.birthDate"
+                           for="field_birthDate">Birth Date</label>
                     <div class="input-group">
-                        <input id="field_birthDate" type="text" class="form-control" name="birthDate" ngbDatepicker #birthDateDp="ngbDatepicker" formControlName="birthDate"/>
+                        <input id="field_birthDate" type="text" class="form-control" name="birthDate" ngbDatepicker
+                               #birthDateDp="ngbDatepicker" formControlName="birthDate"
+                               (ngModelChange)="checkIfOldEnough()"/>
                         <span class="input-group-append">
-                            <button type="button" class="btn btn-secondary" (click)="birthDateDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+                            <button type="button" class="btn btn-secondary" (click)="birthDateDp.toggle()"><fa-icon
+                                icon="calendar-alt"></fa-icon></button>
                         </span>
                     </div>
-                    <div *ngIf="editForm.get('birthDate')!.invalid && (editForm.get('birthDate')!.dirty || editForm.get('birthDate')!.touched)">
+                    <div
+                        *ngIf="editForm.get('birthDate')!.invalid && (editForm.get('birthDate')!.dirty || editForm.get('birthDate')!.touched)">
                         <small class="form-text text-danger"
-                               *ngIf="editForm.get('birthDate')?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
+                               *ngIf="editForm.get('birthDate')?.errors?.required"
+                               jhiTranslate="entity.validation.required">
+                            This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('birthDate')?.errors?.notOldEnough"
+                               jhiTranslate="global.messages.error.notoldenough">
+                            Patient has to be at least one year old.
                         </small>
                     </div>
                 </div>
 
                 <div class="form-group" *jhiHasAnyAuthority="'ROLE_RECEPTION'">
-                    <label class="form-control-label" jhiTranslate="mentalCentralApp.patient.address" for="field_address">Address</label>
+                    <label class="form-control-label" jhiTranslate="mentalCentralApp.patient.address"
+                           for="field_address">Address</label>
                     <input type="text" class="form-control" name="address" id="field_address"
                            formControlName="address"/>
                 </div>
 
                 <div class="form-group" *jhiHasAnyAuthority="'ROLE_RECEPTION'">
-                    <label class="form-control-label" jhiTranslate="mentalCentralApp.patient.phoneNumber" for="field_phoneNumber">Phone Number</label>
+                    <label class="form-control-label" jhiTranslate="mentalCentralApp.patient.phoneNumber"
+                           for="field_phoneNumber">Phone Number</label>
                     <input type="text" class="form-control" name="phoneNumber" id="field_phoneNumber"
                            formControlName="phoneNumber"/>
-                    <div *ngIf="editForm.get('phoneNumber')!.invalid && (editForm.get('phoneNumber')!.dirty || editForm.get('phoneNumber')!.touched)">
+                    <div
+                        *ngIf="editForm.get('phoneNumber')!.invalid && (editForm.get('phoneNumber')!.dirty || editForm.get('phoneNumber')!.touched)">
                         <small class="form-text text-danger"
-                               *ngIf="editForm.get('phoneNumber')?.errors?.pattern" jhiTranslate="entity.validation.pattern" [translateValues]="{ pattern: 'Phone Number' }">
+                               *ngIf="editForm.get('phoneNumber')?.errors?.pattern"
+                               jhiTranslate="entity.validation.pattern" [translateValues]="{ pattern: 'Phone Number' }">
                             This field should follow pattern for "Phone Number".
                         </small>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="mentalCentralApp.patient.diagnosis" for="field_diagnosis">Diagnosis</label>
+                    <label class="form-control-label" jhiTranslate="mentalCentralApp.patient.diagnosis"
+                           for="field_diagnosis">Diagnosis</label>
                     <input type="text" class="form-control" name="diagnosis" id="field_diagnosis"
                            formControlName="diagnosis"/>
                 </div>
@@ -74,7 +94,8 @@
                     <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
                 </button>
 
-                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving"
+                        class="btn btn-primary">
                     <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
                 </button>
             </div>

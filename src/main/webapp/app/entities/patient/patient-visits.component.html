@@ -4,69 +4,66 @@
             <h2 id="jhi-visit-heading" jhiTranslate="mentalCentralApp.visit.createVisit"
                 [translateValues]="{ fullName: patient.fullName }">Create a visit for</h2>
 
-                <jhi-alert-error></jhi-alert-error>
+            <jhi-alert-error></jhi-alert-error>
 
-                <div class="form-group" [hidden]="!editForm.get('id')!.value">
-                    <label for="id" jhiTranslate="global.field.id">ID</label>
-                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly/>
-                </div>
+            <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                <label for="id" jhiTranslate="global.field.id">ID</label>
+                <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly/>
+            </div>
 
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="mentalCentralApp.visit.type">Type</label>
-                    <p><input type="radio" value="{{'mentalCentralApp.visit.stationary' | translate}}" name="type"
-                              formControlName="type"
-                              ngModel> {{'mentalCentralApp.visit.stationary' | translate}}</p>
-                    <p><input type="radio" value="{{'mentalCentralApp.visit.ambulatory' | translate}}" name="type"
-                              formControlName="type"
-                              ngModel> {{'mentalCentralApp.visit.ambulatory' | translate}} </p>
-                </div>
+            <div class="form-group" formControlName="type">
+                <label class="form-control-label" jhiTranslate="mentalCentralApp.visit.type">Type</label>
+                <p><input type="radio" value="{{'mentalCentralApp.visit.stationary' | translate}}" name="type"> {{'mentalCentralApp.visit.stationary' | translate}}</p>
+                <p><input type="radio" value="{{'mentalCentralApp.visit.ambulatory' | translate}}" name="type"> {{'mentalCentralApp.visit.ambulatory' | translate}} </p>
+            </div>
 
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="mentalCentralApp.visit.doctor" for="field_user">Doctor</label>
-                    <select class="form-control" id="field_user" name="user" formControlName="user">
-                        <option *ngIf="!editForm.get('user')!.value" [ngValue]="null" selected></option>
-                        <option
-                            [ngValue]="userOption.id === editForm.get('user')!.value?.id ? editForm.get('user')!.value : userOption"
-                            *ngFor="let userOption of users; trackBy: trackById">{{ userOption.lastName + " " + userOption.firstName + " " + userOption.middleName }}</option>
-                    </select>
-                </div>
-                <div
-                    *ngIf="editForm.get('user')!.invalid && (editForm.get('user')!.dirty || editForm.get('user')!.touched)">
-                    <small class="form-text text-danger"
-                           *ngIf="editForm.get('user')?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                    </small>
-                </div>
-            <div class = "form-group" *ngIf="editForm.get('user')!.value">
+            <div class="form-group">
+                <label class="form-control-label" jhiTranslate="mentalCentralApp.visit.doctor"
+                       for="field_user">Doctor</label>
+                <select class="form-control" id="field_user" name="user" formControlName="user">
+                    <option *ngIf="!editForm.get('user')!.value" [ngValue]="null" selected></option>
+                    <option
+                        [ngValue]="userOption.id === editForm.get('user')!.value?.id ? editForm.get('user')!.value : userOption"
+                        *ngFor="let userOption of users; trackBy: trackById">{{ userOption.lastName + " " + userOption.firstName + " " + userOption.middleName }}</option>
+                </select>
+            </div>
+            <div
+                *ngIf="editForm.get('user')!.invalid && (editForm.get('user')!.dirty || editForm.get('user')!.touched)">
+                <small class="form-text text-danger"
+                       *ngIf="editForm.get('user')?.errors?.required" jhiTranslate="entity.validation.required">
+                    This field is required.
+                </small>
+            </div>
+            <div class="form-group" *ngIf="editForm.get('user')!.value">
                 <p>Графік лікаря {{editForm.get('user')!.value.firstName}}</p>
-                <cdk-virtual-scroll-viewport itemSize="30" class = "viewport">
-                    <div class = "item" *cdkVirtualFor="let visit of visits | filterVisits: editForm.get('user')!.value.id"> {{ visit.time | date:'dd.MM.yyyy HH:mm' }}</div>
+                <cdk-virtual-scroll-viewport itemSize="30" class="viewport">
+                    <div class="item"
+                         *cdkVirtualFor="let visit of visits | filterVisits: editForm.get('user')!.value.id"> {{ visit.time | date:'dd.MM.yyyy HH:mm' }}</div>
                 </cdk-virtual-scroll-viewport>
             </div>
 
-                <div class="form-group" >
-                    <label class="form-control-label" jhiTranslate="mentalCentralApp.visit.time"
-                           for="field_time">Time</label>
-                    <div class="d-flex" >
-                        <input  id="field_time" type="datetime-local" class="form-control" name="time"
-                               formControlName="time" placeholder="YYYY-MM-DD HH:mm" />
-
-                    </div>
-
-                    <div
-                        *ngIf="(editForm.get('time')!.invalid && (editForm.get('time')!.dirty || editForm.get('time')!.touched)) ">
-                        <small class="form-text text-danger"
-                               *ngIf="editForm.get('time')?.errors?.required" jhiTranslate="entity.validation.required">
-                            This field is required.
-                        </small>
-                        <small class="form-text text-danger"
-                               [hidden]="!editForm.get('time')?.errors?.ZonedDateTimelocal"
-                               jhiTranslate="entity.validation.ZonedDateTimelocal">
-                            This field should be a date and time.
-                        </small>
-
-                    </div>
+            <div class="form-group">
+                <label class="form-control-label" jhiTranslate="mentalCentralApp.visit.time"
+                       for="field_time">Time</label>
+                <div class="d-flex">
+                    <input id="field_time" type="datetime-local" class="form-control" name="time"
+                           formControlName="time" placeholder="YYYY-MM-DD HH:mm"/>
                 </div>
+
+                <div
+                    *ngIf="(editForm.get('time')!.invalid && (editForm.get('time')!.dirty || editForm.get('time')!.touched)) ">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('time')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                    <small class="form-text text-danger"
+                           [hidden]="!editForm.get('time')?.errors?.ZonedDateTimelocal"
+                           jhiTranslate="entity.validation.ZonedDateTimelocal">
+                        This field should be a date and time.
+                    </small>
+
+                </div>
+            </div>
 
 
             <div>
