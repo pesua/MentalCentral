@@ -11,10 +11,14 @@
                 <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly/>
             </div>
 
-            <div class="form-group" formControlName="type">
+            <div class="form-group">
                 <label class="form-control-label" jhiTranslate="mentalCentralApp.visit.type">Type</label>
-                <p><input type="radio" value="{{'mentalCentralApp.visit.stationary' | translate}}" name="type"> {{'mentalCentralApp.visit.stationary' | translate}}</p>
-                <p><input type="radio" value="{{'mentalCentralApp.visit.ambulatory' | translate}}" name="type"> {{'mentalCentralApp.visit.ambulatory' | translate}} </p>
+                <p><input type="radio" value="{{'mentalCentralApp.visit.stationary' | translate}}" name="type"
+                          formControlName="type"
+                          ngModel> {{'mentalCentralApp.visit.stationary' | translate}} </p>
+                <p><input type="radio" value="{{'mentalCentralApp.visit.ambulatory' | translate}}" name="type"
+                          formControlName="type"
+                          ngModel> {{'mentalCentralApp.visit.ambulatory' | translate}} </p>
             </div>
 
             <div class="form-group">
