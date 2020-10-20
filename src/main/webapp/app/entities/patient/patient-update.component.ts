@@ -55,6 +55,8 @@ export class PatientUpdateComponent implements OnInit {
     const patient = this.createFromForm();
     if (patient.id !== undefined) {
       this.subscribeToSaveResponse(this.patientService.update(patient));
+    } else {
+      this.subscribeToSaveResponse(this.patientService.create(patient));
     }
   }
 
