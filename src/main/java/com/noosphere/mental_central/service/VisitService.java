@@ -58,11 +58,13 @@ public class VisitService {
         log.debug("Request to get all Visits");
         return visitRepository.findAll(pageable);
     }
+
     @Transactional(readOnly = true)
     public Page<Visit> findAllDocVisits(Pageable pageable) {
         log.debug("Request to get all doctor’s Visits");
         return visitRepository.findByUserIsCurrentUser(pageable);
     }
+
     @Transactional(readOnly = true)
     public Page<Visit> findAllOrderedByTime(Pageable pageable) {
         log.debug("Request to get all Visits ordered by date");
