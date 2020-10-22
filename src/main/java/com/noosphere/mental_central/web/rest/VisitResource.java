@@ -106,20 +106,26 @@ public class VisitResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of visits in body.
      */
     @GetMapping("/visits")
-    public ResponseEntity<List<Visit>> getAllVisits(@ApiParam Pageable pageable) {
-        log.debug("REST request to get a page of Visits");
-        Page<Visit> page;
-        if(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.DOCTOR)) {
-            page = visitService.findAllDocVisits(pageable);
-        }
-        else if(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.RECEPTION)){
-            page = visitService.findAllOrderedByTime(pageable);
-        }
-        else{
-            page = null;
-        }
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromUriString("/api/visit"), page);
-        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+//    public ResponseEntity<List<Visit>> getAllVisits(@ApiParam Pageable pageable) {
+//        log.debug("REST request to get a page of Visits");
+//        Page<Visit> page;
+//        if(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.DOCTOR)) {
+//            page = visitService.findAllDocVisits(pageable);
+//        }
+//        else if(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.RECEPTION)){
+//            page = visitService.findAllOrderedByTime(pageable);
+//        }
+//        else{
+//            page = null;
+//        }
+//        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromUriString("/api/visit"), page);
+//        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+//    }
+    public ResponseEntity<List<Visit>> getAllVisits(VisitCriteria criteria, Pageable pageable) {
+        log.debug("REST request to get Visits by criteria: {}", criteria);
+        Page<Visit> page = visitQueryService.findByCriteria(criteria, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
     /**

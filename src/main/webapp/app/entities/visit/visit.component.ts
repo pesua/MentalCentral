@@ -11,6 +11,7 @@ import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { VisitService } from './visit.service';
 import { VisitDeleteDialogComponent } from './visit-delete-dialog.component';
 import { UserService } from '../../core/user/user.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'jhi-visit',
@@ -64,6 +65,8 @@ export class VisitComponent implements OnInit, OnDestroy {
 
     this.visitService
       .query({
+        'time.greaterOrEqualThan': moment(new Date().setHours(0, 0, 0, 0)).toJSON(),
+        'time.lessOrEqualThan': moment(new Date().setHours(23, 59, 59, 999)).toJSON(),
         page: this.page,
         size: this.itemsPerPage,
         sort: this.sort(),
