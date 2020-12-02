@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -145,5 +145,11 @@ export class VisitComponent implements OnInit, OnDestroy {
         this.visits.push(data[i]);
       }
     }
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  help(event: KeyboardEvent): void {
+    if (event.key === 'F2')
+      window.location.href = 'https://www.notion.so/Mental-Central-d342bba135c6425ab6a4483452e84a1a#3b80964c4b31415b95ba30598bae59e6';
   }
 }

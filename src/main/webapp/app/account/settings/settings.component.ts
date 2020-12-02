@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { JhiLanguageService } from 'ng-jhipster';
 
@@ -64,5 +64,11 @@ export class SettingsComponent implements OnInit {
         this.languageService.changeLanguage(this.account.langKey);
       }
     });
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  help(event: KeyboardEvent): void {
+    if (event.key === 'F2')
+      window.location.href = 'https://www.notion.so/Mental-Central-d342bba135c6425ab6a4483452e84a1a#7473e9df9de7423b80788e243af271c9';
   }
 }

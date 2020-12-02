@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { FormBuilder, Validators } from '@angular/forms';
@@ -99,5 +99,11 @@ export class PatientUpdateComponent implements OnInit {
 
   protected onSaveError(): void {
     this.isSaving = false;
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  help(event: KeyboardEvent): void {
+    if (event.key === 'F2')
+      window.location.href = 'https://www.notion.so/Mental-Central-d342bba135c6425ab6a4483452e84a1a#fefcb547bbaa44a8afe310f3869a1e21';
   }
 }

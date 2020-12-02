@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, ViewChild, HostListener } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
@@ -69,5 +69,11 @@ export class LoginModalComponent implements AfterViewInit {
   requestResetPassword(): void {
     this.activeModal.dismiss('to state requestReset');
     this.router.navigate(['/account/reset', 'request']);
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  help(event: KeyboardEvent): void {
+    if (event.key === 'F2')
+      window.location.href = 'https://www.notion.so/Mental-Central-d342bba135c6425ab6a4483452e84a1a#ddc7fcfd0bfa415aa7f1a5f04e6ad3ce';
   }
 }
