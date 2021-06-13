@@ -12,11 +12,6 @@
             <div>
                 <jhi-alert-error></jhi-alert-error>
 
-                <div class="form-group" *jhiHasAnyAuthority="'ROLE_RECEPTION'" [hidden]="!editForm.get('id')!.value">
-                    <label for="id" jhiTranslate="global.field.id">ID</label>
-                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly/>
-                </div>
-
                 <div class="form-group" *jhiHasAnyAuthority="'ROLE_RECEPTION'">
                     <label class="form-control-label" jhiTranslate="mentalCentralApp.patient.fullName"
                            for="field_fullName">Full Name</label>

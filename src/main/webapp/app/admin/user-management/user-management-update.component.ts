@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
@@ -138,11 +138,5 @@ export class UserManagementUpdateComponent implements OnInit {
 
   private onSaveError(): void {
     this.isSaving = false;
-  }
-
-  @HostListener('document:keydown', ['$event'])
-  help(event: KeyboardEvent): void {
-    if (event.key === 'F2')
-      window.location.href = 'https://www.notion.so/Mental-Central-d342bba135c6425ab6a4483452e84a1a#ae435e865f4b428f9ab5530a8e41a337';
   }
 }

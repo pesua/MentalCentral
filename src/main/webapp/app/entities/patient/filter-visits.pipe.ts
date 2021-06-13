@@ -12,6 +12,9 @@ export class FilterVisitsPipe implements PipeTransform {
     this.date = moment();
     if (!id) return visits;
     if (!visits) return [];
-    else return visits.filter(visit => visit.user!.id === id && this.date.diff(visit.time, 'hour') <= 2);
+    else
+      return visits
+        .filter(visit => visit.user!.id === id && this.date.diff(visit.time, 'hour') <= 2)
+        .sort((a, b) => a.time!.valueOf() - b.time!.valueOf());
   }
 }

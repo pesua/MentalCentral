@@ -16,6 +16,8 @@ export class FilterVisitsByPatientIdPipe implements PipeTransform {
     if (!id) {
       return items;
     }
-    return items.filter(item => item.patient!.id === id && this.date.diff(item.time, 'hour') >= 2);
+    return items
+      .filter(item => item.patient!.id === id && this.date.diff(item.time, 'hour') >= 2)
+      .sort((a, b) => a.time!.valueOf() - b.time!.valueOf());
   }
 }

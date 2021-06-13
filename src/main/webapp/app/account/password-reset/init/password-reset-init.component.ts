@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ElementRef, ViewChild, HostListener } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
 import { PasswordResetInitService } from './password-reset-init.service';
@@ -26,11 +26,5 @@ export class PasswordResetInitComponent implements AfterViewInit {
 
   requestReset(): void {
     this.passwordResetInitService.save(this.resetRequestForm.get(['email'])!.value).subscribe(() => (this.success = true));
-  }
-
-  @HostListener('document:keydown', ['$event'])
-  help(event: KeyboardEvent): void {
-    if (event.key === 'F2')
-      window.location.href = 'https://www.notion.so/Mental-Central-d342bba135c6425ab6a4483452e84a1a#5e16bddf35d64f1e869a5b49020863f3';
   }
 }

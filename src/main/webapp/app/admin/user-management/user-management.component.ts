@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpResponse, HttpHeaders } from '@angular/common/http';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription, combineLatest } from 'rxjs';
@@ -102,11 +102,5 @@ export class UserManagementComponent implements OnInit, OnDestroy {
   private onSuccess(users: User[] | null, headers: HttpHeaders): void {
     this.totalItems = Number(headers.get('X-Total-Count'));
     this.users = users;
-  }
-
-  @HostListener('document:keydown', ['$event'])
-  help(event: KeyboardEvent): void {
-    if (event.key === 'F2')
-      window.location.href = 'https://www.notion.so/Mental-Central-d342bba135c6425ab6a4483452e84a1a#e7353e5cb14b4aa9904e7428f5652ab0';
   }
 }

@@ -12,8 +12,6 @@
 
     <jhi-alert-error></jhi-alert-error>
 
-    <jhi-alert></jhi-alert>
-
     <div class="alert alert-warning" id="no-result" *ngIf="visits?.length === 0">
         <span jhiTranslate="mentalCentralApp.visit.home.notFound">No visits found</span>
     </div>
@@ -29,8 +27,8 @@
                     <th scope="col"></th>
                 </tr>
             </thead>
-            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
-            <tr *ngFor="let visit of visits; trackBy: trackId">
+            <tbody>
+            <tr *ngFor="let visit of visits | filterVisitsByDate; trackBy: trackId">
                 <td>{{ visit.type }}</td>
                 <td>{{ visit.time | date:'dd.MM.yyyy HH:mm' }}</td>
                 <td>
@@ -64,12 +62,6 @@
                             <fa-icon icon="pencil-alt"></fa-icon>
                             <span *jhiHasAnyAuthority="'ROLE_RECEPTION'" class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                             <span *jhiHasAnyAuthority="'ROLE_DOCTOR'" class="d-none d-md-inline" jhiTranslate="mentalCentralApp.visit.appoint">Appoint therapy</span>
-                        </button>
-
-                        <button type="submit" (click)="delete(visit)"
-                                class="btn btn-danger btn-sm">
-                            <fa-icon icon="times"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
                         </button>
                     </div>
                 </td>

@@ -1,4 +1,4 @@
-import { Component, OnInit, RendererFactory2, Renderer2, HostListener } from '@angular/core';
+import { Component, OnInit, RendererFactory2, Renderer2 } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router, ActivatedRouteSnapshot, NavigationEnd, NavigationError } from '@angular/router';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
@@ -56,10 +56,5 @@ export class MainComponent implements OnInit {
       pageTitle = 'global.title';
     }
     this.translateService.get(pageTitle).subscribe(title => this.titleService.setTitle(title));
-  }
-
-  @HostListener('document:keydown', ['$event'])
-  help(event: KeyboardEvent): void {
-    if (event.key === 'F2') window.location.href = 'https://www.notion.so/Mental-Central-d342bba135c6425ab6a4483452e84a1a';
   }
 }

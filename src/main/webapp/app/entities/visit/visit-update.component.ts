@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { FormBuilder, Validators } from '@angular/forms';
@@ -117,11 +117,5 @@ export class VisitUpdateComponent implements OnInit {
 
   trackById(index: number, item: SelectableEntity): any {
     return item.id;
-  }
-
-  @HostListener('document:keydown', ['$event'])
-  help(event: KeyboardEvent): void {
-    if (event.key === 'F2')
-      window.location.href = 'https://www.notion.so/Mental-Central-d342bba135c6425ab6a4483452e84a1a#667a017305cf452694a2f793e38292ff';
   }
 }
