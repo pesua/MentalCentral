@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <databaseChangeLog
     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd
-                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
 
 
     <!--
@@ -38,6 +36,20 @@
         <dropDefaultValue tableName="visit" columnName="time" columnDataType="datetime"/>
     </changeSet>
 
+    <changeSet id="add_column" author="jhipster">
+        <addColumn tableName="visit">
+            <column name="file" type="longblob">
+                <constraints nullable="true" />
+            </column>
+            <column name="file_content_type" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="file_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+        </addColumn>
+    </changeSet>
+
     <changeSet id="20200721213032-1-relations" author="jhipster">
 
     </changeSet>
@@ -66,5 +78,6 @@
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>
+
 
 </databaseChangeLog>

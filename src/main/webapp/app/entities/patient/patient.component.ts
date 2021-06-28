@@ -9,7 +9,6 @@ import { IPatient } from 'app/shared/model/patient.model';
 
 import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { PatientService } from './patient.service';
-import { PatientDeleteDialogComponent } from './patient-delete-dialog.component';
 
 @Component({
   selector: 'jhi-patient',

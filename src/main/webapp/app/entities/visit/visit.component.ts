@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
-import { JhiEventManager } from 'ng-jhipster';
+import { JhiDataUtils, JhiEventManager } from 'ng-jhipster';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { IVisit } from 'app/shared/model/visit.model';
@@ -16,7 +16,12 @@ export class VisitComponent implements OnInit, OnDestroy {
   visits?: IVisit[];
   eventSubscriber?: Subscription;
 
-  constructor(protected visitService: VisitService, protected eventManager: JhiEventManager, protected modalService: NgbModal) {}
+  constructor(
+    protected dataUtils: JhiDataUtils,
+    protected visitService: VisitService,
+    protected eventManager: JhiEventManager,
+    protected modalService: NgbModal
+  ) {}
 
   loadAll(): void {
     this.visitService.query().subscribe((res: HttpResponse<IVisit[]>) => (this.visits = res.body || []));
@@ -40,6 +45,11 @@ export class VisitComponent implements OnInit, OnDestroy {
 
   registerChangeInVisits(): void {
     this.eventSubscriber = this.eventManager.subscribe('visitListModification', () => this.loadAll());
+  }
+
+  openFile(base64String: string, fileName?: string): void {
+    this.dataUtils.openFile('application/pdf', base64String);
+    this.dataUtils.downloadFile('application/pdf', base64String, fileName ? fileName : 'new_file');
   }
 
   delete(visit: IVisit): void {

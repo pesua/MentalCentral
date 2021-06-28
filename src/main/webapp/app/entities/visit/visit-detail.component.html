@@ -37,6 +37,12 @@
                         {{ visit.patient?.diagnosis }}
                     </div>
                 </dd>
+                <dt><span jhiTranslate="mentalCentralApp.visit.file">File</span></dt>
+                <dd>
+                    <div *ngIf="visit.file" class="form-text text-danger clearfix">
+                        <a class="pull-left" (click)="openFile(visit.file, visit.fileName)">{{visit.fileName}}</a><br>
+                    </div>
+                </dd>
             </dl>
 
             <button type="submit"
@@ -50,7 +56,7 @@
                     class="btn btn-info"> <span jhiTranslate="mentalCentralApp.visit.docx">Download docx</span>
             </button>
 
-            <button type="button " *jhiHasAnyAuthority="'ROLE_RECEPTION'"
+            <button type="button" *jhiHasAnyAuthority="'ROLE_RECEPTION'"
                     [routerLink]="['/visit', visit.id, 'edit']"
                     class="btn btn-primary">
                 <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>

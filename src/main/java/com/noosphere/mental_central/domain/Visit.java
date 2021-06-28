@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import org.springframework.data.elasticsearch.annotations.FieldType;
+
 import java.io.Serializable;
 import java.time.ZonedDateTime;
 
@@ -40,6 +41,16 @@ public class Visit implements Serializable {
 
     @Column(name = "note")
     private String note;
+
+    @Lob
+    @Column(name = "file")
+    private byte[] file;
+
+    @Column(name = "file_content_type")
+    private String fileContentType;
+
+    @Column(name = "file_name")
+    private String fileName;
 
     @ManyToOne(optional = false)
     @NotNull
@@ -113,6 +124,46 @@ public class Visit implements Serializable {
         this.therapy = therapy;
     }
 
+    public byte[] getFile() {
+        return file;
+    }
+
+    public Visit file(byte[] file) {
+        this.file = file;
+        return this;
+    }
+
+    public void setFile(byte[] file) {
+        this.file = file;
+    }
+
+    public String getFileContentType() {
+        return fileContentType;
+    }
+
+    public Visit fileContentType(String fileContentType) {
+        this.fileContentType = fileContentType;
+        return this;
+    }
+
+    public void setFileContentType(String fileContentType) {
+        this.fileContentType = fileContentType;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public Visit fileName(String fileName) {
+        this.fileName = fileName;
+        return this;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+
     public User getUser() {
         return user;
     }
@@ -164,6 +215,8 @@ public class Visit implements Serializable {
             ", type='" + getType() + "'" +
             ", time='" + getTime() + "'" +
             ", therapy='" + getTherapy() + "'" +
+            ", fileName='" + getFileName() + "'" +
+            ", fileContentType='" + getFileContentType() + "'" +
             "}";
     }
 }

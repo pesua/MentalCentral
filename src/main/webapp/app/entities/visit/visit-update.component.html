@@ -18,8 +18,11 @@
                     <dd>
                         <cdk-virtual-scroll-viewport itemSize="50" class = "visits-viewport">
                             <div class = "item" *cdkVirtualFor="let visit of visits | filterVisitsByPatientId: editForm.get('patient')!.value?.id">
-                                <p>{{ visit.time | date:'dd.MM.yyyy' }}
-
+                                <p *ngIf="visit.file" class="form-text text-danger clearfix">
+                                    <a class="pull-left" (click)="openFile(visit.fileContentType, visit.file)">{{ visit.time | date:'dd.MM.yyyy' }}</a>
+                                    <em>{{ visit.therapy}}</em>
+                                </p>
+                                <p *ngIf="!visit.file" >{{ visit.time | date:'dd.MM.yyyy' }}
                                     <em>{{ visit.therapy}}</em>
                                 </p>
                             </div>
@@ -27,13 +30,26 @@
                         </cdk-virtual-scroll-viewport>
                     </dd>
 
+                    <label class="form-control-label" for="field_file">File</label>
+                    <div>
+                        <div *ngIf="editForm.get('file')!.value" class="form-text text-danger clearfix">
+                            <a class="pull-left" (click)="openFile(editForm.get('fileContentType')!.value, editForm.get('file')!.value)">{{fileName}}</a><br>
+                        </div>
+                        <input type="file" accept="application/pdf" id="file_file" (change)="setFileData($event, 'file', false)"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="file" id="field_file"
+                           formControlName="file"/>
+                    <input type="hidden" class="form-control" name="fileContentType" id="field_fileContentType"
+                           formControlName="fileContentType" />
                 </div>
+
+
                 <div *jhiHasAnyAuthority="'ROLE_RECEPTION'">
                     <div class="form-group">
                         <label class="form-control-label" jhiTranslate="mentalCentralApp.visit.type">Type</label>
                         <p><input type="radio" value="{{'mentalCentralApp.visit.stationary' | translate}}" name="type" formControlName="type"
                                   ngModel> {{'mentalCentralApp.visit.stationary' | translate}}</p>
-                        <p><input type="radio" value="{{'mentalCentralApp.visit.ambulatory' | translate}}" name="type"formControlName="type"
+                        <p><input type="radio" value="{{'mentalCentralApp.visit.ambulatory' | translate}}" name="type" formControlName="type"
                                   ngModel> {{'mentalCentralApp.visit.ambulatory' | translate}} </p>
                     </div>
 

@@ -8,6 +8,9 @@ export interface IVisit {
   time?: Moment;
   therapy?: string;
   user?: IUser;
+  fileContentType?: string;
+  file?: any;
+  fileName?: string;
   patient?: IPatient;
   note?: string;
 }
@@ -19,6 +22,9 @@ export class Visit implements IVisit {
     public time?: Moment,
     public therapy?: string,
     public user?: IUser,
+    public fileContentType?: string,
+    public file?: any,
+    public fileName?: string,
     public patient?: IPatient,
     public note?: string
   ) {}

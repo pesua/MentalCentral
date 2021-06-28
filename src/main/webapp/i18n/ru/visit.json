@@ -22,6 +22,7 @@
       "time": "Время",
       "therapy": "Терапия",
       "doctor": "Доктор",
+      "file": "Файл",
       "patient": "Пациент",
       "createVisit": "Создать визит для {{ fullName }}",
       "appoint": "Назначить терапию",

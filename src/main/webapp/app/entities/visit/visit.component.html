@@ -24,6 +24,7 @@
                     <th scope="col" ><span jhiTranslate="mentalCentralApp.visit.time">Time</span></th>
                     <th scope="col" ><span jhiTranslate="mentalCentralApp.visit.patient">Patient</span></th>
                     <th scope="col" ><span jhiTranslate="mentalCentralApp.patient.diagnosis">Diagnosis</span></th>
+                    <th scope="col" ><span jhiTranslate="mentalCentralApp.visit.file">File</span> </th>
                     <th scope="col"></th>
                 </tr>
             </thead>
@@ -39,6 +40,11 @@
                 <td>
                     <div *ngIf="visit.patient">
                         {{ visit.patient?.diagnosis }}
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="visit.file" class="form-text text-danger clearfix">
+                        <a class="pull-left" (click)="openFile(visit.file, visit.fileName)">{{visit.fileName}}</a><br>
                     </div>
                 </td>
                 <td class="text-right">

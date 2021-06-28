@@ -6,6 +6,7 @@ import { saveAs } from 'file-saver';
 
 import { IVisit } from 'app/shared/model/visit.model';
 import { UserExtraService } from '../user-extra/user-extra.service';
+import { JhiDataUtils } from 'ng-jhipster';
 
 @Component({
   selector: 'jhi-visit-detail',
@@ -14,7 +15,7 @@ import { UserExtraService } from '../user-extra/user-extra.service';
 export class VisitDetailComponent implements OnInit {
   visit: IVisit | null = null;
 
-  constructor(protected activatedRoute: ActivatedRoute, private userExtraService: UserExtraService) {}
+  constructor(protected dataUtils: JhiDataUtils, protected activatedRoute: ActivatedRoute, private userExtraService: UserExtraService) {}
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ visit }) => (this.visit = visit));
@@ -28,6 +29,11 @@ export class VisitDetailComponent implements OnInit {
 
   previousState(): void {
     window.history.back();
+  }
+
+  openFile(base64String: string, fileName?: string): void {
+    this.dataUtils.openFile('application/pdf', base64String);
+    this.dataUtils.downloadFile('application/pdf', base64String, fileName ? fileName : 'new_file');
   }
 
   creatingAndDownloadingPDF(): void {
